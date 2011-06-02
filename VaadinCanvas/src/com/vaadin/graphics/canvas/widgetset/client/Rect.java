@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.vaadin.graphics.canvas.Canvas;
-import com.vaadin.graphics.event.MouseEvent;
-import com.vaadin.graphics.event.MouseEvent.Type;
+import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
+import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent.Type;
 import com.vaadin.ui.Component.Event;
 import com.vaadin.ui.Component.Listener;
 

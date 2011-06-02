@@ -4,7 +4,7 @@
 package com.vaadin.graphics.canvas.widgetset.client;
 
 import com.vaadin.graphics.canvas.Canvas;
-import com.vaadin.graphics.event.MouseEvent;
+import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
 import com.vaadin.ui.Component.Listener;
 
 /**
