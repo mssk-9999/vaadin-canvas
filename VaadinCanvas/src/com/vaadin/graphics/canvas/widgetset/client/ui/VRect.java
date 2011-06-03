@@ -27,71 +27,76 @@ class VRect extends VUIElement {
 	private VUIElement next;
 	private VUIElement prev;
 	
-	private boolean selected;
+	private boolean selected = false;
 	private boolean pressed;
-	private String fillColor;
-	private String color;
-	private int borderWidth;
+	private String fillColor = "";
+	private String color = "";
+	private int borderWidth = -1;
 	
 //	MouseEventListener listener;
 //	
 //	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 //	
 	
+	public VRect(UIDL uidl){
+		update(uidl);
+		this.id = uidl.getStringAttribute("elementid");
+		initializeListeners();
+	}
+	
 	public VRect(VPoint start, VPoint end){
-		
 		this.start = start;
 		this.end = end;
-		this.selected = false;
-		this.borderWidth = -1;
-		this.fillColor = "";
-		this.color = "";
 		
+		initializeListeners();
+	}
+	
+	private void initializeListeners(){
 		/*listener = new MouseEventListener() {
+		
+		VPoint downPoint;
+		VPoint upPoint;
+		
+		public void onMouseEvent(MouseEvent event) {
+			Rect source = (Rect)event.getSource();
 			
-			VPoint downPoint;
-			VPoint upPoint;
-			
-			public void onMouseEvent(MouseEvent event) {
-				Rect source = (Rect)event.getSource();
-				
-				if(event.getType() == MouseEvent.Type.DOWN){
-					downPoint = event.getPoint();
-					source.setPressed(true);
-				}else if(event.getType() == MouseEvent.Type.UP){
-					upPoint = event.getPoint();
-					source.setSelected(true);
-					source.setPressed(false);
-				}else if(event.getType() == MouseEvent.Type.MOVE){
-					if(source.isPressed()){
-						VPoint p = event.getPoint();
-						
-						VPoint delta = VPoint.sub(p, downPoint);
-						
-						source.start.add(delta);
-						
-						source.end.add(delta);
-						
-						downPoint = p;
-//						source.draw();
-					}
-				}else{
-					System.err.println("Unknown event type: " + event.getType());
+			if(event.getType() == MouseEvent.Type.DOWN){
+				downPoint = event.getPoint();
+				source.setPressed(true);
+			}else if(event.getType() == MouseEvent.Type.UP){
+				upPoint = event.getPoint();
+				source.setSelected(true);
+				source.setPressed(false);
+			}else if(event.getType() == MouseEvent.Type.MOVE){
+				if(source.isPressed()){
+					VPoint p = event.getPoint();
+					
+					VPoint delta = VPoint.sub(p, downPoint);
+					
+					source.start.add(delta);
+					
+					source.end.add(delta);
+					
+					downPoint = p;
+//					source.draw();
 				}
+			}else{
+				System.err.println("Unknown event type: " + event.getType());
 			}
-		};
-		
-		List<MouseEventListener> upListeners = new ArrayList<MouseEventListener>();
-		upListeners.add(listener);
-		listeners.put(Type.UP, upListeners);
-		
-		List<MouseEventListener> downListeners = new ArrayList<MouseEventListener>();
-		downListeners.add(listener);
-		listeners.put(Type.DOWN, downListeners);
-		
-		List<MouseEventListener> moveListeners = new ArrayList<MouseEventListener>();
-		moveListeners.add(listener);
-		listeners.put(Type.MOVE, moveListeners);*/
+		}
+	};
+	
+	List<MouseEventListener> upListeners = new ArrayList<MouseEventListener>();
+	upListeners.add(listener);
+	listeners.put(Type.UP, upListeners);
+	
+	List<MouseEventListener> downListeners = new ArrayList<MouseEventListener>();
+	downListeners.add(listener);
+	listeners.put(Type.DOWN, downListeners);
+	
+	List<MouseEventListener> moveListeners = new ArrayList<MouseEventListener>();
+	moveListeners.add(listener);
+	listeners.put(Type.MOVE, moveListeners);*/
 	}
 	
 	/*public interface MouseEventListener{
@@ -263,7 +268,7 @@ class VRect extends VUIElement {
 	 * @see com.vaadin.graphics.canvas.widgetset.client.ui.VUIElement#update(com.google.gwt.canvas.dom.client.Context2d, com.vaadin.terminal.gwt.client.UIDL)
 	 */
 	@Override
-	public void update(Context2d context, UIDL uidl) {
+	public void update(UIDL uidl) {
 		String strokecolor = uidl.getStringAttribute("strokecolor");
 		int strokewidth = uidl.getIntAttribute("strokewidth");
 		double startX = uidl.getDoubleAttribute("startx");

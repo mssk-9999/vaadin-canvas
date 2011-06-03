@@ -646,7 +646,7 @@ public class VCanvas extends Composite implements Paintable {
 		String id = uidl.getStringAttribute("elementid");
 		if(children.get(id) != null){
 			VUIElement ele = children.get(id);
-			ele.update(context, uidl);
+			ele.update(uidl);
 		}else{
 			VUIElement ele = VUIElement.createFromUIDL(uidl);
 			addChild(ele);

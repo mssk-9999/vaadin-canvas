@@ -16,6 +16,12 @@ abstract class VUIElement {
 	public static VUIElement createFromUIDL(UIDL uidl){
 		VUIElement ele = null;
 		
+		String elementType = uidl.getStringAttribute("elementtype");
+		
+		if(elementType.equals("rect")){
+			ele = new VRect(uidl);
+		}
+		
 		return ele;
 	}
 	
@@ -67,5 +73,5 @@ abstract class VUIElement {
 	 * @param context
 	 * @param uidl
 	 */
-	abstract public void update(Context2d context, UIDL uidl);
+	abstract public void update(UIDL uidl);
 }
