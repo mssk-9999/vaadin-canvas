@@ -3,7 +3,8 @@
  */
 package com.vaadin.graphics.canvas.shape;
 
-import com.google.gwt.canvas.dom.client.Context2d;
+import java.util.Map;
+
 import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.listener.MouseEventListener;
 
@@ -13,7 +14,7 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
  */
 public interface UIElement {
 	
-	public void draw(Context2d canvas);
+	public Map<String, Object> getDrawInstructions();
 	
 	public UIElement getNext();
 	

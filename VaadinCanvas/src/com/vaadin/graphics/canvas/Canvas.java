@@ -443,6 +443,7 @@ public class Canvas extends AbstractComponent {
 		requestRepaint();
 	}
 	
+	@Deprecated //- only for internal testing
 	public void drawRect(Rect block){
 //		reset();
 		Map<String, Object> arguments = new HashMap<String, Object>();
@@ -454,6 +455,15 @@ public class Canvas extends AbstractComponent {
 		arguments.put("h", block.getEnd().getY() - block.getStart().getY());
 		arguments.put("fillstyle", block.getFillColor());
 		arguments.put("command", "drawrect");
+		commands.add(arguments);
+		requestRepaint();
+	}
+	
+	public void drawUIElement(UIElement ele){
+		if(!children.contains(ele)){
+			addChild(ele);
+		}
+		Map<String, Object> arguments = ele.getDrawInstructions();
 		commands.add(arguments);
 		requestRepaint();
 	}
@@ -635,7 +645,7 @@ public class Canvas extends AbstractComponent {
 			return -1;
 		}
 		this.children.add(child);
-		if(child.getId() == null){
+		if(child.getId() == null || child.getId().length() == 0){
 			child.setId(index + "");
 		}
 		this.childrenMap.put(child.getId(), child);

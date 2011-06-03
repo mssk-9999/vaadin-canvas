@@ -1,7 +1,9 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -72,6 +74,10 @@ public class VCanvas extends Composite implements Paintable {
 	final CssColor redrawColor = CssColor.make("rgba(255,255,255,0.6)");
 
 	private final Map<String, CanvasGradient> gradients = new HashMap<String, CanvasGradient>();
+	
+	private Map<String, VUIElement> children = new HashMap<String, VUIElement>();
+	
+	private List<VUIElement> childrenList = new ArrayList<VUIElement>();
 
 	/**
 	 * The constructor should first call super() to initialize the component and
@@ -162,26 +168,9 @@ public class VCanvas extends Composite implements Paintable {
 		backBufferContext.setFillStyle(redrawColor);
 		backBufferContext.fillRect(0, 0, width, height);
 		
-		VRect rect = new VRect(new VPoint(100, 200), new VPoint(300, 400));
-		rect.setColor("#ff0000");
-		rect.setFillColor("#0082ff");
-		rect.setBorderWidth(4);
-		rect.draw(context);
-		
-		rect = new VRect(new VPoint(300, 300), new VPoint(600, 800));
-		rect.setColor("#0000ff");
-		rect.setFillColor("#0082ff");
-		rect.setBorderWidth(4);
-		rect.draw(context);
-		
-//		logoGroup.update(mouseX, mouseY);
-//		ballGroup.update(mouseX, mouseY);
-//		logoGroup.draw(backBufferContext);
-//		ballGroup.draw(backBufferContext);
-//
-//		// update the front canvas
-//		lens.update();
-//		lens.draw(backBufferContext, context);
+		for(VUIElement ele : childrenList){
+			ele.draw(context);
+		}
 	}
 
 	void initHandlers() {
@@ -325,7 +314,9 @@ public class VCanvas extends Composite implements Paintable {
 				handleTransform(childUIDL);
 			} else if (command.equals("drawrect")){
 				handleDrawRect(childUIDL);
-			}else {
+			} else if (command.equals("draw")){
+				handleDrawElement(childUIDL);
+			} else {
 				System.err.println("Invalid command: " + command);
 			}
 		}
@@ -649,6 +640,18 @@ public class VCanvas extends Composite implements Paintable {
 		
 		context.restore();
 	}
+	
+	private void handleDrawElement(UIDL uidl){
+		
+		String id = uidl.getStringAttribute("elementid");
+		if(children.get(id) != null){
+			VUIElement ele = children.get(id);
+			ele.update(context, uidl);
+		}else{
+			VUIElement ele = VUIElement.createFromUIDL(uidl);
+			addChild(ele);
+		}
+	}
 
 	@Override
 	public void setWidth(String width) {
@@ -704,5 +707,18 @@ public class VCanvas extends Composite implements Paintable {
 			client.updateVariable(paintableId, "sizeChanged", "" + widthCache
 					+ " x " + heightCache, true);
 		}
+	}
+	
+	public int addChild(VUIElement child){
+		int index = this.childrenList.size();
+		if(this.children.containsKey(child.getId())){
+			return -1;
+		}
+		this.childrenList.add(child);
+		if(child.getId() == null){
+			child.setId(index + "");
+		}
+		this.children.put(child.getId(), child);
+		return index;
 	}
 }

@@ -8,11 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gwt.canvas.dom.client.Context2d;
+import com.vaadin.graphics.canvas.Canvas;
 import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
-import com.vaadin.ui.Component.Event;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
@@ -41,6 +40,7 @@ public class Rect implements UIElement {
 	
 	public Rect(Point start, Point end){
 		
+		this.id = "";
 		this.start = start;
 		this.end = end;
 		this.selected = false;
@@ -100,65 +100,39 @@ public class Rect implements UIElement {
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#draw()
 	 */
-	public void draw(Context2d context) {
-//		canvas.saveContext();
-		context.save();
+	public Map<String, Object> getDrawInstructions() {
 
-		if(color != null && color.length() > 0){
-			context.setStrokeStyle(color);
-		}
-		if(borderWidth > 0){
-			context.setLineWidth(borderWidth);
-		}
-		if(fillColor != null && fillColor.length() > 0){
-			context.setFillStyle(fillColor);
-		}
-		context.beginPath();
-		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-		context.closePath();
+		Map<String, Object> arguments = new HashMap<String, Object>();
 		
-		if(fillColor.length() > 0){
-			context.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-		}
+		arguments.put("elementid", getId());
+		arguments.put("strokecolor", getColor());
+		arguments.put("strokewidth", getBorderWidth());
+		arguments.put("startx", getStart().getX());
+		arguments.put("starty", getStart().getY());
+		arguments.put("endx", getEnd().getX());
+		arguments.put("endy", getEnd().getY());
 		
-		context.restore();
+		arguments.put("fillstyle", getFillColor());
+		arguments.put("elementtype", "rect");
 		
-//		canvas.drawRect(this);
+		arguments.put("command", "draw");
 		
-//		canvas.beginPath();
-//		if(this.color != null){
-//			canvas.setStrokeColor(color);
-//		}
-//		
-//		if(this.borderWidth > -1){
-//			canvas.setLineWidth(borderWidth);
-//		}
-//		
-//		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//		canvas.closePath();
-////		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//		if(this.fillColor != null){
-//			canvas.setFillStyle(fillColor);
-////			canvas.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//			canvas.fill();
-//		}
-//		canvas.restoreContext();
+		return arguments;
+		
 	}
 
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#getNext()
 	 */
 	public UIElement getNext() {
-		// TODO Auto-generated method stub
-		return null;
+		return next;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#getPrevious()
 	 */
 	public UIElement getPrevious() {
-		// TODO Auto-generated method stub
-		return null;
+		return prev;
 	}
 	
 	public void setNext(UIElement next){
@@ -186,7 +160,8 @@ public class Rect implements UIElement {
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
-		this.id = id;
+		if(id != null)
+			this.id = id;
 	}
 	
 	/**
@@ -236,7 +211,8 @@ public class Rect implements UIElement {
 	}
 	
 	public void setFillColor(String fillColor){
-		this.fillColor = fillColor;
+		if(fillColor != null)
+			this.fillColor = fillColor;
 	}
 	
 	public String getFillColor(){
@@ -244,7 +220,8 @@ public class Rect implements UIElement {
 	}
 	
 	public void setColor(String color){
-		this.color = color;
+		if(color != null)
+			this.color = color;
 	}
 	
 	public String getColor(){

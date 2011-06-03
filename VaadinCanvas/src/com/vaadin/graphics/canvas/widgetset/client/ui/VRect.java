@@ -11,12 +11,13 @@ import java.util.Map;
 import com.google.gwt.canvas.dom.client.Context2d;
 //import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
 //import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent.Type;
+import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-class VRect implements VUIElement {
+class VRect extends VUIElement {
 
 	private String id;
 	private VPoint start;
@@ -101,7 +102,6 @@ class VRect implements VUIElement {
 	 * @see com.workflow.ivr.web.model.VUIElement#draw()
 	 */
 	public void draw(Context2d context) {
-//		canvas.saveContext();
 		context.save();
 
 		if(color != null && color.length() > 0){
@@ -122,43 +122,20 @@ class VRect implements VUIElement {
 		}
 		
 		context.restore();
-		
-//		canvas.drawRect(this);
-		
-//		canvas.beginPath();
-//		if(this.color != null){
-//			canvas.setStrokeColor(color);
-//		}
-//		
-//		if(this.borderWidth > -1){
-//			canvas.setLineWidth(borderWidth);
-//		}
-//		
-//		canvas.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//		canvas.closePath();
-////		canvas.rect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//		if(this.fillColor != null){
-//			canvas.setFillStyle(fillColor);
-////			canvas.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
-//			canvas.fill();
-//		}
-//		canvas.restoreContext();
 	}
 
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.VUIElement#getNext()
 	 */
 	public VUIElement getNext() {
-		// TODO Auto-generated method stub
-		return null;
+		return next;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.VUIElement#getPrevious()
 	 */
 	public VUIElement getPrevious() {
-		// TODO Auto-generated method stub
-		return null;
+		return prev;
 	}
 	
 	public void setNext(VUIElement next){
@@ -280,6 +257,26 @@ class VRect implements VUIElement {
 
 	public void setEnd(VPoint end) {
 		this.end = end;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.vaadin.graphics.canvas.widgetset.client.ui.VUIElement#update(com.google.gwt.canvas.dom.client.Context2d, com.vaadin.terminal.gwt.client.UIDL)
+	 */
+	@Override
+	public void update(Context2d context, UIDL uidl) {
+		String strokecolor = uidl.getStringAttribute("strokecolor");
+		int strokewidth = uidl.getIntAttribute("strokewidth");
+		double startX = uidl.getDoubleAttribute("startx");
+		double startY = uidl.getDoubleAttribute("starty");
+		double endX = uidl.getDoubleAttribute("endx");
+		double endY = uidl.getDoubleAttribute("endy");
+		String fillStyleColor = uidl.getStringAttribute("fillstyle");
+		
+		setColor(strokecolor);
+		setBorderWidth(strokewidth);
+		setStart(new VPoint(startX, startY));
+		setEnd(new VPoint(endX, endY));
+		setFillColor(fillStyleColor);
 	}
 
 }
