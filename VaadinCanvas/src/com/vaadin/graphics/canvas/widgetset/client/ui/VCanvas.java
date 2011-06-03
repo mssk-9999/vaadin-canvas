@@ -114,8 +114,23 @@ public class VCanvas extends Composite implements Paintable {
 			}
 		};
 		timer.scheduleRepeating(refreshRate);
-		
 
+		initWidget(canvas); // All Composites need to call initWidget()
+
+		setStyleName(CLASSNAME);
+	}
+	
+	void doUpdate() {
+		// update the back canvas
+		backBufferContext.setFillStyle(redrawColor);
+		backBufferContext.fillRect(0, 0, width, height);
+		
+		for(VUIElement ele : childrenList){
+			ele.draw(context);
+		}
+	}
+
+	void initHandlers() {
 		canvas.addMouseDownHandler(new MouseDownHandler() {
 			public void onMouseDown(MouseDownEvent event) {
 				if (client == null) {
@@ -124,6 +139,14 @@ public class VCanvas extends Composite implements Paintable {
 
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
+				
+				VPoint p = new VPoint(x, y);
+				for(VUIElement element: childrenList){
+					if(element.contains(p)){
+//						element.
+					}
+				}
+				
 				client.updateVariable(paintableId, "mx", x, false);
 				client.updateVariable(paintableId, "my", y, false);
 				client.updateVariable(paintableId, "event", "mousedown", true);
@@ -157,29 +180,13 @@ public class VCanvas extends Composite implements Paintable {
 				client.updateVariable(paintableId, "event", "mousemove", true);
 			}
 		});
-
-		initWidget(canvas); // All Composites need to call initWidget()
-
-		setStyleName(CLASSNAME);
-	}
-	
-	void doUpdate() {
-		// update the back canvas
-		backBufferContext.setFillStyle(redrawColor);
-		backBufferContext.fillRect(0, 0, width, height);
-		
-		for(VUIElement ele : childrenList){
-			ele.draw(context);
-		}
-	}
-
-	void initHandlers() {
+		/*
 		canvas.addMouseMoveHandler(new MouseMoveHandler() {
 			public void onMouseMove(MouseMoveEvent event) {
 				mouseX = event.getRelativeX(canvas.getElement());
 				mouseY = event.getRelativeY(canvas.getElement());
 			}
-		});
+		});*/
 
 		canvas.addMouseOutHandler(new MouseOutHandler() {
 			public void onMouseOut(MouseOutEvent event) {
