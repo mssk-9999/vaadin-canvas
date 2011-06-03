@@ -1,13 +1,13 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.widgetset.client;
+package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-public class Point {
+class Point {
 	private double x, y;
 
 	public Point() {

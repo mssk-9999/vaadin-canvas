@@ -161,6 +161,19 @@ public class VCanvas extends Composite implements Paintable {
 		// update the back canvas
 		backBufferContext.setFillStyle(redrawColor);
 		backBufferContext.fillRect(0, 0, width, height);
+		
+		Rect rect = new Rect(new Point(100, 200), new Point(300, 400));
+		rect.setColor("#ff0000");
+		rect.setFillColor("#0082ff");
+		rect.setBorderWidth(4);
+		rect.draw(context);
+		
+		rect = new Rect(new Point(300, 300), new Point(600, 800));
+		rect.setColor("#0000ff");
+		rect.setFillColor("#0082ff");
+		rect.setBorderWidth(4);
+		rect.draw(context);
+		
 //		logoGroup.update(mouseX, mouseY);
 //		ballGroup.update(mouseX, mouseY);
 //		logoGroup.draw(backBufferContext);

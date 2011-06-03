@@ -1,10 +1,10 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.widgetset.client.event;
+package com.vaadin.graphics.event;
 
-import com.vaadin.graphics.canvas.widgetset.client.Point;
-import com.vaadin.graphics.canvas.widgetset.client.UIElement;
+import com.vaadin.graphics.canvas.shape.Point;
+import com.vaadin.graphics.canvas.shape.UIElement;
 
 
 /**

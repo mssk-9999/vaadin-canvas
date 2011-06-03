@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.vaadin.graphics.canvas.widgetset.client.Point;
-import com.vaadin.graphics.canvas.widgetset.client.Rect;
-import com.vaadin.graphics.canvas.widgetset.client.UIElement;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseDownEvent;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseMoveEvent;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseUpEvent;
+import com.vaadin.graphics.canvas.shape.Point;
+import com.vaadin.graphics.canvas.shape.Rect;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseDownEvent;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseMoveEvent;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseUpEvent;
+import com.vaadin.graphics.canvas.shape.UIElement;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.ui.AbstractComponent;
@@ -49,7 +49,7 @@ public class Canvas extends AbstractComponent {
 	public Canvas(){
 		super();
 		
-		this.downListeners.add(new CanvasMouseDownListener() {
+		/*this.downListeners.add(new CanvasMouseDownListener() {
 			
 			public void mouseDown(Point p) {
 				for(UIElement element: children){
@@ -83,37 +83,10 @@ public class Canvas extends AbstractComponent {
 					}
 				}
 			}
-		});
+		});*/
 		
-		TimerTask task = new TimerTask(){
-			@Override
-			public void run() {
-//				doUpdate();
-			}
-		};
-		
-		// setup timer
-		Timer timer = new Timer();
-	    timer.schedule(task, 1000, 200);
 	}
 	
-	void doUpdate() {
-	    // update the back canvas
-		this.clear();
-		
-		for(UIElement element : children){
-			element.draw(this);
-		}
-//	    backBufferContext.setFillStyle(redrawColor);
-//	    backBufferContext.fillRect(0, 0, width, height);
-//	    logoGroup.update(mouseX, mouseY);
-//	    ballGroup.update(mouseX, mouseY);
-//	    logoGroup.draw(backBufferContext);
-//	    ballGroup.draw(backBufferContext);
-
-	    // update the front canvas
-	}
-
 	public void createLinearGradient(String name, double x0, double y0,
 			double x1, double y1) {
 		Map<String, Object> arguments = new HashMap<String, Object>();

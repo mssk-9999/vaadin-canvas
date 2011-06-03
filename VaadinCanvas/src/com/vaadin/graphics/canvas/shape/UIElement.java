@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.widgetset.client;
+package com.vaadin.graphics.canvas.shape;
 
-import com.vaadin.graphics.canvas.Canvas;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
-import com.vaadin.ui.Component.Listener;
+import com.google.gwt.canvas.dom.client.Context2d;
+import com.vaadin.graphics.event.MouseEvent;
+import com.vaadin.graphics.event.listener.MouseEventListener;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
@@ -13,7 +13,7 @@ import com.vaadin.ui.Component.Listener;
  */
 public interface UIElement {
 	
-	public void draw(Canvas canvas);
+	public void draw(Context2d canvas);
 	
 	public UIElement getNext();
 	
@@ -33,7 +33,7 @@ public interface UIElement {
 	
 	public boolean contains(Point p);
 	
-	public void addListener(Listener listener, MouseEvent.Type eventType);
+	public void addListener(MouseEventListener listener, MouseEvent.Type eventType);
 	
 	public void fireMouseEvent(MouseEvent event);
 	

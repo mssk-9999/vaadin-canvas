@@ -1,11 +1,11 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.widgetset.client.event;
+package com.vaadin.graphics.event;
 
 import java.util.EventObject;
 
-import  com.vaadin.graphics.canvas.widgetset.client.Point;
+import  com.vaadin.graphics.canvas.shape.Point;
 
 /**
  * @author kapil - kapil.verma@globallogic.com

@@ -1,24 +1,22 @@
 /**
  * 
  */
-package com.vaadin.graphics.canvas.widgetset.client;
+package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.vaadin.graphics.canvas.Canvas;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
-import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent.Type;
-import com.vaadin.ui.Component.Event;
-import com.vaadin.ui.Component.Listener;
+import com.google.gwt.canvas.dom.client.Context2d;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
+//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent.Type;
 
 /**
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-public class Rect implements UIElement {
+class Rect implements UIElement {
 
 	private String id;
 	private Point start;
@@ -34,10 +32,10 @@ public class Rect implements UIElement {
 	private String color;
 	private int borderWidth;
 	
-	MouseEventListener listener;
-	
-	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
-	
+//	MouseEventListener listener;
+//	
+//	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
+//	
 	
 	public Rect(Point start, Point end){
 		
@@ -48,14 +46,10 @@ public class Rect implements UIElement {
 		this.fillColor = "";
 		this.color = "";
 		
-		listener = new MouseEventListener() {
+		/*listener = new MouseEventListener() {
 			
 			Point downPoint;
 			Point upPoint;
-			
-			public void componentEvent(Event event) {
-				
-			}
 			
 			public void onMouseEvent(MouseEvent event) {
 				Rect source = (Rect)event.getSource();
@@ -96,20 +90,40 @@ public class Rect implements UIElement {
 		
 		List<MouseEventListener> moveListeners = new ArrayList<MouseEventListener>();
 		moveListeners.add(listener);
-		listeners.put(Type.MOVE, moveListeners);
+		listeners.put(Type.MOVE, moveListeners);*/
 	}
 	
-	public interface MouseEventListener extends Listener{
+	/*public interface MouseEventListener{
 		public void onMouseEvent(MouseEvent event);
-	}
+	}*/
 	
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#draw()
 	 */
-	public void draw(Canvas canvas) {
+	public void draw(Context2d context) {
 //		canvas.saveContext();
+		context.save();
+
+		if(color != null && color.length() > 0){
+			context.setStrokeStyle(color);
+		}
+		if(borderWidth > 0){
+			context.setLineWidth(borderWidth);
+		}
+		if(fillColor != null && fillColor.length() > 0){
+			context.setFillStyle(fillColor);
+		}
+		context.beginPath();
+		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		context.closePath();
 		
-		canvas.drawRect(this);
+		if(fillColor.length() > 0){
+			context.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		}
+		
+		context.restore();
+		
+//		canvas.drawRect(this);
 		
 //		canvas.beginPath();
 //		if(this.color != null){
@@ -190,13 +204,13 @@ public class Rect implements UIElement {
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#addListener(com.vaadin.ui.Component.Listener)
 	 */
-	public void addListener(Listener listener, MouseEvent.Type eventType) {
-		
-	}
+//	public void addListener(MouseEventListener listener, MouseEvent.Type eventType) {
+//		
+//	}
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
 	 */
-	public void fireMouseEvent(MouseEvent event) {
+	/*public void fireMouseEvent(MouseEvent event) {
 		Type type = event.getType();
 		
 		List<MouseEventListener> listernerList = this.listeners.get(type);
@@ -204,7 +218,7 @@ public class Rect implements UIElement {
 			listener.onMouseEvent(event);
 		}
 	}
-
+*/
 	public boolean isSelected() {
 		return this.selected;
 	}
