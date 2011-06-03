@@ -10,27 +10,27 @@ import com.google.gwt.canvas.dom.client.Context2d;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-interface UIElement {
+interface VUIElement {
 	
 	public void draw(Context2d canvas);
 	
-	public UIElement getNext();
+	public VUIElement getNext();
 	
-	public UIElement getPrevious();
+	public VUIElement getPrevious();
 	
-	public void setNext(UIElement next);
+	public void setNext(VUIElement next);
 	
-	public void setPrevious(UIElement prev);
+	public void setPrevious(VUIElement prev);
 	
-	public void moveTo(Point p);
+	public void moveTo(VPoint p);
 	
-	public Point getCenter();
+	public VPoint getCenter();
 	
 	public String getId();
 	
 	public void setId(String id);
 	
-	public boolean contains(Point p);
+	public boolean contains(VPoint p);
 	
 //	public void addListener(MouseEventListener listener, MouseEvent.Type eventType);
 	

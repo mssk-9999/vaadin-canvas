@@ -16,15 +16,15 @@ import com.google.gwt.canvas.dom.client.Context2d;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-class Rect implements UIElement {
+class VRect implements VUIElement {
 
 	private String id;
-	private Point start;
+	private VPoint start;
 
-	private Point end;
+	private VPoint end;
 	
-	private UIElement next;
-	private UIElement prev;
+	private VUIElement next;
+	private VUIElement prev;
 	
 	private boolean selected;
 	private boolean pressed;
@@ -37,7 +37,7 @@ class Rect implements UIElement {
 //	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 //	
 	
-	public Rect(Point start, Point end){
+	public VRect(VPoint start, VPoint end){
 		
 		this.start = start;
 		this.end = end;
@@ -48,8 +48,8 @@ class Rect implements UIElement {
 		
 		/*listener = new MouseEventListener() {
 			
-			Point downPoint;
-			Point upPoint;
+			VPoint downPoint;
+			VPoint upPoint;
 			
 			public void onMouseEvent(MouseEvent event) {
 				Rect source = (Rect)event.getSource();
@@ -63,9 +63,9 @@ class Rect implements UIElement {
 					source.setPressed(false);
 				}else if(event.getType() == MouseEvent.Type.MOVE){
 					if(source.isPressed()){
-						Point p = event.getPoint();
+						VPoint p = event.getPoint();
 						
-						Point delta = Point.sub(p, downPoint);
+						VPoint delta = VPoint.sub(p, downPoint);
 						
 						source.start.add(delta);
 						
@@ -98,7 +98,7 @@ class Rect implements UIElement {
 	}*/
 	
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#draw()
+	 * @see com.workflow.ivr.web.model.VUIElement#draw()
 	 */
 	public void draw(Context2d context) {
 //		canvas.saveContext();
@@ -146,40 +146,40 @@ class Rect implements UIElement {
 	}
 
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#getNext()
+	 * @see com.workflow.ivr.web.model.VUIElement#getNext()
 	 */
-	public UIElement getNext() {
+	public VUIElement getNext() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#getPrevious()
+	 * @see com.workflow.ivr.web.model.VUIElement#getPrevious()
 	 */
-	public UIElement getPrevious() {
+	public VUIElement getPrevious() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public void setNext(UIElement next){
+	public void setNext(VUIElement next){
 		this.next = next;
 	}
 	
-	public void setPrevious(UIElement prev){
+	public void setPrevious(VUIElement prev){
 		this.prev = prev;
 	}
 
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#getCenterX()
+	 * @see com.workflow.ivr.web.model.VUIElement#getCenterX()
 	 */
-	public Point getCenter() {
-		return Point.mult(Point.add(start, end), 0.5);
+	public VPoint getCenter() {
+		return VPoint.mult(VPoint.add(start, end), 0.5);
 	}
 
 	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#moveTo(double, double)
+	 * @see com.workflow.ivr.web.model.VUIElement#moveTo(double, double)
 	 */
-	public void moveTo(Point p) {
+	public void moveTo(VPoint p) {
 		
 	}
 	/**
@@ -196,19 +196,19 @@ class Rect implements UIElement {
 		return id;
 	}
 	/* (non-Javadoc)
-	 * @see com.ui.model.UIElement#contains(double, double)
+	 * @see com.ui.model.VUIElement#contains(double, double)
 	 */
-	public boolean contains(Point p) {
+	public boolean contains(VPoint p) {
 		return start.getX() <= p.getX() && p.getX() <= end.getX() && start.getY() <= p.getY() && p.getY() <= end.getY();
 	}
 	/* (non-Javadoc)
-	 * @see com.ui.model.UIElement#addListener(com.vaadin.ui.Component.Listener)
+	 * @see com.ui.model.VUIElement#addListener(com.vaadin.ui.Component.Listener)
 	 */
 //	public void addListener(MouseEventListener listener, MouseEvent.Type eventType) {
 //		
 //	}
 	/* (non-Javadoc)
-	 * @see com.ui.model.UIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
+	 * @see com.ui.model.VUIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
 	 */
 	/*public void fireMouseEvent(MouseEvent event) {
 		Type type = event.getType();
@@ -266,19 +266,19 @@ class Rect implements UIElement {
 	}
 	
 
-	public Point getStart() {
+	public VPoint getStart() {
 		return start;
 	}
 
-	public void setStart(Point start) {
+	public void setStart(VPoint start) {
 		this.start = start;
 	}
 
-	public Point getEnd() {
+	public VPoint getEnd() {
 		return end;
 	}
 
-	public void setEnd(Point end) {
+	public void setEnd(VPoint end) {
 		this.end = end;
 	}
 
