@@ -4,6 +4,15 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+//import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+//import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
+//import com.google.gwt.event.dom.client.HasMouseOutHandlers;
+//import com.google.gwt.event.dom.client.HasMouseOverHandlers;
+//import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+//import com.google.gwt.event.dom.client.HasMouseWheelHandlers;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HasHandlers;
 //import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
 
@@ -11,7 +20,7 @@ import com.vaadin.terminal.gwt.client.UIDL;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-abstract class VUIElement {
+abstract class VUIElement implements HasHandlers{
 	
 	public static VUIElement createFromUIDL(UIDL uidl){
 		VUIElement ele = null;
@@ -47,7 +56,7 @@ abstract class VUIElement {
 	
 //	abstract public void addListener(MouseEventListener listener, MouseEvent.Type eventType);
 	
-//	abstract public void fireMouseEvent(MouseEvent event);
+	abstract public void fireMouseEvent(MouseEvent<EventHandler> event);
 	
 	abstract public boolean isSelected();
 	
@@ -74,4 +83,8 @@ abstract class VUIElement {
 	 * @param uidl
 	 */
 	abstract public void update(UIDL uidl);
+	
+	public void registerHandler(VCanvas canvas){
+		canvas.addMouseEventHandler(handler, type);
+	}
 }

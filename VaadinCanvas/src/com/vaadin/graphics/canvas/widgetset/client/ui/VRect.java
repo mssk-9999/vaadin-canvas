@@ -3,14 +3,21 @@
  */
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.canvas.dom.client.Context2d;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent.Type;
+import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseWheelEvent;
+import com.google.gwt.event.shared.EventHandler;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
@@ -33,25 +40,25 @@ class VRect extends VUIElement {
 	private String color = "";
 	private int borderWidth = -1;
 	
-//	MouseEventListener listener;
+	EventHandler handler;
 //	
-//	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
+	private Map<String, List<EventHandler>> handlers = new HashMap<String, List<EventHandler>>();
 //	
 	
 	public VRect(UIDL uidl){
 		update(uidl);
 		this.id = uidl.getStringAttribute("elementid");
-		initializeListeners();
+		initializeHandlers();
 	}
 	
 	public VRect(VPoint start, VPoint end){
 		this.start = start;
 		this.end = end;
 		
-		initializeListeners();
+		initializeHandlers();
 	}
 	
-	private void initializeListeners(){
+	private void initializeHandlers(){
 		/*listener = new MouseEventListener() {
 		
 		VPoint downPoint;
@@ -192,15 +199,29 @@ class VRect extends VUIElement {
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
 	 */
-	/*public void fireMouseEvent(MouseEvent event) {
-		Type type = event.getType();
+	public void fireMouseEvent(MouseEvent<EventHandler> event) {
+		DomEvent.Type<EventHandler> type = event.getAssociatedType();
 		
-		List<MouseEventListener> listernerList = this.listeners.get(type);
-		for(MouseEventListener listener : listernerList){
-			listener.onMouseEvent(event);
+		List<EventHandler> listernerList = this.handlers.get(type.getName());
+
+		if(MouseDownEvent.getType().getName().equals(type.getName())){
+			for(EventHandler listener : listernerList){
+//				((MouseDownHandler)listener).onMouseDown(event);
+			}
+		}else if(MouseUpEvent.getType().getName().equals(type.getName())){
+			
+		}else if(MouseOverEvent.getType().getName().equals(type.getName())){
+			
+		}else if(MouseOutEvent.getType().getName().equals(type.getName())){
+			
+		}else if(MouseMoveEvent.getType().getName().equals(type.getName())){
+			
+		}else if(MouseWheelEvent.getType().getName().equals(type.getName())){
+			
 		}
+		
 	}
-*/
+
 	public boolean isSelected() {
 		return this.selected;
 	}

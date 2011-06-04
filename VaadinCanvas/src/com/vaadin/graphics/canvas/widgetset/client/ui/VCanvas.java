@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.GestureStartEvent;
 import com.google.gwt.event.dom.client.GestureStartHandler;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -26,6 +27,8 @@ import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchEndHandler;
 import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
@@ -133,20 +136,20 @@ public class VCanvas extends Composite implements Paintable {
 	void initHandlers() {
 		canvas.addMouseDownHandler(new MouseDownHandler() {
 			public void onMouseDown(MouseDownEvent event) {
-				if (client == null) {
-					return;
-				}
-
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
 				
 				VPoint p = new VPoint(x, y);
 				for(VUIElement element: childrenList){
 					if(element.contains(p)){
-//						element.
+						MouseDownEvent.fireNativeEvent(event.getNativeEvent(), element);
 					}
 				}
 				
+				if (client == null) {
+					return;
+				}
+
 				client.updateVariable(paintableId, "mx", x, false);
 				client.updateVariable(paintableId, "my", y, false);
 				client.updateVariable(paintableId, "event", "mousedown", true);
@@ -154,12 +157,21 @@ public class VCanvas extends Composite implements Paintable {
 		});
 		canvas.addMouseUpHandler(new MouseUpHandler() {
 			public void onMouseUp(MouseUpEvent event) {
+				
+				int x = event.getClientX() - getAbsoluteLeft();
+				int y = event.getClientY() - getAbsoluteTop();
+				
+				VPoint p = new VPoint(x, y);
+				for(VUIElement element: childrenList){
+					if(element.contains(p)){
+						MouseUpEvent.fireNativeEvent(event.getNativeEvent(), element);
+					}
+				}
+				
 				if (client == null) {
 					return;
 				}
 
-				int x = event.getClientX() - getAbsoluteLeft();
-				int y = event.getClientY() - getAbsoluteTop();
 				client.updateVariable(paintableId, "mx", x, false);
 				client.updateVariable(paintableId, "my", y, false);
 				client.updateVariable(paintableId, "event", "mouseup", true);
@@ -169,29 +181,44 @@ public class VCanvas extends Composite implements Paintable {
 		canvas.addMouseMoveHandler(new MouseMoveHandler() {
 			
 			public void onMouseMove(MouseMoveEvent event) {
-				if (client == null) {
-					return;
-				}
 
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
+				
+				VPoint p = new VPoint(x, y);
+				for(VUIElement element: childrenList){
+					if(element.contains(p)){
+						MouseMoveEvent.fireNativeEvent(event.getNativeEvent(), element);
+					}
+				}
+				
+				if (client == null) {
+					return;
+				}
+				
 				client.updateVariable(paintableId, "mx", x, false);
 				client.updateVariable(paintableId, "my", y, false);
 				client.updateVariable(paintableId, "event", "mousemove", true);
 			}
 		});
-		/*
-		canvas.addMouseMoveHandler(new MouseMoveHandler() {
-			public void onMouseMove(MouseMoveEvent event) {
-				mouseX = event.getRelativeX(canvas.getElement());
-				mouseY = event.getRelativeY(canvas.getElement());
-			}
-		});*/
 
 		canvas.addMouseOutHandler(new MouseOutHandler() {
 			public void onMouseOut(MouseOutEvent event) {
 				mouseX = -200;
 				mouseY = -200;
+				
+				mouseX = event.getRelativeX(canvas.getElement());
+				mouseY = event.getRelativeY(canvas.getElement());
+				
+				int x = event.getClientX() - getAbsoluteLeft();
+				int y = event.getClientY() - getAbsoluteTop();
+				
+				VPoint p = new VPoint(x, y);
+				for(VUIElement element: childrenList){
+					if(element.contains(p)){
+						MouseOutEvent.fireNativeEvent(event.getNativeEvent(), element);
+					}
+				}
 			}
 		});
 
@@ -202,8 +229,15 @@ public class VCanvas extends Composite implements Paintable {
 					Touch touch = event.getTouches().get(0);
 					mouseX = touch.getRelativeX(canvas.getElement());
 					mouseY = touch.getRelativeY(canvas.getElement());
+					
+//					VPoint p = new VPoint(mouseY, mouseY);
+//					for(VUIElement element: childrenList){
+//						if(element.contains(p)){
+//							TouchMoveEvent.fireNativeEvent(event.getNativeEvent(), element);
+//						}
+//					}
 				}
-				event.preventDefault();
+//				event.preventDefault();
 			}
 		});
 
@@ -727,5 +761,9 @@ public class VCanvas extends Composite implements Paintable {
 		}
 		this.children.put(child.getId(), child);
 		return index;
+	}
+	
+	public HandlerRegistration addMouseEventHandler(final EventHandler handler, MouseEvent.Type type){
+		return addHandler(handler, type);
 	}
 }
