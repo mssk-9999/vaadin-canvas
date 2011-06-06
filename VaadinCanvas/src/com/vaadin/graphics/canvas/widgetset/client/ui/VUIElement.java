@@ -14,6 +14,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HasHandlers;
 import com.vaadin.terminal.gwt.client.UIDL;
@@ -196,6 +197,31 @@ abstract class VUIElement implements HasHandlers{
 
 	public void addHandler(){
 //		canvas.addMouseEventHandler(handler, type);
+	}
+	
+	@Override
+	public void fireEvent(GwtEvent<?> event) {
+		handlerManager.fireEvent(event);
+//		GwtEvent.Type<?> type = event.getAssociatedType();
+//		
+//		List<EventHandler> listernerList = this.handlers.get(type.getName());
+//
+//		if(MouseDownEvent.getType().getName().equals(type.getName())){
+//			for(EventHandler listener : listernerList){
+////				((MouseDownHandler)listener).onMouseDown(event);
+//			}
+//		}else if(MouseUpEvent.getType().getName().equals(type.getName())){
+//			
+//		}else if(MouseOverEvent.getType().getName().equals(type.getName())){
+//			
+//		}else if(MouseOutEvent.getType().getName().equals(type.getName())){
+//			
+//		}else if(MouseMoveEvent.getType().getName().equals(type.getName())){
+//			
+//		}else if(MouseWheelEvent.getType().getName().equals(type.getName())){
+//			
+//		}
+		
 	}
 	
 	abstract public void draw(Context2d canvas);
