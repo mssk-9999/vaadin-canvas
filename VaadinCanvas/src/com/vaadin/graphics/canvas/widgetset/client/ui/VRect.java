@@ -26,19 +26,9 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 class VRect extends VUIElement {
 
-	private String id;
 	private VPoint start;
 
 	private VPoint end;
-	
-	private VUIElement next;
-	private VUIElement prev;
-	
-	private boolean selected = false;
-	private boolean pressed;
-	private String fillColor = "";
-	private String color = "";
-	private int borderWidth = -1;
 	
 	EventHandler handler;
 //	
@@ -47,63 +37,13 @@ class VRect extends VUIElement {
 	
 	public VRect(UIDL uidl){
 		update(uidl);
-		this.id = uidl.getStringAttribute("elementid");
-		initializeHandlers();
+		this.setId(uidl.getStringAttribute("elementid"));
 	}
 	
 	public VRect(VPoint start, VPoint end){
 		this.start = start;
 		this.end = end;
 		
-		initializeHandlers();
-	}
-	
-	private void initializeHandlers(){
-		/*listener = new MouseEventListener() {
-		
-		VPoint downPoint;
-		VPoint upPoint;
-		
-		public void onMouseEvent(MouseEvent event) {
-			Rect source = (Rect)event.getSource();
-			
-			if(event.getType() == MouseEvent.Type.DOWN){
-				downPoint = event.getPoint();
-				source.setPressed(true);
-			}else if(event.getType() == MouseEvent.Type.UP){
-				upPoint = event.getPoint();
-				source.setSelected(true);
-				source.setPressed(false);
-			}else if(event.getType() == MouseEvent.Type.MOVE){
-				if(source.isPressed()){
-					VPoint p = event.getPoint();
-					
-					VPoint delta = VPoint.sub(p, downPoint);
-					
-					source.start.add(delta);
-					
-					source.end.add(delta);
-					
-					downPoint = p;
-//					source.draw();
-				}
-			}else{
-				System.err.println("Unknown event type: " + event.getType());
-			}
-		}
-	};
-	
-	List<MouseEventListener> upListeners = new ArrayList<MouseEventListener>();
-	upListeners.add(listener);
-	listeners.put(Type.UP, upListeners);
-	
-	List<MouseEventListener> downListeners = new ArrayList<MouseEventListener>();
-	downListeners.add(listener);
-	listeners.put(Type.DOWN, downListeners);
-	
-	List<MouseEventListener> moveListeners = new ArrayList<MouseEventListener>();
-	moveListeners.add(listener);
-	listeners.put(Type.MOVE, moveListeners);*/
 	}
 	
 	/*public interface MouseEventListener{
@@ -116,46 +56,24 @@ class VRect extends VUIElement {
 	public void draw(Context2d context) {
 		context.save();
 
-		if(color != null && color.length() > 0){
-			context.setStrokeStyle(color);
+		if(getColor() != null && getColor().length() > 0){
+			context.setStrokeStyle(getColor());
 		}
-		if(borderWidth > 0){
-			context.setLineWidth(borderWidth);
+		if(getBorderWidth() > 0){
+			context.setLineWidth(getBorderWidth());
 		}
-		if(fillColor != null && fillColor.length() > 0){
-			context.setFillStyle(fillColor);
+		if(getFillColor() != null && getFillColor().length() > 0){
+			context.setFillStyle(getFillColor());
 		}
 		context.beginPath();
 		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		context.closePath();
 		
-		if(fillColor.length() > 0){
+		if(getFillColor().length() > 0){
 			context.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		}
 		
 		context.restore();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.VUIElement#getNext()
-	 */
-	public VUIElement getNext() {
-		return next;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.VUIElement#getPrevious()
-	 */
-	public VUIElement getPrevious() {
-		return prev;
-	}
-	
-	public void setNext(VUIElement next){
-		this.next = next;
-	}
-	
-	public void setPrevious(VUIElement prev){
-		this.prev = prev;
 	}
 
 	/* (non-Javadoc)
@@ -171,19 +89,7 @@ class VRect extends VUIElement {
 	public void moveTo(VPoint p) {
 		
 	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 	
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#contains(double, double)
 	 */
@@ -221,53 +127,6 @@ class VRect extends VUIElement {
 		}
 		
 	}
-
-	public boolean isSelected() {
-		return this.selected;
-	}
-	
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-	
-	public boolean isPressed() {
-		return this.pressed;
-	}
-	
-	public void setPressed(boolean pressed) {
-		this.pressed = pressed;
-	}
-	
-	public void setFillColor(String fillColor){
-		this.fillColor = fillColor;
-	}
-	
-	public String getFillColor(){
-		return this.fillColor;
-	}
-	
-	public void setColor(String color){
-		this.color = color;
-	}
-	
-	public String getColor(){
-		return this.color;
-	}
-
-	/**
-	 * @param borderWidth the borderWidth to set
-	 */
-	public void setBorderWidth(int borderWidth) {
-		this.borderWidth = borderWidth;
-	}
-
-	/**
-	 * @return the borderWidth
-	 */
-	public int getBorderWidth() {
-		return borderWidth;
-	}
-	
 
 	public VPoint getStart() {
 		return start;

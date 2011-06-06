@@ -6,7 +6,6 @@ package com.vaadin.graphics.canvas.widgetset.client.ui;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -15,7 +14,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HasHandlers;
 import com.vaadin.terminal.gwt.client.UIDL;
 
@@ -26,6 +25,19 @@ import com.vaadin.terminal.gwt.client.UIDL;
 abstract class VUIElement implements HasHandlers{
 	
 	private VCanvas canvas;
+
+	private String id;
+	
+	private VUIElement next;
+	private VUIElement prev;
+	
+	private boolean selected = false;
+	private boolean pressed;
+	private String fillColor = "";
+	private String color = "";
+	private int borderWidth = -1;
+	
+	private HandlerManager handlerManager;
 	
 	public static VUIElement createFromUIDL(UIDL uidl, VCanvas canvas){
 		VUIElement ele = null;
@@ -41,6 +53,7 @@ abstract class VUIElement implements HasHandlers{
 		
 		return ele;
 	}
+	
 	
 	private void initHandlers(){
 		MouseMoveHandler moveHandler = new MouseMoveHandler(){
@@ -98,57 +111,101 @@ abstract class VUIElement implements HasHandlers{
 		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
 	}
 	
-	abstract public void draw(Context2d canvas);
+	HandlerManager ensureHandlers() {
+		return handlerManager == null ? handlerManager = createHandlerManager()
+				: handlerManager;
+	}
 	
-	abstract public VUIElement getNext();
+	protected HandlerManager createHandlerManager() {
+		return new HandlerManager(this);
+	}
 	
-	abstract public VUIElement getPrevious();
+	public VUIElement getNext() {
+		return next;
+	}
+
+	public VUIElement getPrevious() {
+		return prev;
+	}
 	
-	abstract public void setNext(VUIElement next);
+	public void setNext(VUIElement next){
+		this.next = next;
+	}
 	
-	abstract public void setPrevious(VUIElement prev);
-	
+	public void setPrevious(VUIElement prev){
+		this.prev = prev;
+	}
+
 	abstract public void moveTo(VPoint p);
 	
 	abstract public VPoint getCenter();
 	
-	abstract public String getId();
+	public String getId(){
+		return this.id;
+	}
 	
-	abstract public void setId(String id);
+	public void setId(String id){
+		this.id = id;
+	}
+	
+	public boolean isSelected() {
+		return this.selected;
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	public boolean isPressed() {
+		return this.pressed;
+	}
+	
+	public void setPressed(boolean pressed) {
+		this.pressed = pressed;
+	}
+	
+	public void setFillColor(String fillColor){
+		this.fillColor = fillColor;
+	}
+	
+	public String getFillColor(){
+		return this.fillColor;
+	}
+	
+	public void setColor(String color){
+		this.color = color;
+	}
+	
+	public String getColor(){
+		return this.color;
+	}
+
+	/**
+	 * @param borderWidth the borderWidth to set
+	 */
+	public void setBorderWidth(int borderWidth) {
+		this.borderWidth = borderWidth;
+	}
+
+	/**
+	 * @return the borderWidth
+	 */
+	public int getBorderWidth() {
+		return borderWidth;
+	}
+
+	public void addHandler(){
+//		canvas.addMouseEventHandler(handler, type);
+	}
+	
+	abstract public void draw(Context2d canvas);
 	
 	abstract public boolean contains(VPoint p);
 	
-//	abstract public void addListener(MouseEventListener listener, MouseEvent.Type eventType);
-	
-//	abstract public void fireMouseEvent(MouseEvent<EventHandler> event);
-	
-	abstract public boolean isSelected();
-	
-	abstract public void setSelected(boolean selected);
-	
-	abstract public boolean isPressed();
-	
-	abstract public void setPressed(boolean pressed);
-	
-	abstract public String getColor();
-	
-	abstract public void setColor(String color);
-	
-	abstract public String getFillColor();
-	
-	abstract public void setFillColor(String fillColor);
-	
-	abstract public int getBorderWidth();
-	
-	abstract public void setBorderWidth(int width);
-
 	/**
 	 * @param context
 	 * @param uidl
 	 */
 	abstract public void update(UIDL uidl);
 	
-	public void addHandler(){
-//		canvas.addMouseEventHandler(handler, type);
-	}
 }
