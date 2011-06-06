@@ -69,6 +69,7 @@ abstract class VUIElement implements HasHandlers{
 				if(VUIElement.this.isSelected()){
 					VUIElement.this.processMoveEvent(event);
 				}
+				VUIElement.this.mouseDownPoint = new VPoint(event.getX(), event.getY());
 			}
 			
 		};
