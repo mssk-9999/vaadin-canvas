@@ -31,8 +31,13 @@ abstract class VUIElement implements HasHandlers{
 	
 	private VUIElement next;
 	private VUIElement prev;
+	private VPoint mouseDownPoint;
+	private VPoint mouseUpPoint;
+	private VPoint mouseOverPoint;
+	private VPoint mouseOutPoint;
 	
 	private boolean selected = false;
+	private boolean highlighted = false;
 	private boolean pressed;
 	private String fillColor = "";
 	private String color = "";
@@ -61,7 +66,9 @@ abstract class VUIElement implements HasHandlers{
 
 			@Override
 			public void onMouseMove(MouseMoveEvent event) {
-				// TODO Auto-generated method stub
+				if(VUIElement.this.isSelected()){
+					VUIElement.this.processMoveEvent(event);
+				}
 			}
 			
 		};
@@ -72,7 +79,8 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseDown(MouseDownEvent event) {
-				// TODO Auto-generated method stub
+				VUIElement.this.setSelected(true);
+				VUIElement.this.setMouseDownPoint(new VPoint(event.getX(), event.getY()));
 			}
 		};
 		
@@ -82,8 +90,8 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseUp(MouseUpEvent event) {
-				// TODO Auto-generated method stub
-				
+				VUIElement.this.setSelected(false);
+				VUIElement.this.setMouseUpPoint(new VPoint(event.getX(), event.getY()));
 			}
 		};
 		
@@ -93,8 +101,8 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				// TODO Auto-generated method stub
-				
+				VUIElement.this.setHighlighted(true);
+				VUIElement.this.setMouseOverPoint(new VPoint(event.getX(), event.getY()));
 			}
 		};
 		
@@ -104,14 +112,57 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
-				// TODO Auto-generated method stub
-				
+				VUIElement.this.setHighlighted(false);
+				VUIElement.this.setMouseOutPoint(new VPoint(event.getX(), event.getY()));
 			}
 		};
 		
 		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
 	}
 	
+	abstract protected void processMoveEvent(MouseMoveEvent event);
+
+
+	public VPoint getMouseDownPoint() {
+		return mouseDownPoint;
+	}
+
+
+	public void setMouseDownPoint(VPoint mouseDownPoint) {
+		this.mouseDownPoint = mouseDownPoint;
+	}
+
+
+	public VPoint getMouseUpPoint() {
+		return mouseUpPoint;
+	}
+
+
+	public void setMouseUpPoint(VPoint mouseUpPoint) {
+		this.mouseUpPoint = mouseUpPoint;
+	}
+
+
+	public VPoint getMouseOverPoint() {
+		return mouseOverPoint;
+	}
+
+
+	public void setMouseOverPoint(VPoint mouseOverPoint) {
+		this.mouseOverPoint = mouseOverPoint;
+	}
+
+
+	public VPoint getMouseOutPoint() {
+		return mouseOutPoint;
+	}
+
+
+	public void setMouseOutPoint(VPoint mouseOutPoint) {
+		this.mouseOutPoint = mouseOutPoint;
+	}
+
+
 	HandlerManager ensureHandlers() {
 		return handlerManager == null ? handlerManager = createHandlerManager()
 				: handlerManager;
@@ -233,5 +284,15 @@ abstract class VUIElement implements HasHandlers{
 	 * @param uidl
 	 */
 	abstract public void update(UIDL uidl);
+
+
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
+
+
+	public boolean isHighlighted() {
+		return highlighted;
+	}
 	
 }
