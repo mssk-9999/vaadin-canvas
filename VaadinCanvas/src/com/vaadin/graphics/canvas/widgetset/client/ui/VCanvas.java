@@ -689,7 +689,7 @@ public class VCanvas extends Composite implements Paintable {
 			VUIElement ele = children.get(id);
 			ele.update(uidl);
 		}else{
-			VUIElement ele = VUIElement.createFromUIDL(uidl);
+			VUIElement ele = VUIElement.createFromUIDL(uidl, this);
 			addChild(ele);
 		}
 	}

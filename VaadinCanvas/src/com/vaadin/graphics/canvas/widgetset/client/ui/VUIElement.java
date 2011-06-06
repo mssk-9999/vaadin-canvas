@@ -4,16 +4,19 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 import com.google.gwt.canvas.dom.client.Context2d;
-//import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-//import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-//import com.google.gwt.event.dom.client.HasMouseOutHandlers;
-//import com.google.gwt.event.dom.client.HasMouseOverHandlers;
-//import com.google.gwt.event.dom.client.HasMouseUpHandlers;
-//import com.google.gwt.event.dom.client.HasMouseWheelHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HasHandlers;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
@@ -22,7 +25,9 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 abstract class VUIElement implements HasHandlers{
 	
-	public static VUIElement createFromUIDL(UIDL uidl){
+	private VCanvas canvas;
+	
+	public static VUIElement createFromUIDL(UIDL uidl, VCanvas canvas){
 		VUIElement ele = null;
 		
 		String elementType = uidl.getStringAttribute("elementtype");
@@ -31,7 +36,66 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VRect(uidl);
 		}
 		
+		ele.canvas = canvas;
+		ele.initHandlers();
+		
 		return ele;
+	}
+	
+	private void initHandlers(){
+		MouseMoveHandler moveHandler = new MouseMoveHandler(){
+
+			@Override
+			public void onMouseMove(MouseMoveEvent event) {
+				// TODO Auto-generated method stub
+			}
+			
+		};
+		
+		canvas.addMouseEventHandler(moveHandler, MouseMoveEvent.getType());
+		
+		MouseDownHandler downHandler = new MouseDownHandler() {
+			
+			@Override
+			public void onMouseDown(MouseDownEvent event) {
+				// TODO Auto-generated method stub
+			}
+		};
+		
+		canvas.addMouseEventHandler(downHandler, MouseDownEvent.getType());
+		
+		MouseUpHandler upHandler = new MouseUpHandler() {
+			
+			@Override
+			public void onMouseUp(MouseUpEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		canvas.addMouseEventHandler(upHandler, MouseUpEvent.getType());
+		
+		MouseOverHandler overHandler = new MouseOverHandler() {
+			
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		canvas.addMouseEventHandler(overHandler, MouseOverEvent.getType());
+		
+		MouseOutHandler outHandler = new MouseOutHandler() {
+			
+			@Override
+			public void onMouseOut(MouseOutEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
 	}
 	
 	abstract public void draw(Context2d canvas);
@@ -56,7 +120,7 @@ abstract class VUIElement implements HasHandlers{
 	
 //	abstract public void addListener(MouseEventListener listener, MouseEvent.Type eventType);
 	
-	abstract public void fireMouseEvent(MouseEvent<EventHandler> event);
+//	abstract public void fireMouseEvent(MouseEvent<EventHandler> event);
 	
 	abstract public boolean isSelected();
 	
@@ -84,7 +148,7 @@ abstract class VUIElement implements HasHandlers{
 	 */
 	abstract public void update(UIDL uidl);
 	
-	public void registerHandler(VCanvas canvas){
-		canvas.addMouseEventHandler(handler, type);
+	public void addHandler(){
+//		canvas.addMouseEventHandler(handler, type);
 	}
 }

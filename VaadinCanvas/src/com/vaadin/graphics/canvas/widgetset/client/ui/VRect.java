@@ -10,7 +10,6 @@ import java.util.Map;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -18,6 +17,7 @@ import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseWheelEvent;
 import com.google.gwt.event.shared.EventHandler;
+import com.google.gwt.event.shared.GwtEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
@@ -199,7 +199,7 @@ class VRect extends VUIElement {
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#fireMouseEvent(com.vaadin.event.MouseEvents)
 	 */
-	public void fireMouseEvent(MouseEvent<EventHandler> event) {
+	public void fireEvent(MouseEvent<EventHandler> event) {
 		DomEvent.Type<EventHandler> type = event.getAssociatedType();
 		
 		List<EventHandler> listernerList = this.handlers.get(type.getName());
@@ -303,6 +303,11 @@ class VRect extends VUIElement {
 		setStart(new VPoint(startX, startY));
 		setEnd(new VPoint(endX, endY));
 		setFillColor(fillStyleColor);
+	}
+
+	@Override
+	public void fireEvent(GwtEvent<?> event) {
+		
 	}
 
 }
