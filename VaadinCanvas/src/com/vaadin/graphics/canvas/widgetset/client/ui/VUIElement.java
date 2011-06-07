@@ -52,6 +52,8 @@ abstract class VUIElement implements HasHandlers{
 		
 		if(elementType.equals("rect")){
 			ele = new VRect(uidl);
+		}else if(elementType.equals("ploygon")){
+			ele = new VPolygon(uidl);
 		}
 		
 		ele.canvas = canvas;
@@ -311,4 +313,21 @@ abstract class VUIElement implements HasHandlers{
 		return highlighted;
 	}
 	
+	public static boolean pointInPolygon(VPoint[] vertices, VPoint p) {
+
+		int i, j=vertices.length-1 ;
+		boolean  oddNodes=false;
+
+		for (i=0; i<vertices.length; i++) {
+			if (vertices[i].getY()<p.getY() && vertices[j].getY()>=p.getY()
+					||  vertices[j].getY()<p.getY() && vertices[i].getY()>=p.getY()) {
+				if (vertices[i].getX()+(p.getY()-vertices[i].getY())/(vertices[j].getY()-vertices[i].getY())*(vertices[j].getX()-vertices[i].getX())<p.getX()) {
+					oddNodes=!oddNodes;
+				}
+			}
+			j=i;
+		}
+
+		return oddNodes;
+	}
 }

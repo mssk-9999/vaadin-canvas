@@ -16,22 +16,18 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-public class Rect extends UIElement {
+public class Polygon extends UIElement {
 
-	private Point start;
-
-	private Point end;
+	private Point[] vertices;
 	
 	MouseEventListener listener;
 	
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 	
-	
-	public Rect(Point start, Point end){
+	public Polygon(Point[] vertices){
 		
 		this.setId("");
-		this.start = start;
-		this.end = end;
+		this.vertices = vertices;
 		this.setSelected(false);
 		this.setBorderWidth(-1);
 		this.setFillColor("");
@@ -43,7 +39,7 @@ public class Rect extends UIElement {
 			Point upPoint;
 			
 			public void onMouseEvent(MouseEvent event) {
-				Rect source = (Rect)event.getSource();
+				Polygon source = (Polygon)event.getSource();
 				
 				if(event.getType() == MouseEvent.Type.DOWN){
 					downPoint = event.getPoint();
@@ -58,9 +54,9 @@ public class Rect extends UIElement {
 						
 						Point delta = Point.sub(p, downPoint);
 						
-						source.start.add(delta);
-						
-						source.end.add(delta);
+						for(Point vertex : Polygon.this.vertices){
+							vertex.add(delta);
+						}
 						
 						downPoint = p;
 //						source.draw();
@@ -96,13 +92,16 @@ public class Rect extends UIElement {
 		arguments.put("elementid", getId());
 		arguments.put("strokecolor", getColor());
 		arguments.put("strokewidth", getBorderWidth());
-		arguments.put("startx", getStart().getX());
-		arguments.put("starty", getStart().getY());
-		arguments.put("endx", getEnd().getX());
-		arguments.put("endy", getEnd().getY());
+		arguments.put("numberofvertices", vertices.length);
+		
+		for(int i=0; i< vertices.length; i++){
+			Point p = vertices[i];
+			arguments.put("x" + i, p.getX());
+			arguments.put("y" + i, p.getY());
+		}
 		
 		arguments.put("fillstyle", getFillColor());
-		arguments.put("elementtype", "rect");
+		arguments.put("elementtype", "polygon");
 		
 		arguments.put("command", "draw");
 		
@@ -110,14 +109,16 @@ public class Rect extends UIElement {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see com.workflow.ivr.web.model.UIElement#getNext()
-	 */
+
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.UIElement#getCenterX()
 	 */
 	public Point getCenter() {
-		return Point.mult(Point.add(start, end), 0.5);
+		Point sum = new Point(0, 0);
+		for(int i = 0; i < vertices.length; i++){
+			sum = Point.add(sum, vertices[i]);
+		}
+		return Point.mult(sum, 1/vertices.length);
 	}
 
 	/* (non-Javadoc)
@@ -126,12 +127,12 @@ public class Rect extends UIElement {
 	public void moveTo(Point p) {
 		
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#contains(double, double)
 	 */
 	public boolean contains(Point p) {
-		return start.getX() <= p.getX() && p.getX() <= end.getX() && start.getY() <= p.getY() && p.getY() <= end.getY();
+		return UIElement.pointInPolygon(vertices, p);
 	}
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#addListener(com.vaadin.ui.Component.Listener)
@@ -149,23 +150,6 @@ public class Rect extends UIElement {
 		for(MouseEventListener listener : listernerList){
 			listener.onMouseEvent(event);
 		}
-	}
-
-
-	public Point getStart() {
-		return start;
-	}
-
-	public void setStart(Point start) {
-		this.start = start;
-	}
-
-	public Point getEnd() {
-		return end;
-	}
-
-	public void setEnd(Point end) {
-		this.end = end;
 	}
 
 }

@@ -16,25 +16,22 @@ import com.vaadin.terminal.gwt.client.UIDL;
  * @author kapil - kapil.verma@globallogic.com
  *
  */
-class VRect extends VUIElement {
+public class VPolygon extends VUIElement {
 
-	private VPoint start;
+	private VPoint[] vertices;
 
-	private VPoint end;
-	
 	EventHandler handler;
 //	
 	private Map<String, List<EventHandler>> handlers = new HashMap<String, List<EventHandler>>();
 //	
 	
-	public VRect(UIDL uidl){
+	public VPolygon(UIDL uidl){
 		update(uidl);
 		this.setId(uidl.getStringAttribute("elementid"));
 	}
 	
-	public VRect(VPoint start, VPoint end){
-		this.start = start;
-		this.end = end;
+	public VPolygon(VPoint[] vertices){
+		this.vertices = vertices;
 		
 	}
 	
@@ -58,11 +55,17 @@ class VRect extends VUIElement {
 			context.setFillStyle(getFillColor());
 		}
 		context.beginPath();
-		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+		context.moveTo(vertices[0].getX(), vertices[0].getY());
+		int i=1;
+		for(;i<vertices.length ; i++){
+			context.lineTo(vertices[i].getX(), vertices[i].getY());
+		}
+		context.lineTo(vertices[0].getX(), vertices[0].getY());
+//		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		context.closePath();
 		
 		if(getFillColor().length() > 0){
-			context.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
+			context.fill();
 		}
 		
 		context.restore();
@@ -72,7 +75,11 @@ class VRect extends VUIElement {
 	 * @see com.workflow.ivr.web.model.VUIElement#getCenterX()
 	 */
 	public VPoint getCenter() {
-		return VPoint.mult(VPoint.add(start, end), 0.5);
+		VPoint sum = new VPoint(0, 0);
+		for(int i = 0; i < vertices.length; i++){
+			sum = VPoint.add(sum, vertices[i]);
+		}
+		return VPoint.mult(sum, 1/vertices.length);
 	}
 
 	/* (non-Javadoc)
@@ -86,7 +93,7 @@ class VRect extends VUIElement {
 	 * @see com.ui.model.VUIElement#contains(double, double)
 	 */
 	public boolean contains(VPoint p) {
-		return start.getX() <= p.getX() && p.getX() <= end.getX() && start.getY() <= p.getY() && p.getY() <= end.getY();
+		return VUIElement.pointInPolygon(vertices, p);
 	}
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#addListener(com.vaadin.ui.Component.Listener)
@@ -101,21 +108,6 @@ class VRect extends VUIElement {
 //		
 //	}
 
-	public VPoint getStart() {
-		return start;
-	}
-
-	public void setStart(VPoint start) {
-		this.start = start;
-	}
-
-	public VPoint getEnd() {
-		return end;
-	}
-
-	public void setEnd(VPoint end) {
-		this.end = end;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.vaadin.graphics.canvas.widgetset.client.ui.VUIElement#update(com.google.gwt.canvas.dom.client.Context2d, com.vaadin.terminal.gwt.client.UIDL)
@@ -124,16 +116,16 @@ class VRect extends VUIElement {
 	public void update(UIDL uidl) {
 		String strokecolor = uidl.getStringAttribute("strokecolor");
 		int strokewidth = uidl.getIntAttribute("strokewidth");
-		double startX = uidl.getDoubleAttribute("startx");
-		double startY = uidl.getDoubleAttribute("starty");
-		double endX = uidl.getDoubleAttribute("endx");
-		double endY = uidl.getDoubleAttribute("endy");
+		int numOfVertices = uidl.getIntAttribute("numberofvertices");
 		String fillStyleColor = uidl.getStringAttribute("fillstyle");
+		
+		this.vertices = new VPoint[numOfVertices];
+		for(int i=0; i< numOfVertices; i++){
+			this.vertices[i] = new VPoint(uidl.getDoubleAttribute("x" + i), uidl.getDoubleAttribute("y" + i));
+		}
 		
 		setColor(strokecolor);
 		setBorderWidth(strokewidth);
-		setStart(new VPoint(startX, startY));
-		setEnd(new VPoint(endX, endY));
 		setFillColor(fillStyleColor);
 	}
 	
@@ -141,8 +133,9 @@ class VRect extends VUIElement {
 		double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
 		double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
 		
-		this.start.add(deltaX, deltaY);
-		this.end.add(deltaX, deltaY);
+		for(VPoint p: vertices){
+			p.add(deltaX, deltaY);
+		}
 	}
 
 }
