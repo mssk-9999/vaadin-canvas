@@ -60,9 +60,9 @@ public class VPolygon extends VUIElement {
 		for(;i<vertices.length ; i++){
 			context.lineTo(vertices[i].getX(), vertices[i].getY());
 		}
-		context.lineTo(vertices[0].getX(), vertices[0].getY());
-//		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		context.closePath();
+		context.stroke();
+//		context.strokeRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
 		
 		if(getFillColor().length() > 0){
 			context.fill();
