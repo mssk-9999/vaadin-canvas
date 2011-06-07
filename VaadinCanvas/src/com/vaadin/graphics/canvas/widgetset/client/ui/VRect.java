@@ -147,8 +147,8 @@ class VRect extends VUIElement {
 	}
 	
 	protected void processMoveEvent(MouseMoveEvent event){
-		double deltaX = event.getX() - this.getMouseDownPoint().getX();
-		double deltaY = event.getY() - this.getMouseDownPoint().getY();
+		double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
+		double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
 		
 		this.start.add(deltaX, deltaY);
 		this.end.add(deltaX, deltaY);

@@ -129,8 +129,10 @@ public class VCanvas extends Composite implements Paintable {
 		backBufferContext.fillRect(0, 0, width, height);
 		
 		for(VUIElement ele : childrenList){
-			ele.draw(context);
+			ele.draw(backBufferContext);
 		}
+		
+		context.drawImage(backBufferContext.getCanvas(), 0, 0);
 	}
 
 	void initHandlers() {
@@ -139,12 +141,12 @@ public class VCanvas extends Composite implements Paintable {
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
 				
-				VPoint p = new VPoint(x, y);
+				/*VPoint p = new VPoint(x, y);
 				for(VUIElement element: childrenList){
 					if(element.contains(p)){
 						MouseDownEvent.fireNativeEvent(event.getNativeEvent(), element);
 					}
-				}
+				}*/
 				
 				if (client == null) {
 					return;
@@ -161,12 +163,12 @@ public class VCanvas extends Composite implements Paintable {
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
 				
-				VPoint p = new VPoint(x, y);
+				/*VPoint p = new VPoint(x, y);
 				for(VUIElement element: childrenList){
 					if(element.contains(p)){
 						MouseUpEvent.fireNativeEvent(event.getNativeEvent(), element);
 					}
-				}
+				}*/
 				
 				if (client == null) {
 					return;
@@ -185,12 +187,12 @@ public class VCanvas extends Composite implements Paintable {
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
 				
-				VPoint p = new VPoint(x, y);
+				/*VPoint p = new VPoint(x, y);
 				for(VUIElement element: childrenList){
 					if(element.contains(p)){
 						MouseMoveEvent.fireNativeEvent(event.getNativeEvent(), element);
 					}
-				}
+				}*/
 				
 				if (client == null) {
 					return;
@@ -213,12 +215,12 @@ public class VCanvas extends Composite implements Paintable {
 				int x = event.getClientX() - getAbsoluteLeft();
 				int y = event.getClientY() - getAbsoluteTop();
 				
-				VPoint p = new VPoint(x, y);
+				/*VPoint p = new VPoint(x, y);
 				for(VUIElement element: childrenList){
 					if(element.contains(p)){
 						MouseOutEvent.fireNativeEvent(event.getNativeEvent(), element);
 					}
-				}
+				}*/
 			}
 		});
 
