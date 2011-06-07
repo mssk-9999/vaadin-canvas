@@ -52,7 +52,7 @@ abstract class VUIElement implements HasHandlers{
 		
 		if(elementType.equals("rect")){
 			ele = new VRect(uidl);
-		}else if(elementType.equals("ploygon")){
+		}else if(elementType.equals("polygon")){
 			ele = new VPolygon(uidl);
 		}
 		
