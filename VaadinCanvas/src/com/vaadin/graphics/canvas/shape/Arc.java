@@ -59,16 +59,23 @@ public class Arc extends UIElement {
 		arguments.put("strokecolor", getColor());
 		arguments.put("strokewidth", getBorderWidth());
 		arguments.put("radius", getRadius());
+		arguments.put("hascenter", this.centre != null);
 		
 		if(this.centre != null){
-			
+			arguments.put("centrex", centre.getX());
+			arguments.put("centrey", centre.getY());
+			arguments.put("startangle", startAngle);
+			arguments.put("endangle", endAngle);
+			arguments.put("anticlockwise", anticlockwise);
 		}else{
-			
+			arguments.put("startx", getStart().getX());
+			arguments.put("starty", getStart().getY());
+			arguments.put("endx", getEnd().getX());
+			arguments.put("endy", getEnd().getY());
 		}
 		
 		arguments.put("fillstyle", getFillColor());
-		arguments.put("elementtype", "rect");
-		
+		arguments.put("elementtype", "arc");
 		arguments.put("command", "draw");
 		
 		return arguments;
@@ -159,6 +166,9 @@ public class Arc extends UIElement {
 	@Override
 	public Point getCenter() {
 		// TODO Auto-generated method stub
+		if(this.centre != null){
+			return this.centre;
+		}
 		return null;
 	}
 
