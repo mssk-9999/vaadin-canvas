@@ -4,6 +4,7 @@
 package com.vaadin.graphics.canvas.shape;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.vaadin.graphics.event.MouseEvent;
@@ -25,7 +26,9 @@ public class Arc extends UIElement {
 	private double endAngle;
 	private boolean anticlockwise;
 
+	MouseEventListener listener;
 	
+	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 	
 	
 	public Arc(double radius, Point start, Point end) {
@@ -195,7 +198,12 @@ public class Arc extends UIElement {
 	 */
 	@Override
 	public void fireMouseEvent(MouseEvent event) {
-		// TODO Auto-generated method stub
+		Type type = event.getType();
+		
+		List<MouseEventListener> listernerList = this.listeners.get(type);
+		for(MouseEventListener listener : listernerList){
+			listener.onMouseEvent(event);
+		}
 
 	}
 

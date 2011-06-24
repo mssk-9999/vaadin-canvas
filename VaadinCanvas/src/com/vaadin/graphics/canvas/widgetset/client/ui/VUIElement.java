@@ -54,6 +54,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VRect(uidl);
 		}else if(elementType.equals("polygon")){
 			ele = new VPolygon(uidl);
+		}else if(elementType.equals("arc")){
+			ele = new VArc(uidl);
 		}
 		
 		ele.canvas = canvas;
@@ -293,7 +295,7 @@ abstract class VUIElement implements HasHandlers{
 		
 	}
 	
-	abstract public void draw(Context2d canvas);
+	abstract public void draw(Context2d context);
 	
 	abstract public boolean contains(VPoint p);
 	
