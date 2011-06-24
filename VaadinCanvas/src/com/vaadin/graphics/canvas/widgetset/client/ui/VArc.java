@@ -146,6 +146,7 @@ public class VArc extends VUIElement {
 		}else{
 			context.arcTo(start.getX(), start.getY(), end.getX(), end.getY(), radius);
 		}
+		context.stroke();
 		
 		if(getFillColor().length() > 0){
 			context.closePath();
