@@ -4,15 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.vaadin.graphics.canvas.shape.Point;
 import com.vaadin.graphics.canvas.shape.Rect;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseDownEvent;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseEvent;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseMoveEvent;
-//import com.vaadin.graphics.canvas.widgetset.client.event.MouseUpEvent;
 import com.vaadin.graphics.canvas.shape.UIElement;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
