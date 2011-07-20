@@ -61,7 +61,14 @@ public class CanvasComposite extends CustomComponent {
 //		Vector start, double startPosZ, double radius, CssColor color
 //		dd(new Ball(146, 65, 0, 8, "#c41731"));
 
-		Arc arc = new Arc(10, new Point(146, 65), 0, Math.PI * 2.0, true);
+		Arc arc = new Arc(10, new Point(146, 65), 0, Math.PI/2, false);
+//		Arc arc = new Arc(10, , new Point(400, 700));
+		arc.setBorderWidth(4);
+		arc.setColor("#93694b");
+		arc.setFillColor("#e5a867");
+		canvas.drawUIElement(arc);
+		
+		arc = new Arc(20, new Point(200, 100), new Point(220, 220));
 //		Arc arc = new Arc(10, , new Point(400, 700));
 		arc.setBorderWidth(4);
 		arc.setColor("#93694b");
