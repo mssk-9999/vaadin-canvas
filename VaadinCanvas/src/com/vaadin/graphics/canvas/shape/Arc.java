@@ -159,8 +159,17 @@ public class Arc extends UIElement {
 	 */
 	@Override
 	public void moveTo(Point p) {
-		// TODO Auto-generated method stub
+		
 
+	}
+	
+	public void add(Point p){
+		if(this.centre != null){
+			this.centre.add(p);
+		}else{
+			this.start.add(p);
+			this.end.add(p);
+		}
 	}
 
 	/* (non-Javadoc)

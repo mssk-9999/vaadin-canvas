@@ -127,6 +127,11 @@ public class Rect extends UIElement {
 		
 	}
 	
+	public void add(Point p){
+		start.add(p);
+		end.add(p);
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#contains(double, double)
 	 */

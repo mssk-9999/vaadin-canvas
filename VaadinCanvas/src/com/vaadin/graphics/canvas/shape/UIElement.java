@@ -44,6 +44,8 @@ public abstract class UIElement {
 	
 	abstract public void fireMouseEvent(MouseEvent event);
 	
+	abstract public void add(Point p);
+	
 	/**
 	 * @param id the id to set
 	 */

@@ -127,6 +127,12 @@ public class Polygon extends UIElement {
 	public void moveTo(Point p) {
 		
 	}
+	
+	public void add(Point p){
+		for (Point vertex : vertices){
+			vertex.add(p);
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see com.ui.model.UIElement#contains(double, double)
