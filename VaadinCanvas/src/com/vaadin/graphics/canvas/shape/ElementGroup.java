@@ -1,5 +1,6 @@
 package com.vaadin.graphics.canvas.shape;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,14 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
 public class ElementGroup extends UIElement {
 
 	List<UIElement> elements;
+	List<Point> relativePositions;
 
-	Point point;
+	Point center;
+	
+	public ElementGroup(){
+		elements = new ArrayList<UIElement>();
+		relativePositions = new ArrayList<Point>();
+	}
 	
 	@Override
 	public Map<String, Object> getDrawInstructions() {
@@ -21,19 +28,24 @@ public class ElementGroup extends UIElement {
 
 	@Override
 	public void moveTo(Point p) {
-		// TODO Auto-generated method stub
-		
+		center = p;
+		for(int i=0; i<elements.size(); i++){
+			UIElement element = elements.get(i);
+			element.moveTo(Point.add(center, relativePositions.get(i)));
+		}
 	}
 
 	@Override
 	public Point getCenter() {
-		// TODO Auto-generated method stub
-		return null;
+		return center;
 	}
 
 	@Override
 	public boolean contains(Point p) {
-		// TODO Auto-generated method stub
+		for(UIElement element : elements){
+			if(element.contains(p))
+				return true;
+		}
 		return false;
 	}
 
@@ -55,9 +67,11 @@ public class ElementGroup extends UIElement {
 		}
 	}
 	
-	public void addElement(UIElement element){
-		element.add(point);
+	public void addElement(UIElement element, Point p){
+		element.add(p);
+		element.add(center);
 		elements.add(element);
+		relativePositions.add(p);
 	}
 
 }
