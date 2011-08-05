@@ -22,7 +22,7 @@ public class ElementGroup extends UIElement {
 	@Override
 	public void moveTo(Point p) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
