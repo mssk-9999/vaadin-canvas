@@ -1,6 +1,7 @@
 package com.vaadin.graphics.canvas.shape;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,11 @@ import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
 
-public class ElementGroup extends UIElement {
+public abstract class ElementGroup extends UIElement {
 
 	List<UIElement> elements;
 	List<Point> relativePositions;
+	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 
 	Point center;
 	
@@ -20,12 +22,6 @@ public class ElementGroup extends UIElement {
 		relativePositions = new ArrayList<Point>();
 	}
 	
-	@Override
-	public Map<String, Object> getDrawInstructions() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public void moveTo(Point p) {
 		center = p;
@@ -51,13 +47,25 @@ public class ElementGroup extends UIElement {
 
 	@Override
 	public void addListener(MouseEventListener listener, Type eventType) {
-		// TODO Auto-generated method stub
+		List<MouseEventListener> listenerList;
+		if(!this.listeners.containsKey(eventType)){
+			listenerList = new ArrayList<MouseEventListener>();
+			this.listeners.put(eventType, listenerList);
+		}else{
+			listenerList = this.listeners.get(eventType);
+		}
+		listenerList.add(listener);
 
 	}
 
 	@Override
 	public void fireMouseEvent(MouseEvent event) {
-		// TODO Auto-generated method stub
+		Type type = event.getType();
+		
+		List<MouseEventListener> listernerList = this.listeners.get(type);
+		for(MouseEventListener listener : listernerList){
+			listener.onMouseEvent(event);
+		}
 
 	}
 	
