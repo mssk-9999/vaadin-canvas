@@ -21,7 +21,7 @@ public class Node extends ElementGroup {
 
 	@Override
 	public Map<String, Object> getDrawInstructions() {
-		
+		return null;
 	}
 
 }
