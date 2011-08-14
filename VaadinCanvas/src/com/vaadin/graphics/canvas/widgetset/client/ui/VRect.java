@@ -122,13 +122,18 @@ class VRect extends VUIElement {
 	 */
 	@Override
 	public void update(UIDL uidl) {
-		String strokecolor = uidl.getStringAttribute("strokecolor");
-		int strokewidth = uidl.getIntAttribute("strokewidth");
-		double startX = uidl.getDoubleAttribute("startx");
-		double startY = uidl.getDoubleAttribute("starty");
-		double endX = uidl.getDoubleAttribute("endx");
-		double endY = uidl.getDoubleAttribute("endy");
-		String fillStyleColor = uidl.getStringAttribute("fillstyle");
+		String prefix = "";
+		if(groupId.length() != 0){
+			prefix = groupId + ".";
+		}
+		
+		String strokecolor = uidl.getStringAttribute(prefix + "strokecolor");
+		int strokewidth = uidl.getIntAttribute(prefix + "strokewidth");
+		double startX = uidl.getDoubleAttribute(prefix + "startx");
+		double startY = uidl.getDoubleAttribute(prefix + "starty");
+		double endX = uidl.getDoubleAttribute(prefix + "endx");
+		double endY = uidl.getDoubleAttribute(prefix + "endy");
+		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
 		
 		setColor(strokecolor);
 		setBorderWidth(strokewidth);

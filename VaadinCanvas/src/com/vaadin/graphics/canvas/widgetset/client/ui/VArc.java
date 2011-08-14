@@ -163,30 +163,35 @@ public class VArc extends VUIElement {
 
 	@Override
 	public void update(UIDL uidl) {
-		String strokecolor = uidl.getStringAttribute("strokecolor");
-		int strokewidth = uidl.getIntAttribute("strokewidth");
-		double radius = uidl.getDoubleAttribute("radius");
-		boolean hascenter = uidl.getBooleanAttribute("hascenter");
-		String fillStyleColor = uidl.getStringAttribute("fillstyle");
+		String prefix = "";
+		if(groupId.length() != 0){
+			prefix = groupId + ".";
+		}
+		
+		String strokecolor = uidl.getStringAttribute(prefix + "strokecolor");
+		int strokewidth = uidl.getIntAttribute(prefix + "strokewidth");
+		double radius = uidl.getDoubleAttribute(prefix + "radius");
+		boolean hascenter = uidl.getBooleanAttribute(prefix + "hascenter");
+		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
 		
 		VPoint centre = null;
 		
 		if(hascenter){
-			double centreX = uidl.getDoubleAttribute("centrex");
-			double centreY = uidl.getDoubleAttribute("centrey");
-			double startAngle = uidl.getDoubleAttribute("startangle");
-			double endAngle = uidl.getDoubleAttribute("endangle");
-			boolean anticlockwise = uidl.getBooleanAttribute("anticlockwise");
+			double centreX = uidl.getDoubleAttribute(prefix + "centrex");
+			double centreY = uidl.getDoubleAttribute(prefix + "centrey");
+			double startAngle = uidl.getDoubleAttribute(prefix + "startangle");
+			double endAngle = uidl.getDoubleAttribute(prefix + "endangle");
+			boolean anticlockwise = uidl.getBooleanAttribute(prefix + "anticlockwise");
 			
 			centre = new VPoint(centreX, centreY);
 			setStartAngle(startAngle);
 			setEndAngle(endAngle);
 			setAnticlockwise(anticlockwise);
 		}else{
-			double startX = uidl.getDoubleAttribute("startx");
-			double startY = uidl.getDoubleAttribute("starty");
-			double endX = uidl.getDoubleAttribute("endx");
-			double endY = uidl.getDoubleAttribute("endy");
+			double startX = uidl.getDoubleAttribute(prefix + "startx");
+			double startY = uidl.getDoubleAttribute(prefix + "starty");
+			double endX = uidl.getDoubleAttribute(prefix + "endx");
+			double endY = uidl.getDoubleAttribute(prefix + "endy");
 			
 			setStart(new VPoint(startX, startY));
 			setEnd(new VPoint(endX, endY));

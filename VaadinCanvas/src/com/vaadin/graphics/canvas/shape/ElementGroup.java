@@ -12,6 +12,7 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
 public abstract class ElementGroup extends UIElement {
 
 	List<UIElement> elements;
+	private List<String> elementIds;
 	List<Point> relativePositions;
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 
@@ -80,6 +81,11 @@ public abstract class ElementGroup extends UIElement {
 		element.add(center);
 		elements.add(element);
 		relativePositions.add(p);
+		elementIds.add(element.getId());
 	}
-
+	
+	public String[] getElements(){
+		return elementIds.toArray(new String[]{});
+	}
+	
 }

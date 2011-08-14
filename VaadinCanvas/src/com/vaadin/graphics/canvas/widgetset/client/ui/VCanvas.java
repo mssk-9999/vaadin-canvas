@@ -95,7 +95,7 @@ public class VCanvas extends Composite implements Paintable {
 		canvas = Canvas.createIfSupported();
 		backBuffer = Canvas.createIfSupported();
 
-		// init the canvase
+		// init the canvas
 		canvas.setWidth(width + "px");
 		canvas.setHeight(height + "px");
 		canvas.setCoordinateSpaceWidth(width);

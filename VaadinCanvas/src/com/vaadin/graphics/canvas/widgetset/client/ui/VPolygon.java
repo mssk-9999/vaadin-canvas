@@ -114,14 +114,19 @@ public class VPolygon extends VUIElement {
 	 */
 	@Override
 	public void update(UIDL uidl) {
-		String strokecolor = uidl.getStringAttribute("strokecolor");
-		int strokewidth = uidl.getIntAttribute("strokewidth");
-		int numOfVertices = uidl.getIntAttribute("numberofvertices");
-		String fillStyleColor = uidl.getStringAttribute("fillstyle");
+		String prefix = "";
+		if(groupId.length() != 0){
+			prefix = groupId + ".";
+		}
+		
+		String strokecolor = uidl.getStringAttribute(prefix + "strokecolor");
+		int strokewidth = uidl.getIntAttribute(prefix + "strokewidth");
+		int numOfVertices = uidl.getIntAttribute(prefix + "numberofvertices");
+		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
 		
 		this.vertices = new VPoint[numOfVertices];
 		for(int i=0; i< numOfVertices; i++){
-			this.vertices[i] = new VPoint(uidl.getDoubleAttribute("x" + i), uidl.getDoubleAttribute("y" + i));
+			this.vertices[i] = new VPoint(uidl.getDoubleAttribute(prefix + "x" + i), uidl.getDoubleAttribute(prefix + "y" + i));
 		}
 		
 		setColor(strokecolor);

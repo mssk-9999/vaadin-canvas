@@ -18,6 +18,7 @@ public abstract class UIElement {
 	private VCanvas canvas;
 
 	private String id;
+	protected String groupId = "";
 	
 	private UIElement next;
 	private UIElement prev;
@@ -141,5 +142,19 @@ public abstract class UIElement {
 		}
 
 		return oddNodes;
+	}
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	/**
+	 * @return the groupId
+	 */
+	public String getGroupId() {
+		return groupId;
 	}
 }

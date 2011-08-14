@@ -28,6 +28,7 @@ abstract class VUIElement implements HasHandlers{
 	private VCanvas canvas;
 
 	private String id;
+	protected String groupId = "";
 	
 	private VUIElement next;
 	private VUIElement prev;
@@ -331,5 +332,21 @@ abstract class VUIElement implements HasHandlers{
 		}
 
 		return oddNodes;
+	}
+
+
+	/**
+	 * @param groupId the groupId to set
+	 */
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+
+	/**
+	 * @return the groupId
+	 */
+	public String getGroupId() {
+		return groupId;
 	}
 }
