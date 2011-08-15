@@ -17,8 +17,8 @@ public abstract class UIElement {
 	
 	private VCanvas canvas;
 
-	private String id;
-	protected String groupId = "";
+	private String id = "";
+	private String groupId = "";
 	
 	private UIElement next;
 	private UIElement prev;
@@ -156,5 +156,17 @@ public abstract class UIElement {
 	 */
 	public String getGroupId() {
 		return groupId;
+	}
+	
+	public String getPrefix(){
+		String prefix = "";
+		if(id.length() != 0){
+			prefix = id + ".";
+		}
+		
+		if(groupId.length() != 0){
+			prefix = groupId + ".";
+		}
+		return prefix;
 	}
 }

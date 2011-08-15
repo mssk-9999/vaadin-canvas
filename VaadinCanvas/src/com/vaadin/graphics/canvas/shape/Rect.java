@@ -93,24 +93,19 @@ public class Rect extends UIElement {
 
 		Map<String, Object> arguments = new HashMap<String, Object>();
 		
-		String prefix = "";
-		if(groupId.length() != 0){
-			prefix = groupId + ".";
-		}
+		arguments.put(getPrefix() + "groupId", getGroupId());
+		arguments.put(getPrefix() + "elementid", getId());
+		arguments.put(getPrefix() + "strokecolor", getColor());
+		arguments.put(getPrefix() + "strokewidth", getBorderWidth());
+		arguments.put(getPrefix() + "startx", getStart().getX());
+		arguments.put(getPrefix() + "starty", getStart().getY());
+		arguments.put(getPrefix() + "endx", getEnd().getX());
+		arguments.put(getPrefix() + "endy", getEnd().getY());
 		
-		arguments.put("groupId", groupId);
-		arguments.put(prefix + "elementid", getId());
-		arguments.put(prefix + "strokecolor", getColor());
-		arguments.put(prefix + "strokewidth", getBorderWidth());
-		arguments.put(prefix + "startx", getStart().getX());
-		arguments.put(prefix + "starty", getStart().getY());
-		arguments.put(prefix + "endx", getEnd().getX());
-		arguments.put(prefix + "endy", getEnd().getY());
+		arguments.put(getPrefix() + "fillstyle", getFillColor());
+		arguments.put(getPrefix() + "elementtype", "rect");
 		
-		arguments.put(prefix + "fillstyle", getFillColor());
-		arguments.put("elementtype", "rect");
-		
-		arguments.put("command", "draw");
+		arguments.put(getPrefix() + "command", "draw");
 		
 		return arguments;
 		

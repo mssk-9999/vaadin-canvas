@@ -1,6 +1,5 @@
 package com.vaadin.graphics.canvas.shape;
 
-import java.util.Map;
 
 public class Node extends ElementGroup {
 	public static double connectorRadius = 5;
@@ -17,11 +16,6 @@ public class Node extends ElementGroup {
 		this.relativePositions.add(new Point(width/2, height/2));
 		this.relativePositions.add(new Point(0, height/2));
 		this.relativePositions.add(new Point(width, height/2));
-	}
-
-	@Override
-	public Map<String, Object> getDrawInstructions() {
-		return null;
 	}
 
 }

@@ -79,6 +79,7 @@ public abstract class ElementGroup extends UIElement {
 	public void addElement(UIElement element, Point p){
 		element.add(p);
 		element.add(center);
+		element.setGroupId(getGroupId());
 		elements.add(element);
 		relativePositions.add(p);
 		elementIds.add(element.getId());
@@ -86,6 +87,16 @@ public abstract class ElementGroup extends UIElement {
 	
 	public String[] getElements(){
 		return elementIds.toArray(new String[]{});
+	}
+	
+	@Override
+	public Map<String, Object> getDrawInstructions() {
+		Map<String, Object> drawInstructions = new HashMap<String, Object>();
+		for(UIElement element : elements){
+			drawInstructions.putAll(element.getDrawInstructions());
+		}
+		
+		return drawInstructions;
 	}
 	
 }
