@@ -26,7 +26,6 @@ public class Polygon extends UIElement {
 	
 	public Polygon(Point[] vertices){
 		
-		this.setId("");
 		this.vertices = vertices;
 		this.setSelected(false);
 		this.setBorderWidth(-1);

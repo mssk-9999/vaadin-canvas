@@ -641,9 +641,6 @@ public class Canvas extends AbstractComponent {
 			return -1;
 		}
 		this.children.add(child);
-		if(child.getId() == null || child.getId().length() == 0){
-			child.setId(index + "");
-		}
 		this.childrenMap.put(child.getId(), child);
 		return index;
 	}

@@ -29,7 +29,6 @@ public class Rect extends UIElement {
 	
 	public Rect(Point start, Point end){
 		
-		this.setId("");
 		this.start = start;
 		this.end = end;
 		this.setSelected(false);

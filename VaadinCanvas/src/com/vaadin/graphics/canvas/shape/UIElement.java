@@ -47,10 +47,20 @@ public abstract class UIElement {
 	
 	abstract public void add(Point p);
 	
+	public static int counter = 0;
+	
+	private static synchronized void incrementCounter(){
+			counter++;
+	}
+	
+	public UIElement(){
+		UIElement.incrementCounter();
+		this.setId(counter + "");
+	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	private void setId(String id) {
 		if(id != null)
 			this.id = id;
 	}
@@ -163,10 +173,10 @@ public abstract class UIElement {
 		if(id.length() != 0){
 			prefix = id + ".";
 		}
-		
+/*		
 		if(groupId.length() != 0){
 			prefix = groupId + ".";
 		}
-		return prefix;
+*/		return prefix;
 	}
 }
