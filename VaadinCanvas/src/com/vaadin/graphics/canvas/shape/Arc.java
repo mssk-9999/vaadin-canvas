@@ -58,28 +58,28 @@ public class Arc extends UIElement {
 	public Map<String, Object> getDrawInstructions() {
 		Map<String, Object> arguments = new HashMap<String, Object>();
 		
-		arguments.put("elementid", getId());
-		arguments.put("strokecolor", getColor());
-		arguments.put("strokewidth", getBorderWidth());
-		arguments.put("radius", getRadius());
-		arguments.put("hascenter", this.centre != null);
+		arguments.put(getPrefix() + "elementid", getId());
+		arguments.put(getPrefix() + "strokecolor", getColor());
+		arguments.put(getPrefix() + "strokewidth", getBorderWidth());
+		arguments.put(getPrefix() + "radius", getRadius());
+		arguments.put(getPrefix() + "hascenter", this.centre != null);
 		
 		if(this.centre != null){
-			arguments.put("centrex", centre.getX());
-			arguments.put("centrey", centre.getY());
-			arguments.put("startangle", startAngle);
-			arguments.put("endangle", endAngle);
-			arguments.put("anticlockwise", anticlockwise);
+			arguments.put(getPrefix() + "centrex", centre.getX());
+			arguments.put(getPrefix() + "centrey", centre.getY());
+			arguments.put(getPrefix() + "startangle", startAngle);
+			arguments.put(getPrefix() + "endangle", endAngle);
+			arguments.put(getPrefix() + "anticlockwise", anticlockwise);
 		}else{
-			arguments.put("startx", getStart().getX());
-			arguments.put("starty", getStart().getY());
-			arguments.put("endx", getEnd().getX());
-			arguments.put("endy", getEnd().getY());
+			arguments.put(getPrefix() + "startx", getStart().getX());
+			arguments.put(getPrefix() + "starty", getStart().getY());
+			arguments.put(getPrefix() + "endx", getEnd().getX());
+			arguments.put(getPrefix() + "endy", getEnd().getY());
 		}
 		
-		arguments.put("fillstyle", getFillColor());
-		arguments.put("elementtype", "arc");
-		arguments.put("command", "draw");
+		arguments.put(getPrefix() + "fillstyle", getFillColor());
+		arguments.put(getPrefix() + "elementtype", "arc");
+		arguments.put(getPrefix() + "command", "draw");
 		
 		return arguments;
 	}

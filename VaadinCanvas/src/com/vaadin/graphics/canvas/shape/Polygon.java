@@ -88,10 +88,10 @@ public class Polygon extends UIElement {
 
 		Map<String, Object> arguments = new HashMap<String, Object>();
 		
-		arguments.put("elementid", getId());
-		arguments.put("strokecolor", getColor());
-		arguments.put("strokewidth", getBorderWidth());
-		arguments.put("numberofvertices", vertices.length);
+		arguments.put(getPrefix() + "elementid", getId());
+		arguments.put(getPrefix() + "strokecolor", getColor());
+		arguments.put(getPrefix() + "strokewidth", getBorderWidth());
+		arguments.put(getPrefix() + "numberofvertices", vertices.length);
 		
 		for(int i=0; i< vertices.length; i++){
 			Point p = vertices[i];
@@ -99,10 +99,10 @@ public class Polygon extends UIElement {
 			arguments.put("y" + i, p.getY());
 		}
 		
-		arguments.put("fillstyle", getFillColor());
-		arguments.put("elementtype", "polygon");
+		arguments.put(getPrefix() + "fillstyle", getFillColor());
+		arguments.put(getPrefix() + "elementtype", "polygon");
 		
-		arguments.put("command", "draw");
+		arguments.put(getPrefix() + "command", "draw");
 		
 		return arguments;
 		
