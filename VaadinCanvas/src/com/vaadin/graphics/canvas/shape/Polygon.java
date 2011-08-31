@@ -95,8 +95,8 @@ public class Polygon extends UIElement {
 		
 		for(int i=0; i< vertices.length; i++){
 			Point p = vertices[i];
-			arguments.put("x" + i, p.getX());
-			arguments.put("y" + i, p.getY());
+			arguments.put(getPrefix() + "x" + i, p.getX());
+			arguments.put(getPrefix() + "y" + i, p.getY());
 		}
 		
 		arguments.put(getPrefix() + "fillstyle", getFillColor());
