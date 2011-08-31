@@ -60,7 +60,6 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VArc(uidl);
 		}
 		
-		ele.id = id;
 		ele.canvas = canvas;
 		ele.initHandlers();
 		

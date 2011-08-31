@@ -28,8 +28,8 @@ class VRect extends VUIElement {
 //	
 	
 	public VRect(UIDL uidl){
-		update(uidl);
 		this.setId(uidl.getStringAttribute("elementid"));
+		update(uidl);
 	}
 	
 	public VRect(VPoint start, VPoint end){

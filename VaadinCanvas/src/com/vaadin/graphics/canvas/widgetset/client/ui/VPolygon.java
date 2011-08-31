@@ -26,8 +26,8 @@ public class VPolygon extends VUIElement {
 //	
 	
 	public VPolygon(UIDL uidl){
-		update(uidl);
 		this.setId(uidl.getStringAttribute("elementid"));
+		update(uidl);
 	}
 	
 	public VPolygon(VPoint[] vertices){

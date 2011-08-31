@@ -25,8 +25,8 @@ public class VArc extends VUIElement {
 	private Map<String, List<EventHandler>> handlers = new HashMap<String, List<EventHandler>>();
 	
 	public VArc(UIDL uidl) {
-		update(uidl);
 		this.setId(uidl.getStringAttribute("elementid"));
+		update(uidl);
 	}
 	
 	public VArc(double radius, VPoint start, VPoint end) {
