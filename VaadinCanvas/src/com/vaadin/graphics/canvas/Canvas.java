@@ -458,6 +458,8 @@ public class Canvas extends AbstractComponent {
 			addChild(ele);
 		}
 		Map<String, Object> arguments = ele.getDrawInstructions();
+		arguments.put("command", "draw");
+		arguments.put("elementid", ele.getId());
 		commands.add(arguments);
 		requestRepaint();
 	}
