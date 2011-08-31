@@ -122,10 +122,7 @@ class VRect extends VUIElement {
 	 */
 	@Override
 	public void update(UIDL uidl) {
-		String prefix = "";
-		if(groupId.length() != 0){
-			prefix = groupId + ".";
-		}
+		String prefix = getPrefix();
 		
 		String strokecolor = uidl.getStringAttribute(prefix + "strokecolor");
 		int strokewidth = uidl.getIntAttribute(prefix + "strokewidth");

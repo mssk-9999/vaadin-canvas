@@ -49,8 +49,9 @@ abstract class VUIElement implements HasHandlers{
 	public static VUIElement createFromUIDL(UIDL uidl, VCanvas canvas){
 		VUIElement ele = null;
 		
-		String elementType = uidl.getStringAttribute("elementtype");
+		String id = uidl.getStringAttribute("elementid");
 		
+		String elementType = uidl.getStringAttribute(id + ".elementtype");
 		if(elementType.equals("rect")){
 			ele = new VRect(uidl);
 		}else if(elementType.equals("polygon")){
@@ -59,6 +60,7 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VArc(uidl);
 		}
 		
+		ele.id = id;
 		ele.canvas = canvas;
 		ele.initHandlers();
 		
@@ -348,5 +350,18 @@ abstract class VUIElement implements HasHandlers{
 	 */
 	public String getGroupId() {
 		return groupId;
+	}
+	
+	public String getPrefix(){
+
+		String prefix = "";
+		if(id.length() != 0){
+			prefix = id + ".";
+		}
+/*		
+		if(groupId.length() != 0){
+			prefix = groupId + ".";
+		}
+*/		return prefix;
 	}
 }

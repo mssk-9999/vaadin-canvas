@@ -757,10 +757,6 @@ public class VCanvas extends Composite implements Paintable {
 		if(this.children.containsKey(child.getId())){
 			return -1;
 		}
-		this.childrenList.add(child);
-		if(child.getId() == null){
-			child.setId(index + "");
-		}
 		this.children.put(child.getId(), child);
 		return index;
 	}
