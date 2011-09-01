@@ -92,7 +92,7 @@ public class Rect extends UIElement {
 
 		Map<String, Object> arguments = new HashMap<String, Object>();
 		
-		arguments.put(getPrefix() + "groupId", getGroupId());
+		arguments.put(getPrefix() + "groupid", getGroupId());
 		arguments.put(getPrefix() + "elementid", getId());
 		arguments.put(getPrefix() + "strokecolor", getColor());
 		arguments.put(getPrefix() + "strokewidth", getBorderWidth());

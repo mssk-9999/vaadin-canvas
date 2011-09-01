@@ -26,6 +26,7 @@ public class VArc extends VUIElement {
 	
 	public VArc(UIDL uidl) {
 		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupid"));
 		update(uidl);
 	}
 	
@@ -44,6 +45,12 @@ public class VArc extends VUIElement {
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
 		this.anticlockwise = anticlockwise;
+	}
+
+	public VArc(UIDL uidl, String id, String groupId) {
+		this.setId(id);
+		this.setGroupId(groupId);
+		update(uidl);
 	}
 
 	@Override

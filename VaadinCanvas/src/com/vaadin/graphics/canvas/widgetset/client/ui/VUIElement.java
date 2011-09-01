@@ -58,9 +58,30 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VPolygon(uidl);
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl);
+		}else if(elementType.equals("group")){
+			ele = new VElementGroup(uidl);
 		}
 		
 		ele.canvas = canvas;
+		ele.initHandlers();
+		
+		return ele;
+	}
+	
+	public static VUIElement createFromUIDL(UIDL uidl, String id, String groupId){
+		VUIElement ele = null;
+		
+		String elementType = uidl.getStringAttribute(id + ".elementtype");
+		if(elementType.equals("rect")){
+			ele = new VRect(uidl, id, groupId);
+		}else if(elementType.equals("polygon")){
+			ele = new VPolygon(uidl, id, groupId);
+		}else if(elementType.equals("arc")){
+			ele = new VArc(uidl, id, groupId);
+		}else if(elementType.equals("group")){
+			ele = new VElementGroup(uidl, id, groupId);
+		}
+		
 		ele.initHandlers();
 		
 		return ele;

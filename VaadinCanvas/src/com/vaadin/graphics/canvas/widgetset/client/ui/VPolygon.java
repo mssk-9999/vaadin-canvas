@@ -27,6 +27,7 @@ public class VPolygon extends VUIElement {
 	
 	public VPolygon(UIDL uidl){
 		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupid"));
 		update(uidl);
 	}
 	
@@ -39,6 +40,12 @@ public class VPolygon extends VUIElement {
 		public void onMouseEvent(MouseEvent event);
 	}*/
 	
+	public VPolygon(UIDL uidl, String id, String groupId) {
+		this.setId(id);
+		this.setGroupId(groupId);
+		update(uidl);
+	}
+
 	/* (non-Javadoc)
 	 * @see com.workflow.ivr.web.model.VUIElement#draw()
 	 */

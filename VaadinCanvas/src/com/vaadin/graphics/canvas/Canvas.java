@@ -488,8 +488,8 @@ public class Canvas extends AbstractComponent {
 					target.addAttribute(key, (Integer) value);
 				} else if (value instanceof Boolean) {
 					target.addAttribute(key, (Boolean) value);
-				} else {
-					target.addAttribute(key, (String) value);
+				} else if (value instanceof String[]){
+					target.addAttribute(key, (String[]) value);
 				}
 			}
 

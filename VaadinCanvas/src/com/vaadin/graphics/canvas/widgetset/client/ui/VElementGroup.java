@@ -1,5 +1,8 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
@@ -7,6 +10,27 @@ import com.vaadin.terminal.gwt.client.UIDL;
 public class VElementGroup extends VUIElement {
 
 	private String[] elementList;
+	
+	private Map <String, VUIElement> elements;
+
+	public VElementGroup(){
+		super();
+		elements = new HashMap<String, VUIElement>();
+	}
+	
+	public VElementGroup(UIDL uidl){
+		elements = new HashMap<String, VUIElement>();
+		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupId"));
+		this.update(uidl);
+	}
+	
+	public VElementGroup(UIDL uidl, String id, String groupId) {
+		elements = new HashMap<String, VUIElement>();
+		this.setId(id);
+		this.setGroupId(groupId);
+		this.update(uidl);
+	}
 
 	@Override
 	protected void processMoveEvent(MouseMoveEvent event) {
@@ -40,8 +64,17 @@ public class VElementGroup extends VUIElement {
 
 	@Override
 	public void update(UIDL uidl) {
-		this.groupId = uidl.getStringAttribute("groupId");
-		this.elementList = uidl.getStringArrayAttribute("elementList");
+		this.elementList = uidl.getStringArrayAttribute(getPrefix() + "elementlist");
+		
+		for(String elementId : elementList){
+			if(elements.get(elementId) != null){
+				VUIElement elem = elements.get(elementId);
+				elem.update(uidl);
+			}else{
+				VUIElement elem = VUIElement.createFromUIDL(uidl, elementId, getId());
+				elements.put(elementId, elem);
+			}
+		}
 	}
 
 }

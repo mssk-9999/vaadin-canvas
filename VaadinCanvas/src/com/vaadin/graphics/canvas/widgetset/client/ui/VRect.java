@@ -29,6 +29,13 @@ class VRect extends VUIElement {
 	
 	public VRect(UIDL uidl){
 		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupid"));
+		update(uidl);
+	}
+	
+	public VRect(UIDL uidl, String id, String groupId){
+		this.setId(id);
+		this.setGroupId(groupId);
 		update(uidl);
 	}
 	

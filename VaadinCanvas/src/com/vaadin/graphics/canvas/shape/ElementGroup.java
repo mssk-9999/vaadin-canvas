@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.cyberneko.html.HTMLElements.ElementList;
+
 import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
@@ -12,7 +14,7 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
 public abstract class ElementGroup extends UIElement {
 
 	List<UIElement> elements;
-	private List<String> elementIds;
+	private List<String> elementIds = new ArrayList<String>();
 	List<Point> relativePositions;
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 
@@ -79,7 +81,7 @@ public abstract class ElementGroup extends UIElement {
 	public void addElement(UIElement element, Point p){
 		element.add(p);
 		element.add(center);
-		element.setGroupId(getGroupId());
+		element.setGroupId(getId());
 		elements.add(element);
 		relativePositions.add(p);
 		elementIds.add(element.getId());
@@ -92,10 +94,20 @@ public abstract class ElementGroup extends UIElement {
 	@Override
 	public Map<String, Object> getDrawInstructions() {
 		Map<String, Object> drawInstructions = new HashMap<String, Object>();
+		/*String elementIds = "";
 		for(UIElement element : elements){
 			drawInstructions.putAll(element.getDrawInstructions());
+			elementIds += element.getId() + "|";
 		}
 		
+		if(elementIds.length() > 0){
+			elementIds = elementIds.substring(0, elementIds.length() - 1);
+		}*/
+		
+		drawInstructions.put("elementid", getId());
+		drawInstructions.put("groupid", getGroupId());
+		drawInstructions.put(getPrefix() + "elementlist", getElements());
+		drawInstructions.put(getPrefix() + "elementtype", "group");
 		return drawInstructions;
 	}
 	
