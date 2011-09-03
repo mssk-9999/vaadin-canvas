@@ -94,15 +94,9 @@ public abstract class ElementGroup extends UIElement {
 	@Override
 	public Map<String, Object> getDrawInstructions() {
 		Map<String, Object> drawInstructions = new HashMap<String, Object>();
-		/*String elementIds = "";
 		for(UIElement element : elements){
 			drawInstructions.putAll(element.getDrawInstructions());
-			elementIds += element.getId() + "|";
 		}
-		
-		if(elementIds.length() > 0){
-			elementIds = elementIds.substring(0, elementIds.length() - 1);
-		}*/
 		
 		drawInstructions.put("elementid", getId());
 		drawInstructions.put("groupid", getGroupId());

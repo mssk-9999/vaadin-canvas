@@ -18,17 +18,19 @@ public class VElementGroup extends VUIElement {
 		elements = new HashMap<String, VUIElement>();
 	}
 	
-	public VElementGroup(UIDL uidl){
+	public VElementGroup(UIDL uidl, VCanvas canvas){
 		elements = new HashMap<String, VUIElement>();
 		this.setId(uidl.getStringAttribute("elementid"));
 		this.setGroupId(uidl.getStringAttribute("groupId"));
+		this.canvas = canvas;
 		this.update(uidl);
 	}
 	
-	public VElementGroup(UIDL uidl, String id, String groupId) {
+	public VElementGroup(UIDL uidl, String id, String groupId, VCanvas canvas) {
 		elements = new HashMap<String, VUIElement>();
 		this.setId(id);
 		this.setGroupId(groupId);
+		this.canvas = canvas;
 		this.update(uidl);
 	}
 
@@ -71,7 +73,7 @@ public class VElementGroup extends VUIElement {
 				VUIElement elem = elements.get(elementId);
 				elem.update(uidl);
 			}else{
-				VUIElement elem = VUIElement.createFromUIDL(uidl, elementId, getId());
+				VUIElement elem = VUIElement.createFromUIDL(uidl, elementId, getId(), this.canvas);
 				elements.put(elementId, elem);
 			}
 		}

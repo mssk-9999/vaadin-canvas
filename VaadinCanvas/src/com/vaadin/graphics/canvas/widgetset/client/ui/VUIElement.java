@@ -25,7 +25,7 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 abstract class VUIElement implements HasHandlers{
 	
-	private VCanvas canvas;
+	protected VCanvas canvas;
 
 	private String id;
 	protected String groupId = "";
@@ -59,7 +59,7 @@ abstract class VUIElement implements HasHandlers{
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl);
 		}else if(elementType.equals("group")){
-			ele = new VElementGroup(uidl);
+			ele = new VElementGroup(uidl, canvas);
 		}
 		
 		ele.canvas = canvas;
@@ -68,7 +68,7 @@ abstract class VUIElement implements HasHandlers{
 		return ele;
 	}
 	
-	public static VUIElement createFromUIDL(UIDL uidl, String id, String groupId){
+	public static VUIElement createFromUIDL(UIDL uidl, String id, String groupId, VCanvas canvas){
 		VUIElement ele = null;
 		
 		String elementType = uidl.getStringAttribute(id + ".elementtype");
@@ -79,9 +79,10 @@ abstract class VUIElement implements HasHandlers{
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl, id, groupId);
 		}else if(elementType.equals("group")){
-			ele = new VElementGroup(uidl, id, groupId);
+			ele = new VElementGroup(uidl, id, groupId, canvas);
 		}
 		
+		ele.canvas = canvas;
 		ele.initHandlers();
 		
 		return ele;
