@@ -54,8 +54,10 @@ public class VElementGroup extends VUIElement {
 
 	@Override
 	public void draw(Context2d context) {
-		// TODO Auto-generated method stub
-
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.draw(context);
+		}
 	}
 
 	@Override
