@@ -762,6 +762,10 @@ public class VCanvas extends Composite implements Paintable {
 		return index;
 	}
 	
+	public VUIElement getChild(String childId){
+		return this.children.get(childId);
+	}
+	
 	public HandlerRegistration addMouseEventHandler(final EventHandler handler, MouseEvent.Type type){
 		return addHandler(handler, type);
 	}

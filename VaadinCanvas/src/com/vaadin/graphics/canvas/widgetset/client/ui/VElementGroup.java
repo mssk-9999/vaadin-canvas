@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 public class VElementGroup extends VUIElement {
@@ -12,6 +16,8 @@ public class VElementGroup extends VUIElement {
 	private String[] elementList;
 	
 	private Map <String, VUIElement> elements;
+	
+	private String mainElementId;
 
 	public VElementGroup(){
 		super();
@@ -35,15 +41,8 @@ public class VElementGroup extends VUIElement {
 	}
 
 	@Override
-	protected void processMoveEvent(MouseMoveEvent event) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void moveTo(VPoint p) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -69,6 +68,7 @@ public class VElementGroup extends VUIElement {
 	@Override
 	public void update(UIDL uidl) {
 		this.elementList = uidl.getStringArrayAttribute(getPrefix() + "elementlist");
+		this.mainElementId = uidl.getStringAttribute(getPrefix() + "mainelementid");
 		
 		for(String elementId : elementList){
 			if(elements.get(elementId) != null){
@@ -79,6 +79,43 @@ public class VElementGroup extends VUIElement {
 				elements.put(elementId, elem);
 			}
 		}
+	}
+
+	public void processMouseOutEvent(MouseOutEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void processMouseOverEvent(MouseOverEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void processMouseUpEvent(MouseUpEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void processMouseDownEvent(MouseDownEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	protected void processMoveEvent(MouseMoveEvent event) {
+		VUIElement mainElement = this.elements.get(this.mainElementId);
+		VPoint p = new VPoint(event.getClientX() - mainElement.canvas.getAbsoluteLeft(), event.getClientY() 
+				- mainElement.canvas.getAbsoluteTop());
+		if(mainElement.contains(p)){
+			if(this.isSelected()){
+				for(String elementId : elementList){
+					VUIElement elem = elements.get(elementId);
+					elem.processMoveEvent(event);
+				}
+			}
+			this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());
+		}
+
 	}
 
 }

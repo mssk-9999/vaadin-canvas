@@ -32,10 +32,10 @@ abstract class VUIElement implements HasHandlers{
 	
 	private VUIElement next;
 	private VUIElement prev;
-	private VPoint mouseDownPoint;
-	private VPoint mouseUpPoint;
-	private VPoint mouseOverPoint;
-	private VPoint mouseOutPoint;
+	VPoint mouseDownPoint;
+	VPoint mouseUpPoint;
+	VPoint mouseOverPoint;
+	VPoint mouseOutPoint;
 	
 	private boolean selected = false;
 	private boolean highlighted = false;
@@ -83,11 +83,91 @@ abstract class VUIElement implements HasHandlers{
 		}
 		
 		ele.canvas = canvas;
-		ele.initHandlers();
+		ele.initGroupHandlers();
 		
 		return ele;
 	}
 	
+	private void initGroupHandlers(){
+		MouseMoveHandler moveHandler = new MouseMoveHandler(){
+
+			@Override
+			public void onMouseMove(MouseMoveEvent event) {
+				VUIElement.this.canvas.getChild(groupId).processMoveEvent(event);
+				
+				/*VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+				if(VUIElement.this.contains(p)){
+					if(VUIElement.this.isSelected()){
+						VUIElement.this.processMoveEvent(event);
+					}
+					VUIElement.this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());
+				}*/
+			}
+			
+		};
+		
+		canvas.addMouseEventHandler(moveHandler, MouseMoveEvent.getType());
+		
+		MouseDownHandler downHandler = new MouseDownHandler() {
+			
+			@Override
+			public void onMouseDown(MouseDownEvent event) {
+				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseDownEvent(event);
+				/*VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+				if(VUIElement.this.contains(p)){
+					VUIElement.this.setSelected(true);
+					VUIElement.this.setMouseDownPoint(new VPoint(event.getClientX(), event.getClientY()));
+				}*/
+			}
+		};
+		
+		canvas.addMouseEventHandler(downHandler, MouseDownEvent.getType());
+		
+		MouseUpHandler upHandler = new MouseUpHandler() {
+			
+			@Override
+			public void onMouseUp(MouseUpEvent event) {
+				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseUpEvent(event);
+				/*VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+				if(VUIElement.this.contains(p)){
+					VUIElement.this.setSelected(false);
+					VUIElement.this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
+				}*/
+			}
+		};
+		
+		canvas.addMouseEventHandler(upHandler, MouseUpEvent.getType());
+		
+		MouseOverHandler overHandler = new MouseOverHandler() {
+			
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseOverEvent(event);
+				/*VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+				if(VUIElement.this.contains(p)){
+					VUIElement.this.setHighlighted(true);
+					VUIElement.this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
+				}*/
+			}
+		};
+		
+		canvas.addMouseEventHandler(overHandler, MouseOverEvent.getType());
+		
+		MouseOutHandler outHandler = new MouseOutHandler() {
+			
+			@Override
+			public void onMouseOut(MouseOutEvent event) {
+				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseOutEvent(event);
+				/*VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+				if(VUIElement.this.contains(p)){
+					VUIElement.this.setHighlighted(false);
+					VUIElement.this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
+				}*/
+			}
+		};
+		
+		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
+	}
 	
 	private void initHandlers(){
 		MouseMoveHandler moveHandler = new MouseMoveHandler(){

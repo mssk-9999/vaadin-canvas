@@ -15,6 +15,7 @@ public abstract class ElementGroup extends UIElement {
 
 	List<UIElement> elements;
 	private List<String> elementIds = new ArrayList<String>();
+	String mainElementId;
 	List<Point> relativePositions;
 	private Map<MouseEvent.Type, List<MouseEventListener>> listeners = new HashMap<MouseEvent.Type, List<MouseEventListener>>();
 
@@ -102,6 +103,9 @@ public abstract class ElementGroup extends UIElement {
 		drawInstructions.put("groupid", getGroupId());
 		drawInstructions.put(getPrefix() + "elementlist", getElements());
 		drawInstructions.put(getPrefix() + "elementtype", "group");
+		if(mainElementId != null){
+			drawInstructions.put(getPrefix() + "mainelementid", mainElementId);
+		}
 		return drawInstructions;
 	}
 	
