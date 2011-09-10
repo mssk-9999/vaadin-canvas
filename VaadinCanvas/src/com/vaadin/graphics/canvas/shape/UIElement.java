@@ -3,6 +3,7 @@
  */
 package com.vaadin.graphics.canvas.shape;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.vaadin.graphics.canvas.widgetset.client.ui.VCanvas;
@@ -10,7 +11,7 @@ import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.listener.MouseEventListener;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public abstract class UIElement {
@@ -29,11 +30,13 @@ public abstract class UIElement {
 	private boolean selected = false;
 	private boolean highlighted = false;
 	private boolean pressed;
-	private String fillColor = "";
 	private String color = "";
+	private String fillColor = "";
+	private String selectedColor = "";
+	private String selectedFillColor = "";
+	private String highlightedColor = "";
+	private String highlightedFillColor = "";
 	private int borderWidth = -1;
-	
-	abstract public Map<String, Object> getDrawInstructions();
 	
 	abstract public void moveTo(Point p);
 	
@@ -49,6 +52,16 @@ public abstract class UIElement {
 	
 	public static int counter = 0;
 	
+
+	public Map<String, Object> getDrawInstructions(){
+		Map<String, Object> arguments = new HashMap<String, Object>();
+		arguments.put(getPrefix() + "selectedcolor", selectedColor);
+		arguments.put(getPrefix() + "selectedfillcolor", selectedFillColor);
+		arguments.put(getPrefix() + "highlightedcolor", highlightedColor);
+		arguments.put(getPrefix() + "highlightedfillcolor", highlightedFillColor);
+		return arguments;
+	}
+	
 	private static synchronized void incrementCounter(){
 			counter++;
 	}
@@ -57,6 +70,72 @@ public abstract class UIElement {
 		UIElement.incrementCounter();
 		this.setId(counter + "");
 	}
+	
+	
+	public VCanvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(VCanvas canvas) {
+		this.canvas = canvas;
+	}
+
+	public UIElement getPrev() {
+		return prev;
+	}
+
+	public void setPrev(UIElement prev) {
+		this.prev = prev;
+	}
+
+	public Point getMouseDownPoint() {
+		return mouseDownPoint;
+	}
+
+	public void setMouseDownPoint(Point mouseDownPoint) {
+		this.mouseDownPoint = mouseDownPoint;
+	}
+
+	public Point getMouseUpPoint() {
+		return mouseUpPoint;
+	}
+
+	public void setMouseUpPoint(Point mouseUpPoint) {
+		this.mouseUpPoint = mouseUpPoint;
+	}
+
+	public Point getMouseOverPoint() {
+		return mouseOverPoint;
+	}
+
+	public void setMouseOverPoint(Point mouseOverPoint) {
+		this.mouseOverPoint = mouseOverPoint;
+	}
+
+	public Point getMouseOutPoint() {
+		return mouseOutPoint;
+	}
+
+	public void setMouseOutPoint(Point mouseOutPoint) {
+		this.mouseOutPoint = mouseOutPoint;
+	}
+
+	public String getHighlightedColor() {
+		return highlightedColor;
+	}
+
+	public void setHighlightedColor(String highlightedColor) {
+		this.highlightedColor = highlightedColor;
+	}
+
+	public String getHighlightedFillColor() {
+		return highlightedFillColor;
+	}
+
+	public void setHighlightedFillColor(String highlightedFillColor) {
+		this.highlightedFillColor = highlightedFillColor;
+	}
+
 	/**
 	 * @param id the id to set
 	 */
@@ -178,5 +257,47 @@ public abstract class UIElement {
 			prefix = groupId + ".";
 		}
 */		return prefix;
+	}
+
+	/**
+	 * @return the selectedColor
+	 */
+	public String getSelectedColor() {
+		return selectedColor;
+	}
+
+	/**
+	 * @param selectedColor the selectedColor to set
+	 */
+	public void setSelectedColor(String selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	/**
+	 * @return the selectedFillColor
+	 */
+	public String getSelectedFillColor() {
+		return selectedFillColor;
+	}
+
+	/**
+	 * @param selectedFillColor the selectedFillColor to set
+	 */
+	public void setSelectedFillColor(String selectedFillColor) {
+		this.selectedFillColor = selectedFillColor;
+	}
+
+	/**
+	 * @return the highlighted
+	 */
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+
+	/**
+	 * @param highlighted the highlighted to set
+	 */
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
 	}
 }

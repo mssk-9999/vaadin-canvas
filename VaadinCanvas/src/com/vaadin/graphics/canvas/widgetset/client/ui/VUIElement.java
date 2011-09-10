@@ -40,8 +40,12 @@ abstract class VUIElement implements HasHandlers{
 	private boolean selected = false;
 	private boolean highlighted = false;
 	private boolean pressed;
-	private String fillColor = "";
 	private String color = "";
+	private String fillColor = "";
+	private String selectedColor = "";
+	private String selectedFillColor = "";
+	private String highlightedColor = "";
+	private String highlightedFillColor = "";
 	private int borderWidth = -1;
 	
 	private HandlerManager handlerManager;
@@ -310,6 +314,54 @@ abstract class VUIElement implements HasHandlers{
 	
 	public void setPrevious(VUIElement prev){
 		this.prev = prev;
+	}
+
+	public VCanvas getCanvas() {
+		return canvas;
+	}
+
+	public void setCanvas(VCanvas canvas) {
+		this.canvas = canvas;
+	}
+
+	public VUIElement getPrev() {
+		return prev;
+	}
+
+	public void setPrev(VUIElement prev) {
+		this.prev = prev;
+	}
+
+	public String getSelectedColor() {
+		return selectedColor;
+	}
+
+	public void setSelectedColor(String selectedColor) {
+		this.selectedColor = selectedColor;
+	}
+
+	public String getSelectedFillColor() {
+		return selectedFillColor;
+	}
+
+	public void setSelectedFillColor(String selectedFillColor) {
+		this.selectedFillColor = selectedFillColor;
+	}
+
+	public String getHighlightedColor() {
+		return highlightedColor;
+	}
+
+	public void setHighlightedColor(String highlightedColor) {
+		this.highlightedColor = highlightedColor;
+	}
+
+	public String getHighlightedFillColor() {
+		return highlightedFillColor;
+	}
+
+	public void setHighlightedFillColor(String highlightedFillColor) {
+		this.highlightedFillColor = highlightedFillColor;
 	}
 
 	abstract public void moveTo(VPoint p);

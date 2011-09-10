@@ -163,5 +163,53 @@ public class VElementGroup extends VUIElement {
 		}
 
 	}
+	
+	public String getSelectedColor() {
+		return super.getSelectedColor();
+	}
+
+	public void setSelectedColor(String selectedColor) {
+		super.setSelectedColor(selectedColor);
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.setSelectedColor(selectedColor);
+		}
+	}
+
+	public String getSelectedFillColor() {
+		return super.getSelectedFillColor();
+	}
+
+	public void setSelectedFillColor(String selectedFillColor) {
+		super.setSelectedFillColor(selectedFillColor);
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.setSelectedFillColor(selectedFillColor);
+		}
+	}
+
+	public String getHighlightedColor() {
+		return super.getHighlightedColor();
+	}
+
+	public void setHighlightedColor(String highlightedColor) {
+		super.setHighlightedFillColor(highlightedColor);
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.setHighlightedColor(highlightedColor);
+		}
+	}
+
+	public String getHighlightedFillColor() {
+		return super.getHighlightedFillColor();
+	}
+
+	public void setHighlightedFillColor(String highlightedFillColor) {
+		super.setHighlightedFillColor(highlightedFillColor);
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.setHighlightedFillColor(highlightedFillColor);
+		}
+	}
 
 }

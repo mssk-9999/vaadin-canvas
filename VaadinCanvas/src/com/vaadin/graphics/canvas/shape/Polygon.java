@@ -86,7 +86,7 @@ public class Polygon extends UIElement {
 	 */
 	public Map<String, Object> getDrawInstructions() {
 
-		Map<String, Object> arguments = new HashMap<String, Object>();
+		Map<String, Object> arguments = super.getDrawInstructions();
 		
 		arguments.put(getPrefix() + "elementid", getId());
 		arguments.put(getPrefix() + "groupid", getGroupId());

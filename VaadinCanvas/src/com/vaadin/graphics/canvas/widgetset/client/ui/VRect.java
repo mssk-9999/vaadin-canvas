@@ -55,13 +55,22 @@ class VRect extends VUIElement {
 	public void draw(Context2d context) {
 		context.save();
 
-		if(getColor() != null && getColor().length() > 0){
+		if(this.isSelected()){
+			context.setStrokeStyle(getSelectedColor());
+		}else if(this.isHighlighted()){
+			context.setStrokeStyle(getHighlightedColor());
+		}else if(getColor() != null && getColor().length() > 0){
 			context.setStrokeStyle(getColor());
 		}
 		if(getBorderWidth() > 0){
 			context.setLineWidth(getBorderWidth());
 		}
-		if(getFillColor() != null && getFillColor().length() > 0){
+		
+		if(this.isSelected()){
+			context.setFillStyle(getSelectedFillColor());
+		}else if(this.isHighlighted()){
+			context.setFillStyle(getHighlightedFillColor());
+		}else if(getFillColor() != null && getFillColor().length() > 0){
 			context.setFillStyle(getFillColor());
 		}
 		context.beginPath();
@@ -143,6 +152,26 @@ class VRect extends VUIElement {
 		double endX = uidl.getDoubleAttribute(prefix + "endx");
 		double endY = uidl.getDoubleAttribute(prefix + "endy");
 		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
+		String selectedColor = uidl.getStringAttribute(prefix + "selectedcolor");
+		String selectedFillColor = uidl.getStringAttribute(prefix + "selectedfillcolor");
+		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
+		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
+		
+		if(selectedColor.length() > 0){
+			this.setSelectedColor(selectedColor);
+		}
+		
+		if(selectedFillColor.length() > 0){
+			this.setSelectedFillColor(selectedFillColor);
+		}
+		
+		if(highlightedColor.length() > 0){
+			this.setHighlightedColor(highlightedColor);
+		}
+		
+		if(highlightedFillColor.length() > 0){
+			this.setHighlightedFillColor(highlightedFillColor);
+		}
 		
 		setColor(strokecolor);
 		setBorderWidth(strokewidth);
