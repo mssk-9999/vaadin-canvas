@@ -52,13 +52,23 @@ public class VPolygon extends VUIElement {
 	public void draw(Context2d context) {
 		context.save();
 
-		if(getColor() != null && getColor().length() > 0){
+		if(this.isSelected()){
+			context.setStrokeStyle(getSelectedColor());
+		}else if(this.isHighlighted()){
+			context.setStrokeStyle(getHighlightedColor());
+		}else if(getColor() != null && getColor().length() > 0){
 			context.setStrokeStyle(getColor());
 		}
+		
 		if(getBorderWidth() > 0){
 			context.setLineWidth(getBorderWidth());
 		}
-		if(getFillColor() != null && getFillColor().length() > 0){
+		
+		if(this.isSelected()){
+			context.setFillStyle(getSelectedFillColor());
+		}else if(this.isHighlighted()){
+			context.setFillStyle(getHighlightedFillColor());
+		}else if(getFillColor() != null && getFillColor().length() > 0){
 			context.setFillStyle(getFillColor());
 		}
 		context.beginPath();

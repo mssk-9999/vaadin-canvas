@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.cyberneko.html.HTMLElements.ElementList;
-
 import com.vaadin.graphics.event.MouseEvent;
 import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
@@ -90,6 +88,73 @@ public abstract class ElementGroup extends UIElement {
 	
 	public String[] getElements(){
 		return elementIds.toArray(new String[]{});
+	}
+	
+	public void setFillColor(String fillColor){
+		if(fillColor != null){
+			super.setFillColor(fillColor);
+			for(UIElement element : elements){
+				element.setFillColor(fillColor);
+			}
+		}
+	}
+	
+	public void setColor(String color){
+		if(color != null){
+			super.setColor(color);
+			for(UIElement element : elements){
+				element.setColor(color);
+			}
+		}
+	}
+	
+	
+	/**
+	 * @param selectedColor the selectedColor to set
+	 */
+	public void setSelectedColor(String selectedColor) {
+		if(selectedColor != null){
+			super.setSelectedColor(selectedColor);
+			for(UIElement element : elements){
+				element.setSelectedColor(selectedColor);
+			}
+		}
+	}
+
+	/**
+	 * @param selectedFillColor the selectedFillColor to set
+	 */
+	public void setSelectedFillColor(String selectedFillColor) {
+		if(selectedFillColor != null){
+			super.setSelectedFillColor(selectedFillColor);
+			for(UIElement element : elements){
+				element.setSelectedFillColor(selectedFillColor);
+			}
+		}
+	}
+
+	/**
+	 * @param highlighted the highlighted to set
+	 */
+	public void setHighlighted(boolean highlighted) {
+		super.setHighlighted(highlighted);
+		for(UIElement element : elements){
+			element.setHighlighted(highlighted);
+		}
+	}
+	
+	public void setSelected(boolean selected) {
+		super.setSelected(selected);
+		for(UIElement element : elements){
+			element.setSelected(selected);
+		}
+	}
+	
+	public void setPressed(boolean pressed) {
+		super.setPressed(pressed);
+		for(UIElement element : elements){
+			element.setPressed(pressed);
+		}
 	}
 	
 	@Override
