@@ -143,10 +143,30 @@ public class VPolygon extends VUIElement {
 		int strokewidth = uidl.getIntAttribute(prefix + "strokewidth");
 		int numOfVertices = uidl.getIntAttribute(prefix + "numberofvertices");
 		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
+		String selectedColor = uidl.getStringAttribute(prefix + "selectedcolor");
+		String selectedFillColor = uidl.getStringAttribute(prefix + "selectedfillcolor");
+		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
+		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
 		
 		this.vertices = new VPoint[numOfVertices];
 		for(int i=0; i< numOfVertices; i++){
 			this.vertices[i] = new VPoint(uidl.getDoubleAttribute(prefix + "x" + i), uidl.getDoubleAttribute(prefix + "y" + i));
+		}
+		
+		if(selectedColor.length() > 0){
+			this.setSelectedColor(selectedColor);
+		}
+		
+		if(selectedFillColor.length() > 0){
+			this.setSelectedFillColor(selectedFillColor);
+		}
+		
+		if(highlightedColor.length() > 0){
+			this.setHighlightedColor(highlightedColor);
+		}
+		
+		if(highlightedFillColor.length() > 0){
+			this.setHighlightedFillColor(highlightedFillColor);
 		}
 		
 		setColor(strokecolor);

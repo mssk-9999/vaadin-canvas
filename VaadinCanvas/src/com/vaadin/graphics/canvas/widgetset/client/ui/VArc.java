@@ -187,6 +187,10 @@ public class VArc extends VUIElement {
 		double radius = uidl.getDoubleAttribute(prefix + "radius");
 		boolean hascenter = uidl.getBooleanAttribute(prefix + "hascenter");
 		String fillStyleColor = uidl.getStringAttribute(prefix + "fillstyle");
+		String selectedColor = uidl.getStringAttribute(prefix + "selectedcolor");
+		String selectedFillColor = uidl.getStringAttribute(prefix + "selectedfillcolor");
+		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
+		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
 		
 		VPoint centre = null;
 		
@@ -209,6 +213,22 @@ public class VArc extends VUIElement {
 			
 			setStart(new VPoint(startX, startY));
 			setEnd(new VPoint(endX, endY));
+		}
+		
+		if(selectedColor.length() > 0){
+			this.setSelectedColor(selectedColor);
+		}
+		
+		if(selectedFillColor.length() > 0){
+			this.setSelectedFillColor(selectedFillColor);
+		}
+		
+		if(highlightedColor.length() > 0){
+			this.setHighlightedColor(highlightedColor);
+		}
+		
+		if(highlightedFillColor.length() > 0){
+			this.setHighlightedFillColor(highlightedFillColor);
 		}
 		
 		setCentre(centre);
