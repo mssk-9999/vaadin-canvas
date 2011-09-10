@@ -10,6 +10,25 @@ public class VText extends VUIElement {
 	private VPoint point;
 	private double maxWidth;
 	
+	public VText(UIDL uidl) {
+		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupid"));
+		update(uidl);
+	}
+	
+	public VText(UIDL uidl, VCanvas canvas) {
+		this.setId(uidl.getStringAttribute("elementid"));
+		this.setGroupId(uidl.getStringAttribute("groupid"));
+		this.canvas = canvas;
+		update(uidl);
+	}
+
+	public VText(UIDL uidl, String id, String groupId) {
+		this.setId(id);
+		this.setGroupId(id);
+		update(uidl);
+	}
+
 	@Override
 	protected void processMoveEvent(MouseMoveEvent event) {
 		double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
@@ -58,7 +77,7 @@ public class VText extends VUIElement {
 		}
 		context.closePath();
 		
-		if(getFillColor().length() > 0){
+		if(getFillColor() != null && getFillColor().length() > 0){
 			if(maxWidth > 0){
 				context.fillText(text, point.getX(), point.getY(), maxWidth);
 			}else{
@@ -89,7 +108,7 @@ public class VText extends VUIElement {
 		String text = uidl.getStringAttribute(prefix + "text");
 		double x = uidl.getDoubleAttribute(prefix + "x");
 		double y = uidl.getDoubleAttribute(prefix + "y");
-		double maxWidth = uidl.getDoubleAttribute(prefix + "maxWidth");
+		double maxWidth = uidl.getDoubleAttribute(prefix + "maxwidth");
 		
 		if(selectedColor.length() > 0){
 			this.setSelectedColor(selectedColor);

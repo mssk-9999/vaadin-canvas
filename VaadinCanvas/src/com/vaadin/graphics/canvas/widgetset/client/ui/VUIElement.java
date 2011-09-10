@@ -64,6 +64,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VArc(uidl);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, canvas);
+		}else if(elementType.equals("text")){
+			ele = new VText(uidl, canvas);
 		}
 		
 		ele.canvas = canvas;
@@ -82,6 +84,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VPolygon(uidl, id, groupId);
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl, id, groupId);
+		}else if(elementType.equals("text")){
+			ele = new VText(uidl, id, groupId);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, id, groupId, canvas);
 		}
