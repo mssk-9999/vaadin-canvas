@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.shared.EventHandler;
+import com.vaadin.graphics.canvas.shape.Point;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 public class VArc extends VUIElement {
@@ -206,6 +207,16 @@ public class VArc extends VUIElement {
 		setBorderWidth(strokewidth);
 		setRadius(radius);
 		setFillColor(fillStyleColor);
+	}
+
+	@Override
+	public void moveBy(VPoint delta) {
+		if(this.centre != null){
+			centre = VPoint.add(centre, delta);
+		}else{
+			start = VPoint.add(start, delta);
+			end = VPoint.add(end, delta);
+		}
 	}
 
 }

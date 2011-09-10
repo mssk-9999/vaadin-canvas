@@ -16,6 +16,7 @@ public class Node extends ElementGroup {
 		this.relativePositions.add(new Point(center));
 		this.relativePositions.add(new Point(0, height/2));
 		this.relativePositions.add(new Point(width, height/2));
+		this.mainElementId = rect.getId();
 	}
 
 }

@@ -465,4 +465,6 @@ abstract class VUIElement implements HasHandlers{
 		}
 */		return prefix;
 	}
+
+	abstract public void moveBy(VPoint delta);
 }

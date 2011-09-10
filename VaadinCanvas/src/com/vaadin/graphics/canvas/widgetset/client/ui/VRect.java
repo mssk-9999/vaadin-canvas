@@ -89,6 +89,11 @@ class VRect extends VUIElement {
 		
 	}
 	
+	public void moveBy(VPoint delta){
+		start = VPoint.add(start, delta);
+		end = VPoint.add(end, delta);
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#contains(double, double)
 	 */

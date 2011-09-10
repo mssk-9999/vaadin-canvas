@@ -96,6 +96,12 @@ public class VPolygon extends VUIElement {
 		
 	}
 	
+	public void moveBy(VPoint delta) {
+		for(int i = 0; i < vertices.length; i++){
+			vertices[i] = VPoint.add(vertices[i], delta);
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see com.ui.model.VUIElement#contains(double, double)
 	 */

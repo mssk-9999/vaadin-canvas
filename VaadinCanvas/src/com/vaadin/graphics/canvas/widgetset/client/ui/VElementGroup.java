@@ -64,6 +64,24 @@ public class VElementGroup extends VUIElement {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public void setHighlighted(boolean highlighted) {
+		super.setHighlighted(highlighted);
+		
+		for(String elementId : elementList){
+			elements.get(elementId).setHighlighted(highlighted);
+		}
+	}
+	
+	@Override
+	public void setSelected(boolean highlighted) {
+		super.setSelected(highlighted);
+		
+		for(String elementId : elementList){
+			elements.get(elementId).setSelected(highlighted);
+		}
+	}
 
 	@Override
 	public void update(UIDL uidl) {
@@ -82,23 +100,50 @@ public class VElementGroup extends VUIElement {
 	}
 
 	public void processMouseOutEvent(MouseOutEvent event) {
-		// TODO Auto-generated method stub
+		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+		VUIElement mainElement = this.elements.get(this.mainElementId);
+		if(mainElement.contains(p)){
+			this.setHighlighted(false);
+			this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
+		}
 		
 	}
 
 	public void processMouseOverEvent(MouseOverEvent event) {
-		// TODO Auto-generated method stub
+		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+		VUIElement mainElement = this.elements.get(this.mainElementId);
+		if(mainElement.contains(p)){
+			this.setHighlighted(true);
+			this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
+		}
 		
 	}
 
 	public void processMouseUpEvent(MouseUpEvent event) {
-		// TODO Auto-generated method stub
+		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+		VUIElement mainElement = this.elements.get(this.mainElementId);
+		if(mainElement.contains(p)){
+			this.setSelected(false);
+			this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
+		}
 		
 	}
 
 	public void processMouseDownEvent(MouseDownEvent event) {
-		// TODO Auto-generated method stub
+		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+		VUIElement mainElement = this.elements.get(this.mainElementId);
+		if(mainElement.contains(p)){
+			this.setSelected(true);
+			this.setMouseDownPoint(new VPoint(event.getClientX(), event.getClientY()));
+		}
 		
+	}
+	
+	public void moveBy(VPoint delta){
+		for(String elementId : elementList){
+			VUIElement elem = elements.get(elementId);
+			elem.moveBy(delta);
+		}
 	}
 	
 	@Override
@@ -107,11 +152,12 @@ public class VElementGroup extends VUIElement {
 		VPoint p = new VPoint(event.getClientX() - mainElement.canvas.getAbsoluteLeft(), event.getClientY() 
 				- mainElement.canvas.getAbsoluteTop());
 		if(mainElement.contains(p)){
+			double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
+			double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
+			VPoint delta = new VPoint(deltaX, deltaY);
+			
 			if(this.isSelected()){
-				for(String elementId : elementList){
-					VUIElement elem = elements.get(elementId);
-					elem.processMoveEvent(event);
-				}
+				moveBy(delta);
 			}
 			this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());
 		}
