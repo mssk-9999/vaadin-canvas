@@ -1,6 +1,7 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.vaadin.terminal.gwt.client.UIDL;
 
@@ -9,6 +10,7 @@ public class VText extends VUIElement {
 	private String text;
 	private VPoint point;
 	private double maxWidth;
+	private String alignment;
 	
 	public VText(UIDL uidl) {
 		this.setId(uidl.getStringAttribute("elementid"));
@@ -25,7 +27,7 @@ public class VText extends VUIElement {
 
 	public VText(UIDL uidl, String id, String groupId) {
 		this.setId(id);
-		this.setGroupId(id);
+		this.setGroupId(groupId);
 		update(uidl);
 	}
 
@@ -70,6 +72,20 @@ public class VText extends VUIElement {
 		}
 		context.beginPath();
 		
+		if(alignment != null && alignment.length() > 0){
+			if(alignment.equals("LEFT")){
+				context.setTextAlign(TextAlign.LEFT);
+			}else if(alignment.equals("RIGHT")){
+				context.setTextAlign(TextAlign.RIGHT);
+			}else if(alignment.equals("START")){
+				context.setTextAlign(TextAlign.START);
+			}else if(alignment.equals("END")){
+				context.setTextAlign(TextAlign.END);
+			}else if(alignment.equals("CENTER")){
+				context.setTextAlign(TextAlign.CENTER);
+			}
+		}
+		
 		if(maxWidth > 0){
 			context.strokeText(text, point.getX(), point.getY(), maxWidth);
 		}else{
@@ -106,6 +122,7 @@ public class VText extends VUIElement {
 		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
 		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
 		String text = uidl.getStringAttribute(prefix + "text");
+		alignment = uidl.getStringAttribute(prefix + "alignment");
 		double x = uidl.getDoubleAttribute(prefix + "x");
 		double y = uidl.getDoubleAttribute(prefix + "y");
 		double maxWidth = uidl.getDoubleAttribute(prefix + "maxwidth");
@@ -134,19 +151,19 @@ public class VText extends VUIElement {
 		setMaxWidth(maxWidth);
 	}
 
-	private void setMaxWidth(double maxWidth) {
+	public void setMaxWidth(double maxWidth) {
 		this.maxWidth = maxWidth;
 	}
 
-	private void setPoint(VPoint point) {
+	public void setPoint(VPoint point) {
 		this.point = point;
 	}
 
-	private void setText(String text) {
+	public void setText(String text) {
 		this.text = text;
 	}
 	
-	private String getText() {
+	public String getText() {
 		return this.text;
 	}
 

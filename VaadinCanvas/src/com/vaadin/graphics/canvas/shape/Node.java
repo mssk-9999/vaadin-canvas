@@ -11,10 +11,11 @@ public class Node extends ElementGroup {
 		Arc inConnector = new Arc(Node.connectorRadius, new Point(0, 0), 0, 2*Math.PI, false);
 		Arc outConnector = new Arc(Node.connectorRadius, new Point(0, 0), 0, 2*Math.PI, false);
 		Text label = new Text("Node1", new Point(0, 0));
+		label.setAlignment(Text.TextAlign.LEFT);
 		addElement(rect, new Point(0, 0));
 		addElement(inConnector, new Point(-width/2, 0));
 		addElement(outConnector, new Point(width/2, 0));
-		addElement(label, new Point(height/2, 0));
+		addElement(label, new Point(0, 0));
 		this.relativePositions.add(new Point(center));
 		this.relativePositions.add(new Point(0, height/2));
 		this.relativePositions.add(new Point(width, height/2));

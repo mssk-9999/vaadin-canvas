@@ -7,17 +7,19 @@ import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
 
 public class Text extends UIElement {
+	public static enum TextAlign{CENTER, END, START, LEFT, RIGHT};
 	
+	private TextAlign alignment;
 	private String text;
 	private Point point;
 	private double maxWidth;
-	
 
 	public Text(String text, Point point, double maxWidth) {
 		super();
 		this.text = text;
 		this.point = point;
 		this.maxWidth = maxWidth;
+		this.alignment = TextAlign.CENTER;
 	}
 	
 	public Text(String text, Point point) {
@@ -25,6 +27,7 @@ public class Text extends UIElement {
 		this.text = text;
 		this.point = point;
 		this.maxWidth = 0;
+		this.alignment = TextAlign.CENTER;
 	}
 
 	public Point getPoint() {
@@ -105,10 +108,25 @@ public class Text extends UIElement {
 		arguments.put(getPrefix() + "x", point.getX());
 		arguments.put(getPrefix() + "y", point.getY());
 		arguments.put(getPrefix() + "maxwidth", maxWidth);
+		arguments.put(getPrefix() + "alignment", getAlignment());
 		arguments.put(getPrefix() + "elementtype", "text");
 		
 		arguments.put(getPrefix() + "command", "draw");
 		return arguments;
+	}
+
+	/**
+	 * @return the alignment
+	 */
+	public TextAlign getAlignment() {
+		return alignment;
+	}
+
+	/**
+	 * @param alignment the alignment to set
+	 */
+	public void setAlignment(TextAlign alignment) {
+		this.alignment = alignment;
 	}
 
 }
