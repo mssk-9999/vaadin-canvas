@@ -77,7 +77,7 @@ public class CanvasComposite extends CustomComponent {
 //		arc.setFillColor("#e5a867");
 //		canvas.drawUIElement(arc);
 		
-		ElementGroup group = new Node(200, 100, new Point(500, 400));
+		ElementGroup group = new Node(200, 100, new Point(500, 400), "Test Node");
 		group.setColor("#4b6193");
 		group.setFillColor("#5caec6");
 		group.setSelectedColor("#93694b");
