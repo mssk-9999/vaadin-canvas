@@ -16,6 +16,8 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
  */
 public abstract class UIElement {
 	
+	public static enum ElementType{CONNECTOR, ELEMENT};
+	
 	private VCanvas canvas;
 
 	private String id = "";
@@ -37,6 +39,7 @@ public abstract class UIElement {
 	private String highlightedColor = "";
 	private String highlightedFillColor = "";
 	private int borderWidth = -1;
+	private ElementType type = UIElement.ElementType.ELEMENT;
 	
 	abstract public void moveTo(Point p);
 	
@@ -59,6 +62,7 @@ public abstract class UIElement {
 		arguments.put(getPrefix() + "selectedfillcolor", selectedFillColor);
 		arguments.put(getPrefix() + "highlightedcolor", highlightedColor);
 		arguments.put(getPrefix() + "highlightedfillcolor", highlightedFillColor);
+		arguments.put(getPrefix() + "type", this.type);
 		return arguments;
 	}
 	
@@ -299,5 +303,19 @@ public abstract class UIElement {
 	 */
 	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public ElementType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(ElementType type) {
+		this.type = type;
 	}
 }
