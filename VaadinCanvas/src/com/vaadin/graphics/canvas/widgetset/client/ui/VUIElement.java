@@ -25,6 +25,7 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 abstract class VUIElement implements HasHandlers{
 	
+	private String type;
 	protected VCanvas canvas;
 
 	private String id;
