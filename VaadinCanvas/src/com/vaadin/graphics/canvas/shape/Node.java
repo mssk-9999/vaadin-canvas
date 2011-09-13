@@ -9,9 +9,9 @@ public class Node extends ElementGroup {
 		this.center = center;
 		Rect rect = new Rect(new Point(- width/2, - height/2), new Point(width/2, height/2));
 		Arc inConnector = new Arc(Node.connectorRadius, new Point(0, 0), 0, 2*Math.PI, false);
-		inConnector.setType(UIElement.ElementType.CONNECTOR);
+		inConnector.setType(UIElement.ElementType.IPORT);
 		Arc outConnector = new Arc(Node.connectorRadius, new Point(0, 0), 0, 2*Math.PI, false);
-		outConnector.setType(UIElement.ElementType.CONNECTOR);
+		outConnector.setType(UIElement.ElementType.OPORT);
 		Text text = new Text(label, new Point(0, 0));
 		text.setAlignment(Text.TextAlign.LEFT);
 		addElement(rect, new Point(0, 0));

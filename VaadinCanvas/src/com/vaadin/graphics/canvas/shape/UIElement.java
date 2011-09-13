@@ -16,7 +16,7 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
  */
 public abstract class UIElement {
 	
-	public static enum ElementType{CONNECTOR, ELEMENT};
+	public static enum ElementType{ELEMENT, CONNECTOR, IPORT, OPORT, IOPORT};
 	
 	private VCanvas canvas;
 
