@@ -16,7 +16,7 @@ import com.vaadin.graphics.event.listener.MouseEventListener;
  */
 public abstract class UIElement {
 	
-	public static enum ElementType{ELEMENT, CONNECTOR, IPORT, OPORT, IOPORT};
+	public static enum ElementRole{ELEMENT, CONNECTOR, IPORT, OPORT, IOPORT};
 	
 	private VCanvas canvas;
 
@@ -39,7 +39,7 @@ public abstract class UIElement {
 	private String highlightedColor = "";
 	private String highlightedFillColor = "";
 	private int borderWidth = -1;
-	private ElementType type = UIElement.ElementType.ELEMENT;
+	private ElementRole role = UIElement.ElementRole.ELEMENT;
 	
 	abstract public void moveTo(Point p);
 	
@@ -62,7 +62,7 @@ public abstract class UIElement {
 		arguments.put(getPrefix() + "selectedfillcolor", selectedFillColor);
 		arguments.put(getPrefix() + "highlightedcolor", highlightedColor);
 		arguments.put(getPrefix() + "highlightedfillcolor", highlightedFillColor);
-		arguments.put(getPrefix() + "type", this.type);
+		arguments.put(getPrefix() + "role", this.role);
 		return arguments;
 	}
 	
@@ -308,14 +308,14 @@ public abstract class UIElement {
 	/**
 	 * @return the type
 	 */
-	public ElementType getType() {
-		return type;
+	public ElementRole getRole() {
+		return role;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(ElementType type) {
-		this.type = type;
+	public void setRole(ElementRole type) {
+		this.role = type;
 	}
 }

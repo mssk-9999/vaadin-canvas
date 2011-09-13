@@ -25,7 +25,7 @@ import com.vaadin.terminal.gwt.client.UIDL;
  */
 abstract class VUIElement implements HasHandlers{
 	
-	private String type;
+	private String role;
 	protected VCanvas canvas;
 
 	private String id;
@@ -91,6 +91,7 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VElementGroup(uidl, id, groupId, canvas);
 		}
 		
+		ele.role = uidl.getStringAttribute(id + ".role");
 		ele.canvas = canvas;
 		ele.initGroupHandlers();
 		
