@@ -127,6 +127,8 @@ public class VText extends VUIElement {
 		double y = uidl.getDoubleAttribute(prefix + "y");
 		double maxWidth = uidl.getDoubleAttribute(prefix + "maxwidth");
 		
+		this.setRole(uidl.getStringAttribute(getPrefix() + "role"));
+		
 		if(selectedColor.length() > 0){
 			this.setSelectedColor(selectedColor);
 		}

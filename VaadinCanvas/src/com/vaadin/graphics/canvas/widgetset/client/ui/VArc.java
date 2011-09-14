@@ -191,6 +191,7 @@ public class VArc extends VUIElement {
 		String selectedFillColor = uidl.getStringAttribute(prefix + "selectedfillcolor");
 		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
 		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
+		this.setRole(uidl.getStringAttribute(getPrefix() + "role"));
 		
 		VPoint centre = null;
 		

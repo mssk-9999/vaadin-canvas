@@ -95,7 +95,8 @@ class VRect extends VUIElement {
 	 * @see com.workflow.ivr.web.model.VUIElement#moveTo(double, double)
 	 */
 	public void moveTo(VPoint p) {
-		
+		VPoint delta = VPoint.sub(p, getCenter());
+		moveBy(delta);
 	}
 	
 	public void moveBy(VPoint delta){
@@ -156,6 +157,8 @@ class VRect extends VUIElement {
 		String selectedFillColor = uidl.getStringAttribute(prefix + "selectedfillcolor");
 		String highlightedColor = uidl.getStringAttribute(prefix + "highlightedcolor");
 		String highlightedFillColor = uidl.getStringAttribute(prefix + "highlightedfillcolor");
+		
+		this.setRole(uidl.getStringAttribute(getPrefix() + "role"));
 		
 		if(selectedColor.length() > 0){
 			this.setSelectedColor(selectedColor);

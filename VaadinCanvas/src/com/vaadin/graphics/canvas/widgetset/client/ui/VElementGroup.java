@@ -87,6 +87,7 @@ public class VElementGroup extends VUIElement {
 	public void update(UIDL uidl) {
 		this.elementList = uidl.getStringArrayAttribute(getPrefix() + "elementlist");
 		this.mainElementId = uidl.getStringAttribute(getPrefix() + "mainelementid");
+		this.setRole(uidl.getStringAttribute(getPrefix() + "role"));
 		
 		for(String elementId : elementList){
 			if(elements.get(elementId) != null){

@@ -87,11 +87,12 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VArc(uidl, id, groupId);
 		}else if(elementType.equals("text")){
 			ele = new VText(uidl, id, groupId);
+		}else if(elementType.equals("line")){
+			ele = new VLine(uidl, id, groupId);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, id, groupId, canvas);
 		}
 		
-		ele.role = uidl.getStringAttribute(id + ".role");
 		ele.canvas = canvas;
 		ele.initGroupHandlers();
 		
@@ -525,4 +526,18 @@ abstract class VUIElement implements HasHandlers{
 	}
 
 	abstract public void moveBy(VPoint delta);
+
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+		this.role = role;
+	}
 }
