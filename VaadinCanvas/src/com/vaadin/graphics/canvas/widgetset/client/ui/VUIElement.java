@@ -65,6 +65,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VArc(uidl);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, canvas);
+		}else if(elementType.equals("line")){
+			ele = new VLine(uidl);
 		}else if(elementType.equals("text")){
 			ele = new VText(uidl, canvas);
 		}
