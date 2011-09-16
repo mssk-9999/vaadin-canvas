@@ -58,10 +58,10 @@ public class VLine extends VUIElement {
 		}else if(getFillColor() != null && getFillColor().length() > 0){
 			context.setFillStyle(getFillColor());
 		}
-		context.moveTo(start.getX(), start.getY());
 		context.beginPath();
+		context.moveTo(start.getX(), start.getY());
 		context.lineTo(end.getX(), end.getY());
-		context.closePath();
+		context.stroke();
 		
 		/*if(getFillColor().length() > 0){
 			context.fillRect(start.getX(), start.getY(), end.getX()-start.getX(), end.getY()-start.getY());
