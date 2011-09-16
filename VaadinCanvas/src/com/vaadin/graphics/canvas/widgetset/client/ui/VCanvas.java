@@ -65,7 +65,7 @@ public class VCanvas extends Composite implements Paintable {
 	int mouseX, mouseY;
 
 	//timer refresh rate, in milliseconds
-	static final int refreshRate = 25;
+	static final int refreshRate = 250;
 
 	// canvas size, in px
 	static int height = 400;
@@ -129,7 +129,8 @@ public class VCanvas extends Composite implements Paintable {
 		backBufferContext.fillRect(0, 0, width, height);
 		
 		for(VUIElement ele : childrenList){
-			ele.draw(backBufferContext);
+//			if(ele.isChanged())
+				ele.draw(backBufferContext);
 		}
 		
 		context.drawImage(backBufferContext.getCanvas(), 0, 0);

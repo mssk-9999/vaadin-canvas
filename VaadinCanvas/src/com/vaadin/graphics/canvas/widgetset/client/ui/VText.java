@@ -36,11 +36,13 @@ public class VText extends VUIElement {
 		double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
 		double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
 		this.point.add(deltaX, deltaY);
+		setChanged(true);
 	}
 
 	@Override
 	public void moveTo(VPoint p) {
 		this.point = p;
+		setChanged(true);
 	}
 
 	@Override
@@ -102,7 +104,7 @@ public class VText extends VUIElement {
 		}
 		
 		context.restore();
-		
+		setChanged(true);
 	}
 
 	@Override
@@ -151,18 +153,22 @@ public class VText extends VUIElement {
 		setBorderWidth(strokewidth);
 		setFillColor(fillStyleColor);
 		setMaxWidth(maxWidth);
+		setChanged(true);
 	}
 
 	public void setMaxWidth(double maxWidth) {
 		this.maxWidth = maxWidth;
+		setChanged(true);
 	}
 
 	public void setPoint(VPoint point) {
 		this.point = point;
+		setChanged(true);
 	}
 
 	public void setText(String text) {
 		this.text = text;
+		setChanged(true);
 	}
 	
 	public String getText() {
@@ -172,6 +178,7 @@ public class VText extends VUIElement {
 	@Override
 	public void moveBy(VPoint delta) {
 		this.point = VPoint.add(this.point, delta);
+		setChanged(true);
 	}
 
 }

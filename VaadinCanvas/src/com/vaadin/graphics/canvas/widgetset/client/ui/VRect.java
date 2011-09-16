@@ -82,6 +82,7 @@ class VRect extends VUIElement {
 		}
 		
 		context.restore();
+		setChanged(false);
 	}
 
 	/* (non-Javadoc)
@@ -97,11 +98,13 @@ class VRect extends VUIElement {
 	public void moveTo(VPoint p) {
 		VPoint delta = VPoint.sub(p, getCenter());
 		moveBy(delta);
+		setChanged(true);
 	}
 	
 	public void moveBy(VPoint delta){
 		start = VPoint.add(start, delta);
 		end = VPoint.add(end, delta);
+		setChanged(true);
 	}
 	
 	/* (non-Javadoc)
@@ -129,6 +132,7 @@ class VRect extends VUIElement {
 
 	public void setStart(VPoint start) {
 		this.start = start;
+		setChanged(true);
 	}
 
 	public VPoint getEnd() {
@@ -137,6 +141,7 @@ class VRect extends VUIElement {
 
 	public void setEnd(VPoint end) {
 		this.end = end;
+		setChanged(true);
 	}
 
 	/* (non-Javadoc)
@@ -181,6 +186,7 @@ class VRect extends VUIElement {
 		setStart(new VPoint(startX, startY));
 		setEnd(new VPoint(endX, endY));
 		setFillColor(fillStyleColor);
+		setChanged(true);
 	}
 	
 	protected void processMoveEvent(MouseMoveEvent event){
@@ -189,6 +195,7 @@ class VRect extends VUIElement {
 		
 		this.start.add(deltaX, deltaY);
 		this.end.add(deltaX, deltaY);
+		setChanged(true);
 	}
 
 }

@@ -40,6 +40,7 @@ abstract class VUIElement implements HasHandlers{
 	
 	private boolean selected = false;
 	private boolean highlighted = false;
+	private boolean changed = true;
 	private boolean pressed;
 	private String color = "";
 	private String fillColor = "";
@@ -347,6 +348,7 @@ abstract class VUIElement implements HasHandlers{
 
 	public void setSelectedColor(String selectedColor) {
 		this.selectedColor = selectedColor;
+		setChanged(true);
 	}
 
 	public String getSelectedFillColor() {
@@ -355,6 +357,7 @@ abstract class VUIElement implements HasHandlers{
 
 	public void setSelectedFillColor(String selectedFillColor) {
 		this.selectedFillColor = selectedFillColor;
+		setChanged(true);
 	}
 
 	public String getHighlightedColor() {
@@ -363,6 +366,7 @@ abstract class VUIElement implements HasHandlers{
 
 	public void setHighlightedColor(String highlightedColor) {
 		this.highlightedColor = highlightedColor;
+		setChanged(true);
 	}
 
 	public String getHighlightedFillColor() {
@@ -371,6 +375,7 @@ abstract class VUIElement implements HasHandlers{
 
 	public void setHighlightedFillColor(String highlightedFillColor) {
 		this.highlightedFillColor = highlightedFillColor;
+		setChanged(true);
 	}
 
 	abstract public void moveTo(VPoint p);
@@ -391,6 +396,7 @@ abstract class VUIElement implements HasHandlers{
 	
 	public void setSelected(boolean selected) {
 		this.selected = selected;
+		setChanged(true);
 	}
 	
 	public boolean isPressed() {
@@ -399,10 +405,12 @@ abstract class VUIElement implements HasHandlers{
 	
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
+		setChanged(true);
 	}
 	
 	public void setFillColor(String fillColor){
 		this.fillColor = fillColor;
+		setChanged(true);
 	}
 	
 	public String getFillColor(){
@@ -411,6 +419,7 @@ abstract class VUIElement implements HasHandlers{
 	
 	public void setColor(String color){
 		this.color = color;
+		setChanged(true);
 	}
 	
 	public String getColor(){
@@ -422,6 +431,7 @@ abstract class VUIElement implements HasHandlers{
 	 */
 	public void setBorderWidth(int borderWidth) {
 		this.borderWidth = borderWidth;
+		setChanged(true);
 	}
 
 	/**
@@ -473,6 +483,7 @@ abstract class VUIElement implements HasHandlers{
 
 	public void setHighlighted(boolean highlighted) {
 		this.highlighted = highlighted;
+		setChanged(true);
 	}
 
 
@@ -496,6 +507,54 @@ abstract class VUIElement implements HasHandlers{
 		}
 
 		return oddNodes;
+	}
+	
+	public static double squaredDistanceFromLine(VPoint p, VPoint start, VPoint end, boolean isSegment){
+		double r_numerator = (p.getX()-start.getX())*(end.getX()-start.getX())
+				+ (p.getY()-start.getY())*(end.getY()-start.getY());
+		double r_denomenator = (end.getX()-start.getX())*(end.getX()-start.getX())
+				+ (end.getY()-start.getY())*(end.getY()-start.getY());
+		double r = r_numerator / r_denomenator;
+	//
+	    double px = start.getX() + r*(end.getX()-start.getX());
+	    double py = start.getY() + r*(end.getY()-start.getY());
+//	     
+	    double s =  ((start.getY()-p.getY())*(end.getX()-start.getX())
+	    		-(start.getX()-p.getX())*(end.getY() - start.getY()) ) / r_denomenator;
+
+	    double squaredDistanceLine = s*s*r_denomenator;
+	    
+	    if(!isSegment){
+	    	return squaredDistanceLine;
+	    }
+
+	//
+	// (xx,yy) is the point on the lineSegment closest to (cx,cy)
+	//
+		double squaredDistanceSegment;
+		double xx = px;
+		double yy = py;
+
+		if ( (r >= 0) && (r <= 1) ){
+			squaredDistanceSegment = squaredDistanceLine;
+		} else{
+
+			double dist1 = (p.getX()-start.getX())*(p.getX()-start.getX())
+					+ (p.getY()-start.getY())*(p.getY()-start.getY());
+			double dist2 = (p.getX()-end.getX())*(p.getX()-end.getX())
+					+ (p.getY()-end.getY())*(p.getY()-end.getY());
+			if (dist1 < dist2){
+				xx = start.getX();
+				yy = start.getY();
+				squaredDistanceSegment = dist1;
+			} else{
+				xx = end.getX();
+				yy = end.getY();
+				squaredDistanceSegment = dist2;
+			}
+		}
+		
+		return squaredDistanceSegment;
 	}
 
 
@@ -541,5 +600,14 @@ abstract class VUIElement implements HasHandlers{
 	 */
 	public void setRole(String role) {
 		this.role = role;
+		setChanged(true);
+	}
+
+	public boolean isChanged() {
+		return changed;
+	}
+
+	public void setChanged(boolean changed) {
+		this.changed = changed;
 	}
 }

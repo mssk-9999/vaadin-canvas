@@ -86,6 +86,7 @@ public class VPolygon extends VUIElement {
 		}
 		
 		context.restore();
+		setChanged(false);
 	}
 
 	/* (non-Javadoc)
@@ -103,13 +104,14 @@ public class VPolygon extends VUIElement {
 	 * @see com.workflow.ivr.web.model.VUIElement#moveTo(double, double)
 	 */
 	public void moveTo(VPoint p) {
-		
+		setChanged(true);
 	}
 	
 	public void moveBy(VPoint delta) {
 		for(int i = 0; i < vertices.length; i++){
 			vertices[i] = VPoint.add(vertices[i], delta);
 		}
+		setChanged(true);
 	}
 
 	/* (non-Javadoc)
@@ -174,6 +176,7 @@ public class VPolygon extends VUIElement {
 		setColor(strokecolor);
 		setBorderWidth(strokewidth);
 		setFillColor(fillStyleColor);
+		setChanged(true);
 	}
 	
 	protected void processMoveEvent(MouseMoveEvent event){
@@ -183,6 +186,7 @@ public class VPolygon extends VUIElement {
 		for(VPoint p: vertices){
 			p.add(deltaX, deltaY);
 		}
+		setChanged(true);
 	}
 
 }

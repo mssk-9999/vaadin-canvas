@@ -42,7 +42,7 @@ public class VElementGroup extends VUIElement {
 
 	@Override
 	public void moveTo(VPoint p) {
-		
+		setChanged(true);
 	}
 
 	@Override
@@ -57,6 +57,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.draw(context);
 		}
+		setChanged(false);
 	}
 
 	@Override
@@ -72,6 +73,7 @@ public class VElementGroup extends VUIElement {
 		for(String elementId : elementList){
 			elements.get(elementId).setHighlighted(highlighted);
 		}
+		setChanged(true);
 	}
 	
 	@Override
@@ -81,6 +83,7 @@ public class VElementGroup extends VUIElement {
 		for(String elementId : elementList){
 			elements.get(elementId).setSelected(highlighted);
 		}
+		setChanged(true);
 	}
 
 	@Override
@@ -98,6 +101,7 @@ public class VElementGroup extends VUIElement {
 				elements.put(elementId, elem);
 			}
 		}
+		setChanged(true);
 	}
 
 	public void processMouseOutEvent(MouseOutEvent event) {
@@ -107,6 +111,7 @@ public class VElementGroup extends VUIElement {
 			this.setHighlighted(false);
 			this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
 		}
+		setChanged(true);
 		
 	}
 
@@ -117,7 +122,7 @@ public class VElementGroup extends VUIElement {
 			this.setHighlighted(true);
 			this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
 		}
-		
+		setChanged(true);
 	}
 
 	public void processMouseUpEvent(MouseUpEvent event) {
@@ -127,7 +132,7 @@ public class VElementGroup extends VUIElement {
 			this.setSelected(false);
 			this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
 		}
-		
+		setChanged(true);
 	}
 
 	public void processMouseDownEvent(MouseDownEvent event) {
@@ -137,7 +142,7 @@ public class VElementGroup extends VUIElement {
 			this.setSelected(true);
 			this.setMouseDownPoint(new VPoint(event.getClientX(), event.getClientY()));
 		}
-		
+		setChanged(true);
 	}
 	
 	public void moveBy(VPoint delta){
@@ -145,6 +150,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.moveBy(delta);
 		}
+		setChanged(true);
 	}
 	
 	@Override
@@ -162,7 +168,7 @@ public class VElementGroup extends VUIElement {
 			}
 			this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());
 		}
-
+		setChanged(true);
 	}
 	
 	public String getSelectedColor() {
@@ -175,6 +181,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.setSelectedColor(selectedColor);
 		}
+		setChanged(true);
 	}
 
 	public String getSelectedFillColor() {
@@ -187,6 +194,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.setSelectedFillColor(selectedFillColor);
 		}
+		setChanged(true);
 	}
 
 	public String getHighlightedColor() {
@@ -199,6 +207,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.setHighlightedColor(highlightedColor);
 		}
+		setChanged(true);
 	}
 
 	public String getHighlightedFillColor() {
@@ -211,6 +220,7 @@ public class VElementGroup extends VUIElement {
 			VUIElement elem = elements.get(elementId);
 			elem.setHighlightedFillColor(highlightedFillColor);
 		}
+		setChanged(true);
 	}
 
 }

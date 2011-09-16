@@ -68,6 +68,7 @@ public class VLine extends VUIElement {
 		}*/
 		
 		context.restore();
+		setChanged(false);
 	}
 
 	@Override
@@ -77,12 +78,14 @@ public class VLine extends VUIElement {
 		
 		this.start.add(deltaX, deltaY);
 		this.end.add(deltaX, deltaY);
+		setChanged(true);
 	}
 
 	@Override
 	public void moveTo(VPoint p) {
 		VPoint delta = VPoint.sub(p, getCenter());
 		moveBy(delta);
+		setChanged(true);
 	}
 
 	@Override
@@ -93,58 +96,11 @@ public class VLine extends VUIElement {
 	@Override
 	public boolean contains(VPoint p) {
 		double squaredDistanceFromLineBorder = this.getBorderWidth() * this.getBorderWidth() / 4;
-		double squaredDistanceFromSegment = squaredDistanceFrom(p, false);
+		double squaredDistanceFromSegment = VUIElement.squaredDistanceFromLine(p, this.start, this.end, true);
 		
 		return squaredDistanceFromSegment <= squaredDistanceFromLineBorder;
 	}
 	
-	public double squaredDistanceFrom(VPoint p, boolean line){
-		double r_numerator = (p.getX()-start.getX())*(end.getX()-start.getX())
-				+ (p.getY()-start.getY())*(end.getY()-start.getY());
-		double r_denomenator = (end.getX()-start.getX())*(end.getX()-start.getX())
-				+ (end.getY()-start.getY())*(end.getY()-start.getY());
-		double r = r_numerator / r_denomenator;
-	//
-	    double px = start.getX() + r*(end.getX()-start.getX());
-	    double py = start.getY() + r*(end.getY()-start.getY());
-//	     
-	    double s =  ((start.getY()-p.getY())*(end.getX()-start.getX())
-	    		-(start.getX()-p.getX())*(end.getY() - start.getY()) ) / r_denomenator;
-
-	    double squaredDistanceLine = s*s*r_denomenator;
-	    
-	    if(line){
-	    	return squaredDistanceLine;
-	    }
-
-	//
-	// (xx,yy) is the point on the lineSegment closest to (cx,cy)
-	//
-		double squaredDistanceSegment;
-		double xx = px;
-		double yy = py;
-
-		if ( (r >= 0) && (r <= 1) ){
-			squaredDistanceSegment = squaredDistanceLine;
-		} else{
-
-			double dist1 = (p.getX()-start.getX())*(p.getX()-start.getX())
-					+ (p.getY()-start.getY())*(p.getY()-start.getY());
-			double dist2 = (p.getX()-end.getX())*(p.getX()-end.getX())
-					+ (p.getY()-end.getY())*(p.getY()-end.getY());
-			if (dist1 < dist2){
-				xx = start.getX();
-				yy = start.getY();
-				squaredDistanceSegment = dist1;
-			} else{
-				xx = end.getX();
-				yy = end.getY();
-				squaredDistanceSegment = dist2;
-			}
-		}
-		
-		return squaredDistanceSegment;
-	}
 
 	@Override
 	public void update(UIDL uidl) {
@@ -185,6 +141,7 @@ public class VLine extends VUIElement {
 		setStart(new VPoint(startX, startY));
 		setEnd(new VPoint(endX, endY));
 		setFillColor(fillStyleColor);
+		setChanged(true);
 	}
 	
 
@@ -192,6 +149,7 @@ public class VLine extends VUIElement {
 	public void moveBy(VPoint delta) {
 		start = VPoint.add(start, delta);
 		end = VPoint.add(end, delta);
+		setChanged(true);
 	}
 	
 	public VPoint getStart() {
@@ -200,6 +158,7 @@ public class VLine extends VUIElement {
 
 	public void setStart(VPoint start) {
 		this.start = start;
+		setChanged(true);
 	}
 
 	public VPoint getEnd() {
@@ -208,6 +167,7 @@ public class VLine extends VUIElement {
 
 	public void setEnd(VPoint end) {
 		this.end = end;
+		setChanged(true);
 	}
 
 }

@@ -62,14 +62,17 @@ public class VArc extends VUIElement {
 
 	public void setCentre(VPoint centre){
 		this.centre = centre;
+		setChanged(true);
 	}
 	
 	public void setStartAngle(double startAngle){
 		this.startAngle = startAngle;
+		setChanged(true);
 	}
 	
 	public void setEndAngle(double endAngle){
 		this.endAngle = endAngle;
+		setChanged(true);
 	}
 
 	public VPoint getStart() {
@@ -78,6 +81,7 @@ public class VArc extends VUIElement {
 
 	public void setStart(VPoint start) {
 		this.start = start;
+		setChanged(true);
 	}
 
 	public VPoint getEnd() {
@@ -86,6 +90,7 @@ public class VArc extends VUIElement {
 
 	public void setEnd(VPoint end) {
 		this.end = end;
+		setChanged(true);
 	}
 
 	public double getRadius() {
@@ -94,6 +99,7 @@ public class VArc extends VUIElement {
 
 	public void setRadius(double radius) {
 		this.radius = radius;
+		setChanged(true);
 	}
 
 	public boolean isAnticlockwise() {
@@ -102,6 +108,7 @@ public class VArc extends VUIElement {
 
 	public void setAnticlockwise(boolean anticlockwise) {
 		this.anticlockwise = anticlockwise;
+		setChanged(true);
 	}
 
 	public VPoint getCentre() {
@@ -127,12 +134,13 @@ public class VArc extends VUIElement {
 			this.start.add(deltaX, deltaY);
 			this.end.add(deltaX, deltaY);
 		}
+		setChanged(true);
 	}
 
 	@Override
 	public void moveTo(VPoint p) {
 		// TODO Auto-generated method stub
-
+		setChanged(true);
 	}
 
 	@Override
@@ -170,6 +178,7 @@ public class VArc extends VUIElement {
 			context.fill();
 		}
 		context.restore();
+		setChanged(false);
 	}
 
 	@Override
@@ -237,6 +246,7 @@ public class VArc extends VUIElement {
 		setBorderWidth(strokewidth);
 		setRadius(radius);
 		setFillColor(fillStyleColor);
+		setChanged(true);
 	}
 
 	@Override
@@ -247,6 +257,7 @@ public class VArc extends VUIElement {
 			start = VPoint.add(start, delta);
 			end = VPoint.add(end, delta);
 		}
+		setChanged(true);
 	}
 
 }
