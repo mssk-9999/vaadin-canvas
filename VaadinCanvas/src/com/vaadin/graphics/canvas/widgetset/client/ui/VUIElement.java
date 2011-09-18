@@ -189,12 +189,12 @@ abstract class VUIElement implements HasHandlers{
 			@Override
 			public void onMouseMove(MouseMoveEvent event) {
 				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
+//				if(VUIElement.this.contains(p)){
 					if(VUIElement.this.isSelected()){
 						VUIElement.this.processMoveEvent(event);
 					}
 					VUIElement.this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());
-				}
+//				}
 			}
 			
 		};
@@ -220,10 +220,10 @@ abstract class VUIElement implements HasHandlers{
 			@Override
 			public void onMouseUp(MouseUpEvent event) {
 				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
+//				if(VUIElement.this.contains(p)){
 					VUIElement.this.setSelected(false);
 					VUIElement.this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
-				}
+//				}
 			}
 		};
 		
@@ -234,10 +234,10 @@ abstract class VUIElement implements HasHandlers{
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
 				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
+//				if(VUIElement.this.contains(p)){
 					VUIElement.this.setHighlighted(true);
 					VUIElement.this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
-				}
+//				}
 			}
 		};
 		
@@ -248,10 +248,10 @@ abstract class VUIElement implements HasHandlers{
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
 				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
+//				if(!VUIElement.this.contains(p)){
 					VUIElement.this.setHighlighted(false);
 					VUIElement.this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
-				}
+//				}
 			}
 		};
 		

@@ -65,7 +65,7 @@ public class VCanvas extends Composite implements Paintable {
 	int mouseX, mouseY;
 
 	//timer refresh rate, in milliseconds
-	static final int refreshRate = 250;
+	static final int refreshRate = 50;
 
 	// canvas size, in px
 	static int height = 400;
