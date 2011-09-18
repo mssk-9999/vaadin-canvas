@@ -18,6 +18,7 @@ public class VElementGroup extends VUIElement {
 	private Map <String, VUIElement> elements;
 	
 	private String mainElementId;
+	VPoint center;
 
 	public VElementGroup(){
 		super();
@@ -47,8 +48,7 @@ public class VElementGroup extends VUIElement {
 
 	@Override
 	public VPoint getCenter() {
-		// TODO Auto-generated method stub
-		return null;
+		return center;
 	}
 
 	@Override
@@ -101,6 +101,7 @@ public class VElementGroup extends VUIElement {
 				elements.put(elementId, elem);
 			}
 		}
+		this.center = elements.get(mainElementId).getCenter();
 		setChanged(true);
 	}
 
