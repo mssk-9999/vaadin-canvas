@@ -188,7 +188,7 @@ abstract class VUIElement implements HasHandlers{
 
 			@Override
 			public void onMouseMove(MouseMoveEvent event) {
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+//				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
 //				if(VUIElement.this.contains(p)){
 					if(VUIElement.this.isSelected()){
 						VUIElement.this.processMoveEvent(event);
@@ -219,7 +219,7 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseUp(MouseUpEvent event) {
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+//				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
 //				if(VUIElement.this.contains(p)){
 					VUIElement.this.setSelected(false);
 					VUIElement.this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -233,7 +233,7 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseOver(MouseOverEvent event) {
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+//				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
 //				if(VUIElement.this.contains(p)){
 					VUIElement.this.setHighlighted(true);
 					VUIElement.this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -247,7 +247,7 @@ abstract class VUIElement implements HasHandlers{
 			
 			@Override
 			public void onMouseOut(MouseOutEvent event) {
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
+//				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
 //				if(!VUIElement.this.contains(p)){
 					VUIElement.this.setHighlighted(false);
 					VUIElement.this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -515,11 +515,11 @@ abstract class VUIElement implements HasHandlers{
 		double r_denomenator = (end.getX()-start.getX())*(end.getX()-start.getX())
 				+ (end.getY()-start.getY())*(end.getY()-start.getY());
 		double r = r_numerator / r_denomenator;
-	//
-	    double px = start.getX() + r*(end.getX()-start.getX());
-	    double py = start.getY() + r*(end.getY()-start.getY());
-//	     
-	    double s =  ((start.getY()-p.getY())*(end.getX()-start.getX())
+
+//	    double px = start.getX() + r*(end.getX()-start.getX());
+//	    double py = start.getY() + r*(end.getY()-start.getY());
+	    
+		double s =  ((start.getY()-p.getY())*(end.getX()-start.getX())
 	    		-(start.getX()-p.getX())*(end.getY() - start.getY()) ) / r_denomenator;
 
 	    double squaredDistanceLine = s*s*r_denomenator;
@@ -532,8 +532,8 @@ abstract class VUIElement implements HasHandlers{
 	// (xx,yy) is the point on the lineSegment closest to (cx,cy)
 	//
 		double squaredDistanceSegment;
-		double xx = px;
-		double yy = py;
+//		double xx = px;
+//		double yy = py;
 
 		if ( (r >= 0) && (r <= 1) ){
 			squaredDistanceSegment = squaredDistanceLine;
@@ -544,12 +544,12 @@ abstract class VUIElement implements HasHandlers{
 			double dist2 = (p.getX()-end.getX())*(p.getX()-end.getX())
 					+ (p.getY()-end.getY())*(p.getY()-end.getY());
 			if (dist1 < dist2){
-				xx = start.getX();
-				yy = start.getY();
+//				xx = start.getX();
+//				yy = start.getY();
 				squaredDistanceSegment = dist1;
 			} else{
-				xx = end.getX();
-				yy = end.getY();
+//				xx = end.getX();
+//				yy = end.getY();
 				squaredDistanceSegment = dist2;
 			}
 		}

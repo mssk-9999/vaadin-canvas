@@ -105,8 +105,8 @@ public class VElementGroup extends VUIElement {
 	}
 
 	public void processMouseOutEvent(MouseOutEvent event) {
-		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
-		VUIElement mainElement = this.elements.get(this.mainElementId);
+//		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+//		VUIElement mainElement = this.elements.get(this.mainElementId);
 //		if(mainElement.contains(p)){
 			this.setHighlighted(false);
 			this.setMouseOutPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -116,8 +116,8 @@ public class VElementGroup extends VUIElement {
 	}
 
 	public void processMouseOverEvent(MouseOverEvent event) {
-		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
-		VUIElement mainElement = this.elements.get(this.mainElementId);
+//		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+//		VUIElement mainElement = this.elements.get(this.mainElementId);
 //		if(mainElement.contains(p)){
 			this.setHighlighted(true);
 			this.setMouseOverPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -126,8 +126,8 @@ public class VElementGroup extends VUIElement {
 	}
 
 	public void processMouseUpEvent(MouseUpEvent event) {
-		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
-		VUIElement mainElement = this.elements.get(this.mainElementId);
+//		VPoint p = new VPoint(event.getClientX() - this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+//		VUIElement mainElement = this.elements.get(this.mainElementId);
 //		if(mainElement.contains(p)){
 			this.setSelected(false);
 			this.setMouseUpPoint(new VPoint(event.getClientX(), event.getClientY()));
@@ -155,9 +155,9 @@ public class VElementGroup extends VUIElement {
 	
 	@Override
 	protected void processMoveEvent(MouseMoveEvent event) {
-		VUIElement mainElement = this.elements.get(this.mainElementId);
-		VPoint p = new VPoint(event.getClientX() - mainElement.canvas.getAbsoluteLeft(), event.getClientY() 
-				- mainElement.canvas.getAbsoluteTop());
+//		VUIElement mainElement = this.elements.get(this.mainElementId);
+//		VPoint p = new VPoint(event.getClientX() - mainElement.canvas.getAbsoluteLeft(), event.getClientY() 
+//				- mainElement.canvas.getAbsoluteTop());
 //		if(mainElement.contains(p)){
 			double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
 			double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
