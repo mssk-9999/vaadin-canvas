@@ -82,6 +82,10 @@ public class VCanvas extends Composite implements Paintable {
 	
 	private List<VUIElement> childrenList = new ArrayList<VUIElement>();
 
+	protected VUIElement connectionStartPort;
+
+	protected VUIElement connectionEndPort;
+
 	/**
 	 * The constructor should first call super() to initialize the component and
 	 * then handle any initialization relevant to Vaadin.
