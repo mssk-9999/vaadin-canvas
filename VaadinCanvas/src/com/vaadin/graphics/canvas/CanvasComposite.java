@@ -72,13 +72,13 @@ public class CanvasComposite extends CustomComponent {
 //		canvas.drawUIElement(arc);
 //		
 //		arc = new Arc(20, new Point(200, 100), new Point(220, 220));
-		Arc arc = new Arc(10, new Point(500, 700), 0, Math.PI * 2, false);
-		arc.setBorderWidth(4);
-		arc.setColor("#93694b");
-		arc.setFillColor("#e5a867");
+		Arc arc = new Arc(30, new Point(300, 200), 0, 2*Math.PI, false);
+		arc.setBorderWidth(2);
+		arc.setColor("#4b6193");
+		arc.setFillColor("#5caec6");
 		canvas.drawUIElement(arc);
 		
-		Line line = new Line(new Point(600, 500), new Point(700, 700));
+		Line line = new Line(new Point(500, 200), new Point(800, 500));
 		line.setColor("#4b6193");
 		line.setBorderWidth(4);
 		canvas.drawUIElement(line);
