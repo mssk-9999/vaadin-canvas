@@ -183,7 +183,13 @@ public class VArc extends VUIElement {
 
 	@Override
 	public boolean contains(VPoint p) {
-		// TODO Auto-generated method stub
+		if(Math.abs(endAngle - startAngle) == 2*Math.PI){
+			if(this.centre != null){
+				double distanceSqr = (p.getX() - this.centre.getX())*(p.getX() - this.centre.getX())
+						+ (p.getY() - this.centre.getY())*(p.getY() - this.centre.getY());
+				return distanceSqr <= this.radius * this.radius;
+			}
+		}
 		return false;
 	}
 
