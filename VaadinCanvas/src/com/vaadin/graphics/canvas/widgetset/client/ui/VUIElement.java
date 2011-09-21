@@ -642,19 +642,19 @@ abstract class VUIElement implements HasHandlers{
 		this.changed = changed;
 	}
 	
-	public void initiateConnectionEvent(MouseDownEvent event) {
+	protected void initiateConnectionEvent(MouseDownEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
 	
-	public void highlightConnectionEvent(MouseMoveEvent event) {
+	protected void highlightConnectionEvent(MouseMoveEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
 	
-	public void finalizeConnectionEvent(MouseUpEvent event) {
+	protected void finalizeConnectionEvent(MouseUpEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
 	
-	public void updateConnectorEvent(MouseMoveEvent event) {
+	protected void updateConnectorEvent(MouseMoveEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
 }

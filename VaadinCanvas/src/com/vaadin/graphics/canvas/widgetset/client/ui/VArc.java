@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.vaadin.graphics.canvas.shape.Point;
 import com.vaadin.terminal.gwt.client.UIDL;
@@ -264,6 +266,35 @@ public class VArc extends VUIElement {
 			end = VPoint.add(end, delta);
 		}
 		setChanged(true);
+	}
+	
+	@Override
+	protected void initiateConnectionEvent(MouseDownEvent event) {
+		VPoint start = this.centre;
+		VPoint end = new VPoint(event.getClientX() - 
+				this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
+		
+		VUIElement connector = new VLine(start, end);
+		connector.setColor(this.getColor());
+		connector.setBorderWidth(this.getBorderWidth());
+		connector.setHighlightedColor(this.getHighlightedColor());
+		connector.setRole("CONNECTOR");
+		this.canvas.addChild(connector);
+	}
+	
+	@Override
+	protected void highlightConnectionEvent(MouseMoveEvent event) {
+		
+	}
+	
+	@Override
+	protected void finalizeConnectionEvent(MouseUpEvent event) {
+		
+	}
+	
+	@Override
+	protected void updateConnectorEvent(MouseMoveEvent event) {
+		
 	}
 
 }
