@@ -65,6 +65,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VPolygon(uidl);
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl);
+		}else if(elementType.equals("port")){
+			ele = new VPort(uidl);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, canvas);
 		}else if(elementType.equals("line")){
@@ -89,6 +91,8 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VPolygon(uidl, id, groupId);
 		}else if(elementType.equals("arc")){
 			ele = new VArc(uidl, id, groupId);
+		}else if(elementType.equals("port")){
+			ele = new VPort(uidl, id, groupId);
 		}else if(elementType.equals("text")){
 			ele = new VText(uidl, id, groupId);
 		}else if(elementType.equals("line")){
@@ -119,7 +123,7 @@ abstract class VUIElement implements HasHandlers{
 					}
 					
 					if("IOPORT".equals(VUIElement.this.role) || "IPORT".equals(VUIElement.this.role)){
-						if(VUIElement.this.canvas.connectionStartPort != null){
+						if(VUIElement.this.canvas.connectionStartPort != VUIElement.this){
 							VUIElement.this.canvas.connectionEndPort = VUIElement.this;
 							VUIElement.this.highlightConnectionEvent(event);
 						}
@@ -647,6 +651,10 @@ abstract class VUIElement implements HasHandlers{
 	}
 	
 	protected void highlightConnectionEvent(MouseMoveEvent event) {
+		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
+	}
+	
+	protected void lowlightConnectionEvent(MouseMoveEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
 	

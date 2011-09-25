@@ -268,33 +268,4 @@ public class VArc extends VUIElement {
 		setChanged(true);
 	}
 	
-	@Override
-	protected void initiateConnectionEvent(MouseDownEvent event) {
-		VPoint start = this.centre;
-		VPoint end = new VPoint(event.getClientX() - 
-				this.canvas.getAbsoluteLeft(), event.getClientY() - this.canvas.getAbsoluteTop());
-		
-		VUIElement connector = new VLine(start, end);
-		connector.setColor(this.getColor());
-		connector.setBorderWidth(this.getBorderWidth());
-		connector.setHighlightedColor(this.getHighlightedColor());
-		connector.setRole("CONNECTOR");
-		this.canvas.addChild(connector);
-	}
-	
-	@Override
-	protected void highlightConnectionEvent(MouseMoveEvent event) {
-		
-	}
-	
-	@Override
-	protected void finalizeConnectionEvent(MouseUpEvent event) {
-		
-	}
-	
-	@Override
-	protected void updateConnectorEvent(MouseMoveEvent event) {
-		
-	}
-
 }
