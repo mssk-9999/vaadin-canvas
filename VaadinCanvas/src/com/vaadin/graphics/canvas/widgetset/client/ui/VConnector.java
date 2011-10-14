@@ -16,7 +16,6 @@ public class VConnector extends VLine {
 		super(fromPort.getCenter(), toPort.getCenter());
 		this.fromPort = fromPort;
 		this.toPort = toPort;
-		this.setRole("CONNECTOR");
 	}
 	
 	public VConnector(UIDL uidl){
@@ -50,4 +49,5 @@ public class VConnector extends VLine {
 	public void setToPort(VPort toPort) {
 		this.toPort = toPort;
 	}
+	
 }

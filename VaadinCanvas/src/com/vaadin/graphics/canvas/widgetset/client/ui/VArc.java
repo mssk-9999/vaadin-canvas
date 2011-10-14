@@ -58,8 +58,7 @@ public class VArc extends VUIElement {
 
 	@Override
 	public VPoint getCenter() {
-		// TODO Auto-generated method stub
-		return null;
+		return centre;
 	}
 
 	public void setCentre(VPoint centre){
@@ -111,10 +110,6 @@ public class VArc extends VUIElement {
 	public void setAnticlockwise(boolean anticlockwise) {
 		this.anticlockwise = anticlockwise;
 		setChanged(true);
-	}
-
-	public VPoint getCentre() {
-		return centre;
 	}
 
 	public double getStartAngle() {

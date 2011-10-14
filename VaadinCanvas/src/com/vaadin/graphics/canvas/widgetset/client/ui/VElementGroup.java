@@ -1,14 +1,21 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 public class VElementGroup extends VUIElement {
@@ -64,6 +71,75 @@ public class VElementGroup extends VUIElement {
 	public boolean contains(VPoint p) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	protected void initHandlers(){
+
+		MouseMoveHandler moveHandler = new MouseMoveHandler(){
+
+			@Override
+			public void onMouseMove(MouseMoveEvent event) {
+				VElementGroup.this.processMoveEvent(event);
+			}
+			
+		};
+		
+		canvas.addMouseEventHandler(moveHandler, MouseMoveEvent.getType());
+		
+		MouseDownHandler downHandler = new MouseDownHandler() {
+			
+			@Override
+			public void onMouseDown(MouseDownEvent event) {
+				VElementGroup.this.processMouseDownEvent(event);
+			}
+		};
+		
+		canvas.addMouseEventHandler(downHandler, MouseDownEvent.getType());
+		
+		MouseUpHandler upHandler = new MouseUpHandler() {
+			
+			@Override
+			public void onMouseUp(MouseUpEvent event) {
+				VElementGroup.this.processMouseUpEvent(event);
+			}
+		};
+		
+		canvas.addMouseEventHandler(upHandler, MouseUpEvent.getType());
+		
+		MouseOverHandler overHandler = new MouseOverHandler() {
+			
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				VElementGroup.this.processMouseOverEvent(event);
+			}
+		};
+		
+		canvas.addMouseEventHandler(overHandler, MouseOverEvent.getType());
+		
+		MouseOutHandler outHandler = new MouseOutHandler() {
+			
+			@Override
+			public void onMouseOut(MouseOutEvent event) {
+				VElementGroup.this.processMouseOutEvent(event);
+			}
+		};
+		
+		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
+	
+	}
+	
+	@Override
+	public List<VUIElement> elementsUnderPoint(VPoint p){
+		List<VUIElement> list = new ArrayList<VUIElement>();
+		for(String elementId: elementList){
+			VUIElement element = elements.get(elementId);
+			if(element.contains(p)){
+				list.add(element);
+			}
+		}
+		
+		return list;
 	}
 	
 	@Override
@@ -160,11 +236,10 @@ public class VElementGroup extends VUIElement {
 //		VPoint p = new VPoint(event.getClientX() - mainElement.canvas.getAbsoluteLeft(), event.getClientY() 
 //				- mainElement.canvas.getAbsoluteTop());
 //		if(mainElement.contains(p)){
-			double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
-			double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
-			VPoint delta = new VPoint(deltaX, deltaY);
-			
 			if(this.isSelected()){
+				double deltaX = event.getClientX() - this.getMouseDownPoint().getX();
+				double deltaY = event.getClientY() - this.getMouseDownPoint().getY();
+				VPoint delta = new VPoint(deltaX, deltaY);
 				moveBy(delta);
 			}
 			this.mouseDownPoint = new VPoint(event.getClientX(), event.getClientY());

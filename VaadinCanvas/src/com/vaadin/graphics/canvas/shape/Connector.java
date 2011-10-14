@@ -1,5 +1,7 @@
 package com.vaadin.graphics.canvas.shape;
 
+import java.util.Map;
+
 public class Connector extends Line {
 	
 	private Port fromPort;
@@ -33,5 +35,12 @@ public class Connector extends Line {
 	public void setToPort(Port toPort) {
 		this.toPort = toPort;
 		this.end = toPort.getCenter();
+	}
+	
+	@Override
+	public Map<String, Object> getDrawInstructions(){
+		Map<String, Object> args = super.getDrawInstructions();
+		args.put(getPrefix() + "elementtype", "connector");
+		return args;
 	}
 }

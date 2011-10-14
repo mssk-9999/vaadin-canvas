@@ -3,6 +3,9 @@
  */
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.canvas.dom.client.Context2d;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -97,128 +100,22 @@ abstract class VUIElement implements HasHandlers{
 			ele = new VText(uidl, id, groupId);
 		}else if(elementType.equals("line")){
 			ele = new VLine(uidl, id, groupId);
+		}else if(elementType.equals("connector")){
+			ele = new VConnector(uidl, id, groupId);
 		}else if(elementType.equals("group")){
 			ele = new VElementGroup(uidl, id, groupId, canvas);
 		}
 		
 		ele.canvas = canvas;
-		ele.initGroupHandlers();
+		
+		if(ele.groupId == null || ele.groupId.length() == 0 || elementType.equals("port")){
+			ele.initHandlers();
+		}
 		
 		return ele;
 	}
 	
-	private void initGroupHandlers(){
-		MouseMoveHandler moveHandler = new MouseMoveHandler(){
-
-			@Override
-			public void onMouseMove(MouseMoveEvent event) {
-				VUIElement.this.canvas.getChild(groupId).processMoveEvent(event);
-				
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
-					if("IOPORT".equals(VUIElement.this.role) || "OPORT".equals(VUIElement.this.role)){
-						if(VUIElement.this.selected){
-							VUIElement.this.updateConnectorEvent(event);
-						}
-					}
-					
-					if("IOPORT".equals(VUIElement.this.role) || "IPORT".equals(VUIElement.this.role)){
-						if(VUIElement.this.canvas.connectionStartPort != VUIElement.this){
-							VUIElement.this.canvas.connectionEndPort = VUIElement.this;
-							VUIElement.this.highlightConnectionEvent(event);
-						}
-					}
-				}
-			}
-			
-		};
-		
-		canvas.addMouseEventHandler(moveHandler, MouseMoveEvent.getType());
-		
-		MouseDownHandler downHandler = new MouseDownHandler() {
-			
-			@Override
-			public void onMouseDown(MouseDownEvent event) {
-				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseDownEvent(event);
-				
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-				if(VUIElement.this.contains(p)){
-					if("IOPORT".equals(VUIElement.this.role) || "OPORT".equals(VUIElement.this.role)){
-							VUIElement.this.setSelected(true);
-							VUIElement.this.initiateConnectionEvent(event);
-							VUIElement.this.canvas.connectionStartPort = VUIElement.this;
-							VUIElement.this.connectionInitiated = true;
-						}
-					
-					if("IOPORT".equals(VUIElement.this.role) || "IPORT".equals(VUIElement.this.role)){
-						
-					}
-				}
-			}
-		};
-		
-		canvas.addMouseEventHandler(downHandler, MouseDownEvent.getType());
-		
-		MouseUpHandler upHandler = new MouseUpHandler() {
-			
-			@Override
-			public void onMouseUp(MouseUpEvent event) {
-				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseUpEvent(event);
-				
-				VPoint p = new VPoint(event.getClientX() - VUIElement.this.canvas.getAbsoluteLeft(), event.getClientY() - VUIElement.this.canvas.getAbsoluteTop());
-					
-				if("IOPORT".equals(VUIElement.this.role) || "OPORT".equals(VUIElement.this.role)){
-					if(VUIElement.this.canvas.connectionEndPort == null && VUIElement.this.canvas.connectionStartPort == VUIElement.this){
-						VUIElement.this.canvas.connectionStartPort = null;
-					}
-				}
-				
-				if("IOPORT".equals(VUIElement.this.role) || "IPORT".equals(VUIElement.this.role)){
-					if(VUIElement.this.canvas.connectionStartPort != null && VUIElement.this.contains(p)){
-						VUIElement.this.canvas.connectionEndPort = VUIElement.this;
-						VUIElement.this.finalizeConnectionEvent(event);
-					}
-				}
-			}
-		};
-		
-		canvas.addMouseEventHandler(upHandler, MouseUpEvent.getType());
-		
-		MouseOverHandler overHandler = new MouseOverHandler() {
-			
-			@Override
-			public void onMouseOver(MouseOverEvent event) {
-				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseOverEvent(event);
-			}
-		};
-		
-		canvas.addMouseEventHandler(overHandler, MouseOverEvent.getType());
-		
-		MouseOutHandler outHandler = new MouseOutHandler() {
-			
-			@Override
-			public void onMouseOut(MouseOutEvent event) {
-				((VElementGroup)VUIElement.this.canvas.getChild(groupId)).processMouseOutEvent(event);
-				if("IOPORT".equals(VUIElement.this.role) || "OPORT".equals(VUIElement.this.role)){
-					if(VUIElement.this.canvas.connectionStartPort == VUIElement.this){
-						VUIElement.this.selected = true;
-					}
-				}
-				
-				if("IOPORT".equals(VUIElement.this.role) || "IPORT".equals(VUIElement.this.role)){
-					if(VUIElement.this.canvas.connectionStartPort != null){
-						VUIElement.this.selected = false;
-						VUIElement.this.canvas.connectionEndPort = null;
-					}
-				}
-			}
-		};
-		
-		canvas.addMouseEventHandler(outHandler, MouseOutEvent.getType());
-	}
-	
-
-	private void initHandlers(){
+	protected void initHandlers(){
 		MouseMoveHandler moveHandler = new MouseMoveHandler(){
 
 			@Override
@@ -599,6 +496,21 @@ abstract class VUIElement implements HasHandlers{
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
+	
+	public List<VUIElement> elementsUnderPoint(VPoint p){
+		List<VUIElement> list = new ArrayList<VUIElement>();
+		if(this.contains(p)){
+			list.add(this);
+		}
+		return list;
+	}
+	
+	public VUIElement elementUnderPoint(VPoint p){
+		if(this.contains(p)){
+			return this;
+		}
+		return null;
+	}
 
 
 	/**
@@ -645,7 +557,7 @@ abstract class VUIElement implements HasHandlers{
 	public void setChanged(boolean changed) {
 		this.changed = changed;
 	}
-	
+	/*
 	protected void initiateConnectionEvent(MouseDownEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
 	}
@@ -664,5 +576,13 @@ abstract class VUIElement implements HasHandlers{
 	
 	protected void updateConnectorEvent(MouseMoveEvent event) {
 		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
+	}
+	
+	protected void abortConnectionEvent(MouseUpEvent event) {
+		throw new UnsupportedOperationException("Method is not supported by element type " + this.role);
+	}*/
+	
+	public int getZIndex(){
+		return this.canvas.getElementIndex(this);
 	}
 }

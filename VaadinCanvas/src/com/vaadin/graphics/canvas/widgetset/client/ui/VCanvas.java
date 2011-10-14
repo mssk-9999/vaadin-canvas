@@ -74,7 +74,7 @@ public class VCanvas extends Composite implements Paintable {
 	Context2d context;
 	Context2d backBufferContext;
 	
-	final CssColor redrawColor = CssColor.make("rgba(255,255,255,0.6)");
+	CssColor redrawColor = CssColor.make("rgba(255,255,255,0.6)");
 
 	private final Map<String, CanvasGradient> gradients = new HashMap<String, CanvasGradient>();
 	
@@ -82,9 +82,9 @@ public class VCanvas extends Composite implements Paintable {
 	
 	private List<VUIElement> childrenList = new ArrayList<VUIElement>();
 
-	protected VUIElement connectionStartPort;
+	protected VPort connectionStartPort;
 
-	protected VUIElement connectionEndPort;
+	protected VPort connectionEndPort;
 
 	/**
 	 * The constructor should first call super() to initialize the component and
@@ -621,6 +621,7 @@ public class VCanvas extends Composite implements Paintable {
 	private void handleBackgroundColorCommand(UIDL uidl) {
 		String rgb = uidl.getStringAttribute("rgb");
 
+		redrawColor = CssColor.make(rgb);
 		backBufferContext.setFillStyle(redrawColor);
 	    backBufferContext.fillRect(0, 0, width, height);
 	    
@@ -667,8 +668,7 @@ public class VCanvas extends Composite implements Paintable {
 		double w = uidl.getDoubleAttribute("w");
 		double h = uidl.getDoubleAttribute("h");
 		String fillStyleColor = uidl.getStringAttribute("fillstyle");
-//		
-//
+
 		if(strokecolor.length() > 0){
 			context.setStrokeStyle(strokecolor);
 		}
@@ -759,11 +759,28 @@ public class VCanvas extends Composite implements Paintable {
 	
 	public int addChild(VUIElement child){
 		int index = this.childrenList.size();
+		if(child.getId() == null || child.getId().length() == 0){
+			child.setId(getNewId());
+		}
 		if(this.children.containsKey(child.getId())){
 			return -1;
 		}
 		this.childrenList.add(child);
 		this.children.put(child.getId(), child);
+		return index;
+	}
+	
+	private String getNewId(){
+		return "auto-gen-" + this.childrenList.size();
+	}
+	
+	public int removeChild(VUIElement child){
+		if(!this.children.containsKey(child.getId())){
+			return -1;
+		}
+		int index = this.childrenList.indexOf(child);
+		this.childrenList.remove(child);
+		this.children.remove(child.getId());
 		return index;
 	}
 	
@@ -773,5 +790,66 @@ public class VCanvas extends Composite implements Paintable {
 	
 	public HandlerRegistration addMouseEventHandler(final EventHandler handler, MouseEvent.Type type){
 		return addHandler(handler, type);
+	}
+	
+	public VUIElement elementUnderPoint(VPoint p){
+		for(VUIElement element: childrenList){
+			if(element.elementUnderPoint(p) != null){
+				return element;
+			}
+		}
+		
+		return null;
+	}
+	
+	public List<VUIElement> elementsUnderPoint(VPoint p){
+		List<VUIElement> list = new ArrayList<VUIElement>();
+		for(VUIElement element: childrenList){
+			list.addAll(element.elementsUnderPoint(p));
+		}
+		
+		return list;
+	}
+	
+	public int getElementIndex(VUIElement element){
+		return this.childrenList.indexOf(element);
+	}
+	
+	public int shiftUp(VUIElement element){
+		return shiftBy(element, 1);
+	}
+	
+	public int shiftDown(VUIElement element){
+		return shiftBy(element, -1);
+	}
+	
+	public int shiftBy(VUIElement element, int delta){
+		synchronized (childrenList) {
+			int i = this.childrenList.indexOf(element);
+			int j;
+			
+			if(delta == 0){
+				return i;
+			}else if(i + delta >= this.childrenList.size()){
+				j = this.childrenList.size() - 1;
+			}else if(i + delta < 0){
+				j = 0;
+			}else{
+				j = i + delta;
+			}
+			
+			if(i > j){
+				for(;i > j;){
+					this.childrenList.set(i, this.childrenList.get(--i));
+				}
+			}else{
+				for(;i < j;){
+					this.childrenList.set(i, this.childrenList.get(++i));
+				}
+			}
+			this.childrenList.set(i, element);
+			
+			return j;
+		}
 	}
 }

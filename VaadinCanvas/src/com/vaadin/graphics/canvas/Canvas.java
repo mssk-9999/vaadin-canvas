@@ -648,4 +648,5 @@ public class Canvas extends AbstractComponent {
 		this.childrenMap.put(child.getId(), child);
 		return index;
 	}
+	
 }
