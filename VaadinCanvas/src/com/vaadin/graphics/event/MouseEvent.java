@@ -8,7 +8,7 @@ import java.util.EventObject;
 import  com.vaadin.graphics.canvas.shape.Point;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public abstract class MouseEvent extends EventObject {

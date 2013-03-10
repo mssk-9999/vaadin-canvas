@@ -8,7 +8,7 @@ import com.vaadin.graphics.canvas.shape.UIElement;
 
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public class MouseUpEvent extends MouseEvent {

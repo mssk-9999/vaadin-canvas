@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public class CanvasComposite extends CustomComponent {

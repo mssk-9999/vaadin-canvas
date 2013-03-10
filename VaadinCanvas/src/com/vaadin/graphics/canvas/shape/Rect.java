@@ -13,7 +13,7 @@ import com.vaadin.graphics.event.MouseEvent.Type;
 import com.vaadin.graphics.event.listener.MouseEventListener;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public class Rect extends UIElement {

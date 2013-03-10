@@ -4,7 +4,7 @@
 package com.vaadin.graphics.canvas.shape;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 public class Point {

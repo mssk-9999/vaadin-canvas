@@ -13,7 +13,7 @@ import com.google.gwt.event.shared.EventHandler;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 class VRect extends VUIElement {

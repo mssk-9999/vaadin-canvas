@@ -23,7 +23,7 @@ import com.google.gwt.event.shared.HasHandlers;
 import com.vaadin.terminal.gwt.client.UIDL;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 abstract class VUIElement implements HasHandlers{

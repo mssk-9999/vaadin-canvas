@@ -4,7 +4,7 @@
 package com.vaadin.graphics.canvas.widgetset.client.ui;
 
 /**
- * @author kapil - kapil.verma@globallogic.com
+ * @author kapil - kapildverma@gmail.com
  *
  */
 class VPoint {
